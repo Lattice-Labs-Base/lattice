@@ -7,24 +7,36 @@
     <style>
         body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #e2e8f0; background: #020617; margin: 0; padding: 0; }
         .container { max-width: 800px; margin: auto; padding: 40px 20px; }
-        h1 { color: #38bdf8; font-size: 2.5em; border-bottom: 2px solid #1e293b; padding-bottom: 10px; }
-        h2 { color: #94a3b8; margin-top: 40px; }
+        h1 { color: #38bdf8; font-size: 2.5em; border-bottom: 2px solid #1e293b; padding-bottom: 10px; margin-bottom: 20px; }
         .card { background: #0f172a; border: 1px solid #1e293b; padding: 25px; border-radius: 12px; margin-bottom: 20px; }
-        .badge { background: #38bdf8; color: #020617; padding: 4px 12px; border-radius: 999px; font-weight: bold; font-size: 0.8em; }
-        ul { list-style: none; padding: 0; }
+        .badge { background: #38bdf8; color: #020617; padding: 4px 12px; border-radius: 999px; font-weight: bold; font-size: 0.8em; vertical-align: middle; }
+        h2 { color: #94a3b8; margin-top: 0; font-size: 1.4em; }
+        ul { list-style: none; padding: 0; margin: 0; }
         li { margin-bottom: 10px; color: #94a3b8; }
         li strong { color: #f8fafc; }
+        .social-links { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: 0.3s; }
+        .btn-x { background: #f8fafc; color: #020617; }
+        .btn-github { background: #1e293b; color: #f8fafc; border: 1px solid #334155; }
+        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
         .footer { margin-top: 60px; text-align: center; color: #475569; font-size: 0.9em; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>LATTICE <span class="badge">LAT</span></h1>
-        <p>A decentralized protocol building symmetric liquidity architecture on the Base Chain.</p>
+        
+        <div class="card">
+            <h2>Official Channels</h2>
+            <div class="social-links">
+                <a href="https://x.com/Lattice_Base" class="btn btn-x" target="_blank">Follow on X (Twitter)</a>
+                <a href="https://github.com/Lattice-Labs-Base/lattice" class="btn btn-github" target="_blank">View on GitHub</a>
+            </div>
+        </div>
 
         <div class="card">
             <h2>Project Overview</h2>
-            <p>LATTICE (LAT) focuses on building a secure, scalable, and community-driven ecosystem. By leveraging the Base Layer 2 infrastructure, we provide a foundation for long-term digital asset growth.</p>
+            <p>LATTICE (LAT) focuses on building a secure, scalable, and community-driven ecosystem on the Base Chain. By leveraging Layer 2 infrastructure, we provide a foundation for long-term digital asset growth.</p>
         </div>
 
         <div class="card">
@@ -40,22 +52,15 @@
         <div class="card">
             <h2>Roadmap</h2>
             <ul>
-                <li>✅ Phase 1: Smart Contract Deployment & Fair Launch</li>
-                <li>⏳ Phase 2: Platform Verification & Logo Integration (In Progress)</li>
-                <li>🚀 Phase 3: Ecosystem Expansion & Strategic Partnerships</li>
+                <li>✅ <strong>Phase 1:</strong> Smart Contract Deployment & Fair Launch</li>
+                <li>⏳ <strong>Phase 2:</strong> Platform Verification & Logo Integration (In Progress)</li>
+                <li>🚀 <strong>Phase 3:</strong> Ecosystem Expansion & Strategic Partnerships</li>
             </ul>
         </div>
 
-        <div class="card">
-            <h2>Official Resources</h2>
-            <p>We prioritize security and decentralization. Follow our progress via GitHub:</p>
-            <a href="https://github.com/Lattice-Labs-Base/lattice" style="color: #38bdf8;">Official GitHub Repository</a>
-        </div>
-
         <div class="footer">
-            &copy; 2025 LATTICE Labs. Built on Base.
+            &copy; 2025 LATTICE Labs. Built on Base Chain.
         </div>
     </div>
 </body>
 </html>
-
