@@ -3,7 +3,7 @@
 LATTICE is a community-driven project on the Base network.
 
 ### 🌐 Official Links
-- **Website:** [latticetoken.xyz](https://latticetoken.xyz)
+- **Website:** [https://lattice-labs-base.github.io/lattice/](https://lattice-labs-base.github.io/lattice/)
 - **Telegram:** [t.me/Lattice_LAT](https://t.me/Lattice_LAT)
 - **BaseScan:** [View on BaseScan](https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74)
 
