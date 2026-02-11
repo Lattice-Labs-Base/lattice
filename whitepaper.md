@@ -11,7 +11,7 @@ By leveraging the scalability of the Base network (Coinbase L2), LATTICE provide
 
 ### 4. Tokenomics (Fair Launch)
 To ensure maximum decentralization and security from day one:
-* **Total Supply:** (ここに総供給量を記入、例: 1,000,000,000) LAT
+* **Total Supply:** (1,000,000,000) LAT
 * **Launch:** 100% Fair Launch via Ape.store. 
 * **Ownership:** Renounced contract to ensure immutability.
 
