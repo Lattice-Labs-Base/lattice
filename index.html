@@ -15,9 +15,15 @@
     .section { padding-top: 100px; padding-bottom: 100px; }
     .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; transition: 0.3s; height: 100%; }
     .card:hover { border-color: #3b82f6; transform: translateY(-5px); }
-    .flywheel { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; align-items: center; }
-    .arrow { font-size: 24px; color: #60a5fa; opacity: 0.7; }
     .code-box { font-family: 'JetBrains Mono', monospace; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; }
+    
+    /* MODAL STYLES */
+    #wp-modal { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); z-index: 100; backdrop-filter: blur(10px); }
+    .modal-content { max-width: 900px; margin: 40px auto; background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
+    .wp-body { padding: 40px; overflow-y: auto; font-size: 0.95rem; line-height: 1.8; color: #94a3b8; }
+    .wp-body h1, .wp-body h2 { color: #f8fafc; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; }
+    .wp-body strong { color: #60a5fa; }
+    .wp-body hr { border: 0; border-top: 1px solid #1e293b; margin: 2rem 0; }
 </style>
 </head>
 
@@ -26,23 +32,23 @@
 <div class="hero-blur"></div>
 
 <nav class="container mx-auto px-6 py-8 flex justify-between items-center relative z-10">
-    <div class="text-2xl font-bold gradient tracking-tighter">LATTICE</div>
+    <div class="text-2xl font-bold gradient tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">LATTICE</div>
     <div class="space-x-8 text-sm hidden md:flex font-medium items-center">
         <a href="#why-quantum" class="hover:text-blue-400 transition">Why LATTICE</a>
         <a href="#developers" class="hover:text-blue-400 transition">Developers</a>
         <a href="#roadmap" class="hover:text-blue-400 transition">Roadmap</a>
-        <a href="https://github.com/Lattice-Labs-Base/lattice/blob/main/whitepaper.md" target="_blank" class="bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 font-bold transition">Whitepaper v1.1</a>
+        <button onclick="openWP()" class="bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 font-bold transition">Whitepaper v1.1</button>
     </div>
-    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition">Join Community</button>
+    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">Join Community</button>
 </nav>
 
-<header class="container mx-auto px-6 text-center section">
+<header class="container mx-auto px-6 text-center section relative z-10">
     <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem</h1>
     <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed text-balance">
         Defend the future of Web3. LATTICE provides decentralized PQC validation powered by EigenLayer-style AVS, ensuring assets secured today remain safe in the quantum era.
     </p>
     <div class="flex flex-col md:flex-row justify-center gap-4">
-        <button onclick="window.open('https://github.com/Lattice-Labs-Base/lattice/blob/main/whitepaper.md', '_blank')" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition shadow-lg shadow-white/5">
+        <button onclick="openWP()" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition shadow-lg shadow-white/5">
             Read Whitepaper v1.1
         </button>
         <button onclick="window.open('https://basescan.org/token/0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74', '_blank')" class="bg-slate-800 text-white px-10 py-4 rounded-lg font-bold border border-slate-700 hover:bg-slate-700 transition">
@@ -75,7 +81,7 @@
         <div>
             <h2 class="text-4xl font-bold mb-6 tracking-tight">Built for Developers</h2>
             <p class="text-slate-400 mb-8 leading-relaxed">
-                LATTICE is designed for seamless adoption. Whether you are building an L2 wallet or a high-value DeFi protocol, our toolkit makes quantum security effortless.
+                LATTICE is designed for seamless adoption. Our toolkit makes quantum security effortless for L2 wallets and high-value DeFi protocols.
             </p>
             <ul class="space-y-4 text-sm font-semibold">
                 <li class="flex items-center text-blue-400 transition hover:translate-x-1 cursor-default"><span class="mr-3">📦</span> TypeScript SDK (Lattice.js)</li>
@@ -120,7 +126,7 @@ executeTransaction();</code></pre>
     </div>
 </section>
 
-<footer class="border-t border-slate-900 pt-20 pb-10 text-center">
+<footer class="border-t border-slate-900 pt-20 pb-10 text-center relative z-10">
     <div class="container mx-auto px-6">
         <div class="flex justify-center gap-10 mb-10 text-sm font-bold">
             <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-white transition">𝕏 Twitter</a>
@@ -135,6 +141,14 @@ executeTransaction();</code></pre>
     </div>
 </footer>
 
-</body>
-</html>
+<div id="wp-modal">
+    <div class="modal-content relative shadow-2xl">
+        <div class="flex justify-between items-center p-6 border-b border-slate-800 bg-[#0f172a]">
+            <h3 class="text-lg font-bold gradient">LATTICE Whitepaper v1.1</h3>
+            <button onclick="closeWP()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+        </div>
+        <div class="wp-body bg-[#050a14]">
+            <h1>The Quantum Security Layer for Base</h1>
+            <p><strong>1. Vision</strong></p>
+            <p>Blockchain systems rely on cryptographic primitives designed in a pre-
 
