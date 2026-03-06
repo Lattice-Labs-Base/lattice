@@ -6,249 +6,142 @@
 <title>LATTICE | Quantum Security Layer for Base</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-font-family:'Inter',sans-serif;
-background:#050a14;
-color:#e2e8f0;
-}
-
-.gradient{
-background:linear-gradient(90deg,#60a5fa,#a78bfa);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.section{
-padding-top:120px;
-padding-bottom:120px;
-}
-
-.card{
-background:#0f172a;
-border:1px solid #1e293b;
-border-radius:12px;
-padding:28px;
-}
-
-.flywheel{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:40px;
-align-items:center;
-}
-
-.arrow{
-font-size:28px;
-opacity:0.5;
-}
-
+    body { font-family: 'Inter', sans-serif; background: #050a14; color: #e2e8f0; scroll-behavior: smooth; }
+    .gradient { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-blur { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 80%; height: 500px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); z-index: -1; }
+    .section { padding-top: 100px; padding-bottom: 100px; }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; transition: 0.3s; }
+    .card:hover { border-color: #3b82f6; transform: translateY(-5px); }
+    .flywheel { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; align-items: center; }
+    .arrow { font-size: 24px; color: #60a5fa; opacity: 0.7; }
+    .code-box { font-family: 'JetBrains Mono', monospace; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 15px; }
 </style>
 </head>
 
-<body>
+<body class="overflow-x-hidden">
 
-<nav class="container mx-auto px-6 py-8 flex justify-between items-center">
+<div class="hero-blur"></div>
 
-<div class="text-2xl font-bold gradient">LATTICE</div>
-
-<div class="space-x-8 text-sm hidden md:block">
-<a href="#protocol">Protocol</a>
-<a href="#validators">Validators</a>
-<a href="#token">Tokenomics</a>
-<a href="#roadmap">Roadmap</a>
-</div>
-
-<button onclick="comingSoon()" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-semibold">
-Launch App
-</button>
-
+<nav class="container mx-auto px-6 py-8 flex justify-between items-center relative z-10">
+    <div class="text-2xl font-bold gradient tracking-tighter">LATTICE</div>
+    <div class="space-x-8 text-sm hidden md:flex font-medium">
+        <a href="#protocol" class="hover:text-blue-400 transition">Protocol</a>
+        <a href="#validators" class="hover:text-blue-400 transition">Validators</a>
+        <a href="#token" class="hover:text-blue-400 transition">Tokenomics</a>
+        <a href="https://github.com/Lattice-Labs-Base/lattice/blob/main/whitepaper.md" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-bold transition">Whitepaper v3.2</a>
+    </div>
+    <button onclick="location.href='https://t.me/Lattice_LAT'" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition">
+        Join Community
+    </button>
 </nav>
 
 <header class="container mx-auto px-6 text-center section">
-
-<h1 class="text-5xl md:text-7xl font-bold mb-6">
-The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem
-</h1>
-
-<p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10">
-LATTICE introduces a scalable Post-Quantum Validation Layer designed for the Base ecosystem.
-Developers can integrate quantum-resistant cryptography with a single validation call while validators secure the network through LAT staking.
-</p>
-
-<div class="space-x-4">
-
-<button class="bg-white text-black px-8 py-3 rounded-lg font-semibold">
-Read Whitepaper
-</button>
-
-<button onclick="comingSoon()" class="bg-slate-800 px-8 py-3 rounded-lg font-semibold border border-slate-700">
-Stake LAT
-</button>
-
-</div>
-
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+        The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem
+    </h1>
+    <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed">
+        LATTICE defines a new infrastructure category. A decentralized PQC validation layer securing Base against future quantum attacks with EigenLayer-style AVS security.
+    </p>
+    <div class="flex flex-col md:flex-row justify-center gap-4">
+        <button onclick="location.href='https://github.com/Lattice-Labs-Base/lattice'" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition">
+            Build on LATTICE
+        </button>
+        <button onclick="location.href='https://basescan.org/token/0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74'" class="bg-slate-800 text-white px-10 py-4 rounded-lg font-bold border border-slate-700 hover:bg-slate-700 transition">
+            View on BaseScan
+        </button>
+    </div>
 </header>
 
-<section id="protocol" class="container mx-auto px-6 section">
-
-<h2 class="text-3xl font-bold text-center mb-16">
-A New Infrastructure Category
-</h2>
-
-<div class="grid md:grid-cols-3 gap-8">
-
-<div class="card text-center">
-<div class="text-3xl mb-4">🛡</div>
-<h3 class="font-semibold mb-2">Post-Quantum Security</h3>
-<p class="text-slate-400 text-sm">
-Dilithium-based validation protects digital assets from future quantum attacks.
-</p>
-</div>
-
-<div class="card text-center">
-<div class="text-3xl mb-4">⚙</div>
-<h3 class="font-semibold mb-2">Developer API</h3>
-<p class="text-slate-400 text-sm">
-Applications integrate LATTICE with a simple validation call through a lightweight API.
-</p>
-</div>
-
-<div class="card text-center">
-<div class="text-3xl mb-4">⚖</div>
-<h3 class="font-semibold mb-2">Validator Network</h3>
-<p class="text-slate-400 text-sm">
-Validators stake LAT and verify signatures in a decentralized PQC verification network.
-</p>
-</div>
-
-</div>
-
+<section id="protocol" class="container mx-auto px-6 section border-t border-slate-900">
+    <h2 class="text-3xl font-bold text-center mb-16">The Infrastructure That Survives</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="card">
+            <div class="text-3xl mb-4">🛡️</div>
+            <h3 class="text-xl font-bold mb-3">PQC Verification</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Dilithium-based cryptographic proofs ensure absolute defense against quantum-level signature attacks on the Base network.
+            </p>
+        </div>
+        <div class="card">
+            <div class="text-3xl mb-4">⚙️</div>
+            <h3 class="text-xl font-bold mb-3">1-Line Integration</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Developers gain quantum resistance by adding a single <code class="text-blue-400">isValid()</code> call to their smart contracts.
+            </p>
+        </div>
+        <div class="card">
+            <div class="text-3xl mb-4">⚖️</div>
+            <h3 class="text-xl font-bold mb-3">Economic Security</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Validators stake LAT to secure the network. Malicious behavior is disincentivized through a robust slashing mechanism.
+            </p>
+        </div>
+    </div>
 </section>
 
-<section id="validators" class="container mx-auto px-6 section text-center">
+<section id="validators" class="container mx-auto px-6 section bg-[#0a1120] rounded-[3rem] border border-slate-800 text-center">
+    <h2 class="text-3xl font-bold mb-6">Real-Yield Flywheel</h2>
+    <p class="text-slate-400 mb-16 max-w-2xl mx-auto">Demand-driven tokenomics where usage directly creates token value.</p>
+    
+    <div class="flywheel">
+        <div class="px-6 py-4 bg-slate-900 border border-slate-700 rounded-xl font-bold">dApps Usage</div>
+        <div class="arrow">→</div>
+        <div class="px-6 py-4 bg-slate-900 border border-slate-700 rounded-xl font-bold text-blue-400">Proof Fees</div>
+        <div class="arrow">→</div>
+        <div class="px-6 py-4 bg-slate-900 border border-slate-700 rounded-xl font-bold">LAT Demand</div>
+        <div class="arrow">→</div>
+        <div class="px-6 py-4 bg-slate-900 border border-slate-700 rounded-xl font-bold text-purple-400">Staking Yield</div>
+        <div class="arrow">→</div>
+        <div class="px-6 py-4 bg-slate-900 border border-slate-700 rounded-xl font-bold">Network Security</div>
+    </div>
 
-<h2 class="text-3xl font-bold mb-16">
-Economic Flywheel
-</h2>
-
-<div class="flywheel">
-
-<div class="card">Network Usage</div>
-
-<div class="arrow">→</div>
-
-<div class="card">LAT Demand</div>
-
-<div class="arrow">→</div>
-
-<div class="card">Staking Rewards</div>
-
-<div class="arrow">→</div>
-
-<div class="card">Network Security</div>
-
-</div>
-
-<p class="text-slate-400 mt-10 max-w-2xl mx-auto">
-As more applications request validation, protocol fees increase demand for LAT.
-Validators earn rewards, attracting more security providers and strengthening the network.
-</p>
-
+    <div class="mt-16">
+        <button onclick="alert('Validator Staking Dashboard: Coming Soon (Stage 6)')" class="bg-blue-600 px-10 py-4 rounded-lg font-bold hover:bg-blue-500 transition">
+            Become a Validator
+        </button>
+    </div>
 </section>
 
 <section id="token" class="container mx-auto px-6 section">
-
-<h2 class="text-3xl font-bold text-center mb-16">
-LAT Token Utility
-</h2>
-
-<div class="grid md:grid-cols-4 gap-8">
-
-<div class="card text-center">
-<h3 class="font-semibold mb-2">Validator Staking</h3>
-<p class="text-slate-400 text-sm">Validators stake LAT to participate in validation.</p>
-</div>
-
-<div class="card text-center">
-<h3 class="font-semibold mb-2">Protocol Fees</h3>
-<p class="text-slate-400 text-sm">Applications pay verification fees to the network.</p>
-</div>
-
-<div class="card text-center">
-<h3 class="font-semibold mb-2">Slashing</h3>
-<p class="text-slate-400 text-sm">Malicious validators lose their staked LAT.</p>
-</div>
-
-<div class="card text-center">
-<h3 class="font-semibold mb-2">Governance</h3>
-<p class="text-slate-400 text-sm">LAT holders participate in protocol upgrades.</p>
-</div>
-
-</div>
-
+    <h2 class="text-3xl font-bold text-center mb-16">LAT Token Utility</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+        <div class="card text-center">
+            <h3 class="font-bold mb-2">Staking</h3>
+            <p class="text-slate-400 text-xs">Security collateral for the PQC network.</p>
+        </div>
+        <div class="card text-center">
+            <h3 class="font-bold mb-2">Protocol Fees</h3>
+            <p class="text-slate-400 text-xs">Fees generated from every validation call.</p>
+        </div>
+        <div class="card text-center">
+            <h3 class="font-bold mb-2">Slashing</h3>
+            <p class="text-slate-400 text-xs">Economic deterrent for bad actors.</p>
+        </div>
+        <div class="card text-center">
+            <h3 class="font-bold mb-2">Governance</h3>
+            <p class="text-slate-400 text-xs">Community-led protocol evolution.</p>
+        </div>
+    </div>
 </section>
 
-<section id="roadmap" class="container mx-auto px-6 section text-center">
-
-<h2 class="text-3xl font-bold mb-16">
-Roadmap
-</h2>
-
-<div class="grid md:grid-cols-4 gap-8">
-
-<div class="card">
-Phase 1<br><br>
-Protocol Design
-</div>
-
-<div class="card">
-Phase 2<br><br>
-Validator Testnet
-</div>
-
-<div class="card">
-Phase 3<br><br>
-Developer API Launch
-</div>
-
-<div class="card">
-Phase 4<br><br>
-Mainnet PQC Layer
-</div>
-
-</div>
-
-</section>
-
-<footer class="border-t border-slate-900 py-16 text-center text-sm text-slate-500">
-
-<div class="space-x-6 mb-6">
-
-<a href="#">Twitter</a>
-<a href="#">Telegram</a>
-<a href="#">GitHub</a>
-
-</div>
-
-<p>
-© 2026 LATTICE Labs — The Quantum Security Layer for Base
-</p>
-
+<footer class="border-t border-slate-900 pt-20 pb-10 text-center">
+    <div class="container mx-auto px-6">
+        <div class="flex justify-center gap-10 mb-10 text-sm font-bold">
+            <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-blue-400 transition">𝕏 Twitter</a>
+            <a href="https://t.me/Lattice_LAT" target="_blank" class="hover:text-blue-400 transition">Telegram</a>
+            <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-blue-400 transition">GitHub</a>
+            <a href="mailto:lattice.base.official@gmail.com" class="hover:text-blue-400 transition">Email</a>
+        </div>
+        <div class="text-slate-600 text-xs space-y-2">
+            <p>Contract: <span class="text-slate-400 font-mono">0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74</span></p>
+            <p>© 2026 LATTICE Labs — Securing the Future on Base.</p>
+        </div>
+    </div>
 </footer>
-
-<script>
-
-function comingSoon(){
-alert("Staking App Coming Soon");
-}
-
-</script>
 
 </body>
 </html>
+
