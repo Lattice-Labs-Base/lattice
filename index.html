@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LATTICE | Quantum Security Layer for Base</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-
 <style>
     body { font-family: 'Inter', sans-serif; background: #050a14; color: #e2e8f0; scroll-behavior: smooth; }
     .gradient { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -17,182 +15,144 @@
     .card:hover { border-color: #3b82f6; transform: translateY(-5px); }
     .code-box { font-family: 'JetBrains Mono', monospace; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; }
     
-    /* MODAL STYLES */
-    #wp-modal { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); z-index: 100; backdrop-filter: blur(10px); align-items: center; justify-content: center; }
-    .modal-content { max-width: 900px; width: 90%; background: #0f172a; border: 1px solid #1e293b; border-radius: 20px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; }
-    .wp-body { padding: 40px; overflow-y: auto; font-size: 1rem; line-height: 1.8; color: #94a3b8; }
-    .wp-body h1, .wp-body h2 { color: #f8fafc; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; }
-    .wp-body h1 { font-size: 1.8rem; }
-    .wp-body h2 { font-size: 1.4rem; }
-    .wp-body strong { color: #60a5fa; }
-    .wp-body ul { margin-left: 1.5rem; list-style-type: disc; margin-bottom: 1rem; }
-    .wp-body li { margin-bottom: 0.5rem; }
-    .wp-body hr { border: 0; border-top: 1px solid #1e293b; margin: 2rem 0; }
+    /* FULL TEXT MODAL */
+    #wp-modal { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.98); z-index: 100; backdrop-filter: blur(15px); align-items: center; justify-content: center; }
+    .modal-content { max-width: 1000px; width: 95%; background: #0f172a; border: 1px solid #1e293b; border-radius: 24px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .wp-header { padding: 24px 40px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; items-center: center; background: #0f172a; }
+    .wp-body { padding: 60px 80px; overflow-y: auto; font-size: 1.05rem; line-height: 1.8; color: #cbd5e1; background: #050a14; }
+    
+    /* WP Typography */
+    .wp-body h1 { font-size: 2.5rem; font-weight: 800; color: #f8fafc; margin-bottom: 2rem; text-align: center; }
+    .wp-body h2 { font-size: 1.75rem; font-weight: 700; color: #60a5fa; margin-top: 3.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; }
+    .wp-body h3 { font-size: 1.25rem; font-weight: 600; color: #f8fafc; margin-top: 2rem; margin-bottom: 1rem; }
+    .wp-body p { margin-bottom: 1.25rem; }
+    .wp-body ul { margin-bottom: 1.5rem; list-style-type: none; }
+    .wp-body li::before { content: "•"; color: #a78bfa; font-weight: bold; display: inline-block; width: 1.5em; margin-left: -1.5em; }
+    .wp-body li { margin-bottom: 0.75rem; padding-left: 1.5em; }
+    .wp-body strong { color: #f8fafc; }
+    .wp-body .divider { height: 1px; background: linear-gradient(90deg, transparent, #1e293b, transparent); margin: 3rem 0; }
+    
+    @media (max-width: 768px) { .wp-body { padding: 30px 20px; } .wp-body h1 { font-size: 1.75rem; } }
 </style>
 </head>
 
-<body class="overflow-x-hidden">
-
+<body>
 <div class="hero-blur"></div>
 
 <nav class="container mx-auto px-6 py-8 flex justify-between items-center relative z-10">
-    <div class="text-2xl font-bold gradient tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">LATTICE</div>
+    <div class="text-2xl font-bold gradient tracking-tighter cursor-pointer">LATTICE</div>
     <div class="space-x-8 text-sm hidden md:flex font-medium items-center">
         <a href="#why-quantum" class="hover:text-blue-400 transition">Why LATTICE</a>
         <a href="#developers" class="hover:text-blue-400 transition">Developers</a>
         <a href="#roadmap" class="hover:text-blue-400 transition">Roadmap</a>
         <button onclick="openWP()" class="bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 font-bold transition">Whitepaper v1.1</button>
     </div>
-    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition">Join Community</button>
+    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition shadow-lg">Join Community</button>
 </nav>
 
 <header class="container mx-auto px-6 text-center section relative z-10">
     <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem</h1>
-    <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed">
-        Defend the future of Web3. LATTICE provides decentralized PQC validation powered by EigenLayer-style AVS, ensuring assets secured today remain safe in the quantum era.
-    </p>
+    <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed">Defend the future of Web3. LATTICE provides decentralized PQC validation powered by EigenLayer-style AVS, ensuring assets secured today remain safe in the quantum era.</p>
     <div class="flex flex-col md:flex-row justify-center gap-4">
-        <button onclick="openWP()" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition shadow-lg">
-            Read Whitepaper v1.1
-        </button>
-        <button onclick="window.open('https://basescan.org/token/0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74', '_blank')" class="bg-slate-800 text-white px-10 py-4 rounded-lg font-bold border border-slate-700 hover:bg-slate-700 transition">
-            View on BaseScan
-        </button>
+        <button onclick="openWP()" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition">Read Whitepaper v1.1</button>
+        <button onclick="window.open('https://basescan.org/token/0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74', '_blank')" class="bg-slate-800 text-white px-10 py-4 rounded-lg font-bold border border-slate-700 hover:bg-slate-700 transition">View on BaseScan</button>
     </div>
 </header>
 
-<section id="why-quantum" class="container mx-auto px-6 section border-t border-slate-900 text-center">
-    <h2 class="text-3xl font-bold mb-6">Why Quantum Security Matters</h2>
-    <p class="text-slate-400 mb-12 max-w-4xl mx-auto text-lg leading-relaxed">
-        Current cryptographic systems like ECDSA will be vulnerable to quantum attacks. LATTICE introduces a post-quantum validation layer to ensure long-term security on Base.
-    </p>
-    <div class="grid md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
-        <div class="p-6 bg-[#0f172a] border-l-4 border-red-500 rounded-r-lg card">
-            <h4 class="font-bold mb-2">The Threat</h4>
-            <p class="text-sm text-slate-400">Classical cryptography (RSA/ECDSA) will be broken by quantum advancements, risking trillions in assets.</p>
-        </div>
-        <div class="p-6 bg-[#0f172a] border-l-4 border-blue-500 rounded-r-lg card">
-            <h4 class="font-bold mb-2">The Solution</h4>
-            <p class="text-sm text-slate-400">LATTICE Dilithium-based verification provides a future-proof middleware shield for digital assets on Base.</p>
-        </div>
-    </div>
-</section>
-
-<section id="developers" class="container mx-auto px-6 section bg-[#0a1120] rounded-[3rem] border border-slate-800">
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div>
-            <h2 class="text-4xl font-bold mb-6 tracking-tight">Built for Developers</h2>
-            <p class="text-slate-400 mb-8 leading-relaxed">
-                Seamlessly adopt quantum security with our toolkit designed for L2 wallets and DeFi protocols.
-            </p>
-            <ul class="space-y-4 text-sm font-semibold text-blue-400">
-                <li>📦 TypeScript SDK (Lattice.js)</li>
-                <li>🌐 REST Validation API</li>
-                <li>📜 Smart Contract Integration</li>
-            </ul>
-        </div>
-        <div class="code-box shadow-2xl">
-            <p class="text-blue-400 text-xs mb-3 font-mono">// 1-Line Integration</p>
-            <pre class="text-sm overflow-x-auto text-white leading-relaxed"><code>require(lattice.isValid(userOpHash));
-executeTransaction();</code></pre>
-            <hr class="border-slate-800 my-4">
-            <p class="text-emerald-400 text-sm font-mono">npm install @lattice-labs/sdk</p>
-        </div>
-    </div>
-</section>
-
-<section id="roadmap" class="container mx-auto px-6 section text-center">
-    <h2 class="text-3xl font-bold mb-16">Strategic Roadmap</h2>
-    <div class="grid md:grid-cols-4 gap-8">
-        <div class="card">
-            <h4 class="text-blue-400 font-bold mb-2">2026 Q2</h4>
-            <p class="text-sm text-white font-semibold">Genesis</p>
-            <p class="text-slate-400 text-xs mt-2">Protocol architecture & V8 Core engine finalized.</p>
-        </div>
-        <div class="card">
-            <h4 class="text-blue-400 font-bold mb-2">2026 Q3</h4>
-            <p class="text-sm text-white font-semibold">Infrastructure</p>
-            <p class="text-slate-400 text-xs mt-2">Validator Testnet launch on Base Sepolia.</p>
-        </div>
-        <div class="card">
-            <h4 class="text-blue-400 font-bold mb-2">2026 Q4</h4>
-            <p class="text-sm text-white font-semibold">Developer Beta</p>
-            <p class="text-slate-400 text-xs mt-2">SDK & API release for early partners.</p>
-        </div>
-        <div class="card">
-            <h4 class="text-blue-400 font-bold mb-2">2027 Q1</h4>
-            <p class="text-sm text-white font-semibold">Sovereign Nexus</p>
-            <p class="text-slate-400 text-xs mt-2">Mainnet security layer deployment on Base.</p>
-        </div>
-    </div>
-</section>
-
-<footer class="border-t border-slate-900 pt-20 pb-10 text-center relative z-10">
-    <div class="container mx-auto px-6">
-        <div class="flex justify-center gap-10 mb-10 text-sm font-bold">
-            <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-white transition">𝕏</a>
-            <a href="https://t.me/Lattice_LAT" target="_blank" class="hover:text-white transition">TG</a>
-            <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-white transition">GH</a>
-        </div>
-        <p class="text-slate-600 text-xs font-mono mb-2">0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74</p>
-        <p class="text-slate-600 text-xs">© 2026 LATTICE Labs</p>
-    </div>
-</footer>
+<section id="why-quantum" class="container mx-auto px-6 section border-t border-slate-900"></section>
 
 <div id="wp-modal" onclick="event.target == this && closeWP()">
-    <div class="modal-content relative shadow-2xl animate-in zoom-in duration-300">
-        <div class="flex justify-between items-center p-6 border-b border-slate-800 bg-[#0f172a]">
-            <h3 class="text-lg font-bold gradient">LATTICE Whitepaper v1.1</h3>
+    <div class="modal-content relative animate-in zoom-in duration-300">
+        <div class="wp-header">
+            <h3 class="text-lg font-bold gradient">LATTICE PROTOCOL DOCUMENTATION</h3>
             <button onclick="closeWP()" class="text-slate-400 hover:text-white text-3xl font-light">&times;</button>
         </div>
-        <div class="wp-body bg-[#050a14]">
-            <h1>The Quantum Security Layer for Base</h1>
-            <p><strong>1. Vision</strong></p>
-            <p>Blockchain systems rely on cryptographic primitives that were designed in a pre-quantum era. LATTICE introduces a new infrastructure category: The Quantum Security Layer for Base.</p>
-            <hr>
-            <p><strong>2. The Problem</strong></p>
-            <p>Current blockchain security relies on ECDSA signatures which are vulnerable to Shor's algorithm. Migration is extremely difficult due to billons of wallets and coordination across ecosystems.</p>
-            <hr>
-            <p><strong>3. The LATTICE Solution</strong></p>
-            <p>LATTICE acts as an external verification network that applications can call when executing sensitive operations. This enables incremental adoption without protocol-level migration.</p>
-            <hr>
-            <p><strong>4. System Architecture</strong></p>
+        
+        <div class="wp-body">
+            <h1>LATTICE Whitepaper v1.1</h1>
+            <p class="text-center text-slate-500 italic">The Quantum Security Layer for Base</p>
+            
+            <div class="divider"></div>
+
+            <h2>1. Vision</h2>
+            <p>Blockchain systems rely on cryptographic primitives that were designed in a pre-quantum era. Ethereum, Bitcoin, and most blockchain infrastructures use ECDSA signatures, which rely on elliptic curve cryptography.</p>
+            <p>However, sufficiently advanced quantum computers will be capable of breaking these systems using algorithms such as Shor’s Algorithm. LATTICE introduces a new infrastructure category: <strong>The Quantum Security Layer for Base.</strong></p>
+
+            <h2>2. The Problem</h2>
+            <h3>Blockchain cryptography is not quantum-safe</h3>
+            <p>Most blockchain systems today rely on ECDSA, RSA, and elliptic curve cryptography. These systems are secure against classical computers but vulnerable to sufficiently powerful quantum computers. Academic research has demonstrated that quantum algorithms could break elliptic curve cryptography, which secures most blockchain networks today.</p>
+            
+            <h3>Migration is extremely difficult</h3>
+            <p>Upgrading the entire cryptographic stack of an existing blockchain is difficult because billions of wallets rely on current cryptography and smart contracts are already deployed. Replacing core cryptography across an entire ecosystem could take years. During that time, assets remain exposed.</p>
+
+            <h2>3. The LATTICE Solution</h2>
+            <p>LATTICE introduces a Post-Quantum Validation Layer for Base. Instead of modifying the base chain itself, LATTICE provides a decentralized verification network that applications can call when executing critical operations. This architecture allows developers to adopt quantum-secure verification without requiring protocol upgrades.</p>
+
+            <h2>4. System Architecture</h2>
+            <h3>1. PQC Verification Layer</h3>
+            <p>LATTICE uses lattice-based cryptography for post-quantum signatures. Initial implementations utilize <strong>CRYSTALS-Dilithium</strong>, a NIST-selected PQC standard. These algorithms are designed to remain secure against both classical and quantum attacks.</p>
+            
+            <h3>2. Validator Network</h3>
+            <p>Validators perform signature verification and collectively attest to validation results. Each validator verifies PQC signatures, signs validation results, and stakes LAT tokens. This creates decentralized verification.</p>
+            
+            <h3>3. Aggregation Layer</h3>
+            <p>Validator signatures are aggregated off-chain. Aggregated proofs are submitted on-chain to minimize gas consumption.</p>
+
+            <h2>5. Economic Security Model</h2>
+            <p>LATTICE is secured through a staking and slashing system. Validators must stake LAT tokens in order to participate. If a validator signs an invalid proof, their stake may be slashed, ensuring honest behavior through economic deterrents.</p>
+
+            <h2>6. Real Yield Flywheel</h2>
+            <p>The LATTICE ecosystem is built around usage-driven token economics. Network usage directly drives token demand:</p>
             <ul>
-                <li><strong>PQC Verification:</strong> Utilizes CRYSTALS-Dilithium standard.</li>
-                <li><strong>Validator Network:</strong> Decentralized verification secured by LAT staking.</li>
-                <li><strong>Aggregation:</strong> Off-chain proof aggregation for gas efficiency.</li>
+                <li>dApp Usage → Validation Requests</li>
+                <li>Validation Requests → Protocol Fees</li>
+                <li>Protocol Fees → LAT Demand</li>
+                <li>LAT Demand → Staking Yield</li>
+                <li>Staking Yield → Network Security</li>
             </ul>
-            <hr>
-            <p><strong>5. LAT Token Utility</strong></p>
-            <p>Total Supply: 1,000,000,000 LAT. Used for Staking, Protocol Fees, and Slashing Collateral.</p>
-            <hr>
-            <p><strong>6. Roadmap</strong></p>
-            <p>Moving from Protocol Genesis (2026 Q2) to Mainnet Sovereign Nexus (2027 Q1).</p>
-            <br><br>
-            <p class="text-center italic text-sm">Full whitepaper available at GitHub.</p>
+
+            <h2>7. LAT Token Utility</h2>
+            <p>LAT is the native utility token of the LATTICE protocol. Total Supply: <strong>1,000,000,000 LAT.</strong></p>
+            <ul>
+                <li><strong>Staking:</strong> Validators stake LAT to secure the network.</li>
+                <li><strong>Protocol Fees:</strong> Every validation request generates a fee paid in LAT.</li>
+                <li><strong>Slashing:</strong> Collateral for network integrity.</li>
+                <li><strong>Governance:</strong> Community-led protocol evolution.</li>
+            </ul>
+
+            <h2>8. Token Distribution</h2>
+            <ul>
+                <li><strong>40%</strong> — Ecosystem & Validator Incentives</li>
+                <li><strong>20%</strong> — Community & Airdrops</li>
+                <li><strong>15%</strong> — Development Fund</li>
+                <li><strong>15%</strong> — Treasury</li>
+                <li><strong>10%</strong> — Core Contributors</li>
+            </ul>
+
+            <h2>9. Market Opportunity</h2>
+            <p>The post-quantum cryptography market is projected to grow from $0.42B in 2025 to $2.84B by 2030 (46% CAGR). Some estimates reach over $22B by 2033. Key drivers include government mandates and financial sector requirements.</p>
+
+            <h2>10. Strategic Roadmap</h2>
+            <ul>
+                <li><strong>Phase 1:</strong> Protocol design and architecture finalized.</li>
+                <li><strong>Phase 2:</strong> Developer SDK and integration tools release.</li>
+                <li><strong>Phase 3:</strong> Validator testnet launch on Base Sepolia.</li>
+                <li><strong>Phase 4:</strong> Base ecosystem integration and Mainnet launch.</li>
+                <li><strong>Phase 5:</strong> Cross-chain quantum security layer expansion.</li>
+            </ul>
+
+            <div class="divider"></div>
+            <p class="text-center text-slate-500 pb-20">© 2026 LATTICE Labs — Official Protocol Specification</p>
         </div>
     </div>
 </div>
 
 <script>
     const modal = document.getElementById('wp-modal');
-    
-    function openWP() {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // 背景スクロール禁止
-    }
-    
-    function closeWP() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // スクロール再開
-    }
-
-    // エスケープキーで閉じる
-    window.onkeydown = function(event) {
-        if (event.key === "Escape") closeWP();
-    }
+    function openWP() { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function closeWP() { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+    window.onkeydown = function(e) { if (e.key === "Escape") closeWP(); }
 </script>
-
 </body>
 </html>
 
