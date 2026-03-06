@@ -11,32 +11,31 @@
     .gradient { background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-blur { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 80%; height: 500px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); z-index: -1; }
     .section { padding-top: 100px; padding-bottom: 100px; }
-    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; transition: 0.3s; height: 100%; }
-    .card:hover { border-color: #3b82f6; transform: translateY(-5px); }
-    .code-box { font-family: 'JetBrains Mono', monospace; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 28px; transition: 0.3s; }
     
-    /* FULL TEXT MODAL */
+    /* MODAL FULL-TEXT STYLES */
     #wp-modal { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.98); z-index: 100; backdrop-filter: blur(15px); align-items: center; justify-content: center; }
-    .modal-content { max-width: 1000px; width: 95%; background: #0f172a; border: 1px solid #1e293b; border-radius: 24px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-    .wp-header { padding: 24px 40px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; items-center: center; background: #0f172a; }
+    .modal-content { max-width: 1000px; width: 95%; background: #0f172a; border: 1px solid #1e293b; border-radius: 24px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+    .wp-header { padding: 20px 40px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; background: #0f172a; }
     .wp-body { padding: 60px 80px; overflow-y: auto; font-size: 1.05rem; line-height: 1.8; color: #cbd5e1; background: #050a14; }
     
-    /* WP Typography */
-    .wp-body h1 { font-size: 2.5rem; font-weight: 800; color: #f8fafc; margin-bottom: 2rem; text-align: center; }
-    .wp-body h2 { font-size: 1.75rem; font-weight: 700; color: #60a5fa; margin-top: 3.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem; }
-    .wp-body h3 { font-size: 1.25rem; font-weight: 600; color: #f8fafc; margin-top: 2rem; margin-bottom: 1rem; }
-    .wp-body p { margin-bottom: 1.25rem; }
-    .wp-body ul { margin-bottom: 1.5rem; list-style-type: none; }
-    .wp-body li::before { content: "•"; color: #a78bfa; font-weight: bold; display: inline-block; width: 1.5em; margin-left: -1.5em; }
-    .wp-body li { margin-bottom: 0.75rem; padding-left: 1.5em; }
-    .wp-body strong { color: #f8fafc; }
-    .wp-body .divider { height: 1px; background: linear-gradient(90deg, transparent, #1e293b, transparent); margin: 3rem 0; }
+    /* WP Typography - Strategic Depth */
+    .wp-body h1 { font-size: 2.5rem; font-weight: 800; color: #f8fafc; margin-bottom: 1rem; text-align: center; }
+    .wp-body .wp-subtitle { text-align: center; color: #60a5fa; font-weight: 600; margin-bottom: 3rem; }
+    .wp-body h2 { font-size: 1.75rem; font-weight: 700; color: #f8fafc; margin-top: 4rem; margin-bottom: 1.5rem; border-left: 4px solid #60a5fa; padding-left: 1rem; }
+    .wp-body h3 { font-size: 1.3rem; font-weight: 700; color: #93c5fd; margin-top: 2rem; margin-bottom: 1rem; }
+    .wp-body p { margin-bottom: 1.5rem; }
+    .wp-body ul { margin-bottom: 2rem; list-style: none; }
+    .wp-body li::before { content: "→"; color: #60a5fa; margin-right: 10px; font-weight: bold; }
+    .wp-body li { margin-bottom: 0.5rem; }
+    .wp-body strong { color: #fff; }
+    .wp-diagram { background: #0f172a; border: 1px solid #1e293b; padding: 2rem; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-align: center; margin: 2rem 0; color: #60a5fa; line-height: 1.4; }
     
-    @media (max-width: 768px) { .wp-body { padding: 30px 20px; } .wp-body h1 { font-size: 1.75rem; } }
+    @media (max-width: 768px) { .wp-body { padding: 40px 20px; } }
 </style>
 </head>
-
 <body>
+
 <div class="hero-blur"></div>
 
 <nav class="container mx-auto px-6 py-8 flex justify-between items-center relative z-10">
@@ -47,14 +46,16 @@
         <a href="#roadmap" class="hover:text-blue-400 transition">Roadmap</a>
         <button onclick="openWP()" class="bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 font-bold transition">Whitepaper v1.1</button>
     </div>
-    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition shadow-lg">Join Community</button>
+    <button onclick="window.open('https://t.me/Lattice_LAT', '_blank')" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">Join Community</button>
 </nav>
 
 <header class="container mx-auto px-6 text-center section relative z-10">
     <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem</h1>
-    <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed">Defend the future of Web3. LATTICE provides decentralized PQC validation powered by EigenLayer-style AVS, ensuring assets secured today remain safe in the quantum era.</p>
+    <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10 leading-relaxed">
+        Defend the future of Web3. LATTICE provides decentralized PQC validation powered by EigenLayer-style AVS, ensuring assets secured today remain safe in the quantum era.
+    </p>
     <div class="flex flex-col md:flex-row justify-center gap-4">
-        <button onclick="openWP()" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition">Read Whitepaper v1.1</button>
+        <button onclick="openWP()" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200 transition shadow-lg shadow-white/5">Read Whitepaper v1.1</button>
         <button onclick="window.open('https://basescan.org/token/0x0a320c8daC9fB56C7FC766CDF2c6068949fa4B74', '_blank')" class="bg-slate-800 text-white px-10 py-4 rounded-lg font-bold border border-slate-700 hover:bg-slate-700 transition">View on BaseScan</button>
     </div>
 </header>
@@ -62,95 +63,123 @@
 <section id="why-quantum" class="container mx-auto px-6 section border-t border-slate-900"></section>
 
 <div id="wp-modal" onclick="event.target == this && closeWP()">
-    <div class="modal-content relative animate-in zoom-in duration-300">
+    <div class="modal-content relative shadow-2xl animate-in zoom-in duration-300">
         <div class="wp-header">
-            <h3 class="text-lg font-bold gradient">LATTICE PROTOCOL DOCUMENTATION</h3>
+            <h3 class="text-xs font-bold tracking-widest text-slate-500 uppercase">Protocol Specification // v1.1</h3>
             <button onclick="closeWP()" class="text-slate-400 hover:text-white text-3xl font-light">&times;</button>
         </div>
         
         <div class="wp-body">
             <h1>LATTICE Whitepaper v1.1</h1>
-            <p class="text-center text-slate-500 italic">The Quantum Security Layer for Base</p>
+            <p class="wp-subtitle">The Quantum Security Layer for Base</p>
             
-            <div class="divider"></div>
+            <hr class="border-slate-800 my-12">
 
             <h2>1. Vision</h2>
             <p>Blockchain systems rely on cryptographic primitives that were designed in a pre-quantum era. Ethereum, Bitcoin, and most blockchain infrastructures use ECDSA signatures, which rely on elliptic curve cryptography.</p>
-            <p>However, sufficiently advanced quantum computers will be capable of breaking these systems using algorithms such as Shor’s Algorithm. LATTICE introduces a new infrastructure category: <strong>The Quantum Security Layer for Base.</strong></p>
+            <p>However, sufficiently advanced quantum computers will be capable of breaking these systems using algorithms such as <strong>Shor’s Algorithm</strong>. This creates a fundamental risk to blockchain wallets, transaction authentication, and smart contract security.</p>
+            <p>LATTICE introduces a new infrastructure category: <strong>The Quantum Security Layer for Base.</strong> Instead of replacing the Base protocol itself, LATTICE operates as a decentralized validation middleware that enables quantum-resistant verification for any application.</p>
 
             <h2>2. The Problem</h2>
             <h3>Blockchain cryptography is not quantum-safe</h3>
             <p>Most blockchain systems today rely on ECDSA, RSA, and elliptic curve cryptography. These systems are secure against classical computers but vulnerable to sufficiently powerful quantum computers. Academic research has demonstrated that quantum algorithms could break elliptic curve cryptography, which secures most blockchain networks today.</p>
             
             <h3>Migration is extremely difficult</h3>
-            <p>Upgrading the entire cryptographic stack of an existing blockchain is difficult because billions of wallets rely on current cryptography and smart contracts are already deployed. Replacing core cryptography across an entire ecosystem could take years. During that time, assets remain exposed.</p>
+            <p>Upgrading the entire cryptographic stack of an existing blockchain is difficult because:</p>
+            <ul>
+                <li>Billions of wallets rely on current cryptography.</li>
+                <li>Smart contracts are already deployed with fixed verification logic.</li>
+                <li>Coordination across the entire ecosystem is complex and slow.</li>
+            </ul>
+            <p>Replacing core cryptography across an entire ecosystem could take years. During that time, assets remain exposed. LATTICE solves this "migration gap."</p>
 
             <h2>3. The LATTICE Solution</h2>
-            <p>LATTICE introduces a Post-Quantum Validation Layer for Base. Instead of modifying the base chain itself, LATTICE provides a decentralized verification network that applications can call when executing critical operations. This architecture allows developers to adopt quantum-secure verification without requiring protocol upgrades.</p>
+            <p>LATTICE introduces a Post-Quantum Validation Layer for Base. Instead of modifying the base chain itself, LATTICE provides a decentralized verification network that applications can call when executing critical operations.</p>
+            <p>This architecture allows developers to adopt quantum-secure verification without requiring protocol-level upgrades. It acts as a <strong>security buffer</strong> that validates transactions using post-quantum signatures before they are finalized on-chain.</p>
+
+            <div class="wp-diagram">
+                User Operation → [PQC Signature Generated] → [Validators Verify Proof] → [Consensus Result] → Smart Contract Execution
+            </div>
 
             <h2>4. System Architecture</h2>
             <h3>1. PQC Verification Layer</h3>
             <p>LATTICE uses lattice-based cryptography for post-quantum signatures. Initial implementations utilize <strong>CRYSTALS-Dilithium</strong>, a NIST-selected PQC standard. These algorithms are designed to remain secure against both classical and quantum attacks.</p>
             
             <h3>2. Validator Network</h3>
-            <p>Validators perform signature verification and collectively attest to validation results. Each validator verifies PQC signatures, signs validation results, and stakes LAT tokens. This creates decentralized verification.</p>
+            <p>Validators perform signature verification and collectively attest to validation results. Each validator performs three functions: Verifies PQC signatures, signs validation results, and stakes LAT tokens as collateral.</p>
             
             <h3>3. Aggregation Layer</h3>
-            <p>Validator signatures are aggregated off-chain. Aggregated proofs are submitted on-chain to minimize gas consumption.</p>
+            <p>Validator signatures are aggregated off-chain to reduce costs. Aggregated proofs are submitted on-chain to minimize gas consumption while maintaining decentralized verification.</p>
+            
+            <h3>4. Smart Contract Gateway</h3>
+            <p>Smart contracts call the LATTICE verification layer before executing critical operations. This allows developers to add quantum security with a single line of code integration.</p>
 
             <h2>5. Economic Security Model</h2>
-            <p>LATTICE is secured through a staking and slashing system. Validators must stake LAT tokens in order to participate. If a validator signs an invalid proof, their stake may be slashed, ensuring honest behavior through economic deterrents.</p>
+            <p>LATTICE is secured through a staking and slashing system. Validators must stake LAT tokens in order to participate. This stake acts as economic collateral ensuring honest behavior.</p>
+            <p>If a validator signs an invalid proof, their stake may be partially or fully <strong>slashed</strong>. This mechanism ensures that the cost of an attack is always higher than the potential gain, following the principles of cryptoeconomic security.</p>
 
             <h2>6. Real Yield Flywheel</h2>
-            <p>The LATTICE ecosystem is built around usage-driven token economics. Network usage directly drives token demand:</p>
-            <ul>
-                <li>dApp Usage → Validation Requests</li>
-                <li>Validation Requests → Protocol Fees</li>
-                <li>Protocol Fees → LAT Demand</li>
-                <li>LAT Demand → Staking Yield</li>
-                <li>Staking Yield → Network Security</li>
-            </ul>
+            <p>The LATTICE ecosystem is built around usage-driven token economics. Network usage directly drives token demand.</p>
+            <div class="wp-diagram">
+                dApp Usage ↓ Validation Requests ↓ Protocol Fees ↓ LAT Demand ↓ Staking Yield ↓ Network Security
+            </div>
+            <p>This model aligns developers, validators, and token holders into a single, self-sustaining economic system where security grows with adoption.</p>
 
             <h2>7. LAT Token Utility</h2>
             <p>LAT is the native utility token of the LATTICE protocol. Total Supply: <strong>1,000,000,000 LAT.</strong></p>
             <ul>
-                <li><strong>Staking:</strong> Validators stake LAT to secure the network.</li>
-                <li><strong>Protocol Fees:</strong> Every validation request generates a fee paid in LAT.</li>
-                <li><strong>Slashing:</strong> Collateral for network integrity.</li>
-                <li><strong>Governance:</strong> Community-led protocol evolution.</li>
+                <li><strong>Staking:</strong> Validators stake LAT to secure the network and earn rewards.</li>
+                <li><strong>Protocol Fees:</strong> Every validation request generates a protocol fee paid in LAT.</li>
+                <li><strong>Slashing:</strong> Acts as collateral to prevent malicious validator activity.</li>
+                <li><strong>Governance:</strong> LAT holders participate in protocol upgrades and parameter adjustments.</li>
             </ul>
 
             <h2>8. Token Distribution</h2>
+            <p>Total Supply: 1,000,000,000 LAT</p>
             <ul>
-                <li><strong>40%</strong> — Ecosystem & Validator Incentives</li>
-                <li><strong>20%</strong> — Community & Airdrops</li>
-                <li><strong>15%</strong> — Development Fund</li>
-                <li><strong>15%</strong> — Treasury</li>
-                <li><strong>10%</strong> — Core Contributors</li>
+                <li><strong>40% Ecosystem & Validator Incentives:</strong> Long-term rewards for security providers.</li>
+                <li><strong>20% Community & Airdrops:</strong> Rewarding early adopters and supporters.</li>
+                <li><strong>15% Development Fund:</strong> Funding core protocol R&D and engineering.</li>
+                <li><strong>15% Treasury:</strong> Strategic reserves for ecosystem growth.</li>
+                <li><strong>10% Core Contributors:</strong> Aligned with 2-4 year vesting schedules.</li>
             </ul>
 
             <h2>9. Market Opportunity</h2>
-            <p>The post-quantum cryptography market is projected to grow from $0.42B in 2025 to $2.84B by 2030 (46% CAGR). Some estimates reach over $22B by 2033. Key drivers include government mandates and financial sector requirements.</p>
+            <p>The demand for quantum-resistant cryptography is rapidly increasing. The post-quantum cryptography market is projected to grow from approximately <strong>$0.42B in 2025 to $2.84B by 2030</strong>, representing over 46% CAGR. Other forecasts estimate the market could reach over $22B by 2033 as quantum threats accelerate adoption.</p>
 
-            <h2>10. Strategic Roadmap</h2>
+            <h2>10. Competitive Position</h2>
+            <p>LATTICE focuses on a unique infrastructure category: <strong>Quantum-Secure Blockchain Middleware.</strong></p>
+            <p>Unlike new "Quantum Chains" which require users to move funds, or protocol-level upgrades which take years, LATTICE enables fast adoption and minimal integration friction while remaining fully compatible with the existing Base ecosystem.</p>
+
+            <h2>11. Roadmap</h2>
             <ul>
                 <li><strong>Phase 1:</strong> Protocol design and architecture finalized.</li>
                 <li><strong>Phase 2:</strong> Developer SDK and integration tools release.</li>
                 <li><strong>Phase 3:</strong> Validator testnet launch on Base Sepolia.</li>
                 <li><strong>Phase 4:</strong> Base ecosystem integration and Mainnet launch.</li>
-                <li><strong>Phase 5:</strong> Cross-chain quantum security layer expansion.</li>
+                <li><strong>Phase 5:</strong> Cross-chain quantum security layer support.</li>
             </ul>
 
+            <h2>12. Conclusion</h2>
+            <p>Quantum computing presents a long-term challenge to blockchain security. LATTICE provides a practical solution today. By introducing a decentralized PQC validation layer, LATTICE allows developers to adopt quantum-secure verification without waiting for protocol-level upgrades.</p>
+            <p>Through a combination of post-quantum cryptography, decentralized validator networks, and economic security mechanisms, LATTICE aims to secure the future of digital assets.</p>
+
             <div class="divider"></div>
-            <p class="text-center text-slate-500 pb-20">© 2026 LATTICE Labs — Official Protocol Specification</p>
+            <p class="text-center text-slate-500 pb-20 mt-12">© 2026 LATTICE Labs — Official Protocol Documentation</p>
         </div>
     </div>
 </div>
 
 <script>
     const modal = document.getElementById('wp-modal');
-    function openWP() { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-    function closeWP() { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function openWP() { 
+        modal.style.display = 'flex'; 
+        document.body.style.overflow = 'hidden'; 
+    }
+    function closeWP() { 
+        modal.style.display = 'none'; 
+        document.body.style.overflow = 'auto'; 
+    }
     window.onkeydown = function(e) { if (e.key === "Escape") closeWP(); }
 </script>
 </body>
