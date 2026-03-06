@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LATTICE | Quantum Security Layer for Base</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,102 +17,77 @@ background:#050a14;
 color:#e2e8f0;
 }
 
-.gradient-text{
+.gradient{
 background:linear-gradient(90deg,#60a5fa,#a78bfa);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.hero-blur{
-position:absolute;
-top:-10%;
-left:50%;
-transform:translateX(-50%);
-width:80%;
-height:500px;
-background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);
-z-index:-1;
+.section{
+padding-top:120px;
+padding-bottom:120px;
 }
 
-.code{
-font-family:'JetBrains Mono',monospace;
+.card{
 background:#0f172a;
 border:1px solid #1e293b;
-border-radius:8px;
+border-radius:12px;
+padding:28px;
 }
 
 .flywheel{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:20px;
-text-align:center;
-}
-
-.flywheel div{
-padding:20px;
-border:1px solid #1e293b;
-border-radius:12px;
-background:#0f172a;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+align-items:center;
 }
 
 .arrow{
-font-size:24px;
-color:#60a5fa;
+font-size:28px;
+opacity:0.5;
 }
 
 </style>
 </head>
 
-<body class="overflow-x-hidden">
-
-<div class="hero-blur"></div>
-
-<!-- NAV -->
+<body>
 
 <nav class="container mx-auto px-6 py-8 flex justify-between items-center">
 
-<div class="text-2xl font-bold gradient-text">LATTICE</div>
+<div class="text-2xl font-bold gradient">LATTICE</div>
 
-<div class="hidden md:flex space-x-8 text-sm">
-
-<a href="#protocol" class="hover:text-blue-400">Protocol</a>
-<a href="#security" class="hover:text-blue-400">Security</a>
-<a href="#validators" class="hover:text-blue-400">Validators</a>
-<a href="#token" class="hover:text-blue-400">Token</a>
-
+<div class="space-x-8 text-sm hidden md:block">
+<a href="#protocol">Protocol</a>
+<a href="#validators">Validators</a>
+<a href="#token">Tokenomics</a>
+<a href="#roadmap">Roadmap</a>
 </div>
 
-<button class="bg-blue-600 px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-500">
+<button onclick="comingSoon()" class="bg-blue-600 px-6 py-2 rounded-full text-sm font-semibold">
 Launch App
 </button>
 
 </nav>
 
-<!-- HERO -->
-
-<header class="container mx-auto px-6 pt-20 pb-32 text-center">
+<header class="container mx-auto px-6 text-center section">
 
 <h1 class="text-5xl md:text-7xl font-bold mb-6">
-
-The <span class="gradient-text">Quantum Security Layer</span><br>
-for the Base Ecosystem
-
+The <span class="gradient">Quantum Security Layer</span><br>for the Base Ecosystem
 </h1>
 
-<p class="text-lg text-slate-400 max-w-3xl mx-auto mb-10">
-
-LATTICE defines a new category:  
-the first Post-Quantum validation layer securing Base against future quantum attacks.
-
+<p class="max-w-3xl mx-auto text-lg text-slate-400 mb-10">
+LATTICE introduces a scalable Post-Quantum Validation Layer designed for the Base ecosystem.
+Developers can integrate quantum-resistant cryptography with a single validation call while validators secure the network through LAT staking.
 </p>
 
-<div class="flex flex-col md:flex-row justify-center gap-4">
+<div class="space-x-4">
 
-<button class="bg-white text-black px-10 py-4 rounded-lg font-bold">
-Build on LATTICE
+<button class="bg-white text-black px-8 py-3 rounded-lg font-semibold">
+Read Whitepaper
 </button>
 
-<button class="bg-slate-800 px-10 py-4 rounded-lg border border-slate-700">
+<button onclick="comingSoon()" class="bg-slate-800 px-8 py-3 rounded-lg font-semibold border border-slate-700">
 Stake LAT
 </button>
 
@@ -121,52 +95,35 @@ Stake LAT
 
 </header>
 
-<!-- CATEGORY -->
+<section id="protocol" class="container mx-auto px-6 section">
 
-<section class="container mx-auto px-6 py-24 text-center">
-
-<h2 class="text-3xl font-bold mb-6">
-
-Defining a New Security Category
-
+<h2 class="text-3xl font-bold text-center mb-16">
+A New Infrastructure Category
 </h2>
 
-<p class="max-w-3xl mx-auto text-slate-400">
+<div class="grid md:grid-cols-3 gap-8">
 
-Most blockchains rely on classical cryptography vulnerable to future quantum attacks.  
-LATTICE introduces a Post-Quantum Validation Layer designed specifically for the Base ecosystem.
-
-</p>
-
-</section>
-
-<!-- PROTOCOL -->
-
-<section id="protocol" class="container mx-auto px-6 py-24 bg-[#0a1120] rounded-3xl border border-slate-800">
-
-<div class="grid md:grid-cols-3 gap-10 text-center">
-
-<div>
-<div class="text-4xl mb-4">🛡️</div>
-<h3 class="text-xl font-bold mb-3">PQC Validation</h3>
+<div class="card text-center">
+<div class="text-3xl mb-4">🛡</div>
+<h3 class="font-semibold mb-2">Post-Quantum Security</h3>
 <p class="text-slate-400 text-sm">
-Dilithium-based cryptographic validation ensuring resistance against quantum attacks.
+Dilithium-based validation protects digital assets from future quantum attacks.
 </p>
 </div>
 
-<div>
-<div class="text-4xl mb-4">⚖️</div>
-<h3 class="text-xl font-bold mb-3">AVS Security</h3>
+<div class="card text-center">
+<div class="text-3xl mb-4">⚙</div>
+<h3 class="font-semibold mb-2">Developer API</h3>
 <p class="text-slate-400 text-sm">
-EigenLayer-style validator network securing verification through economic staking.
+Applications integrate LATTICE with a simple validation call through a lightweight API.
 </p>
 </div>
 
-<div>
-<div class="text-4xl mb-4">⚙️</div>
-<h3 class="text-xl font-bold mb-3">1-Line Integration</h3>
+<div class="card text-center">
+<div class="text-3xl mb-4">⚖</div>
+<h3 class="font-semibold mb-2">Validator Network</h3>
 <p class="text-slate-400 text-sm">
-Developers secure their applications with a single validation call.
+Validators stake LAT and verify signatures in a decentralized PQC verification network.
 </p>
 </div>
 
@@ -174,206 +131,124 @@ Developers secure their applications with a single validation call.
 
 </section>
 
-<!-- FLYWHEEL -->
-
-<section class="container mx-auto px-6 py-28 text-center">
+<section id="validators" class="container mx-auto px-6 section text-center">
 
 <h2 class="text-3xl font-bold mb-16">
-
-LATTICE Economic Flywheel
-
+Economic Flywheel
 </h2>
 
 <div class="flywheel">
 
-<div>dApps Use LATTICE</div>
+<div class="card">Network Usage</div>
 
 <div class="arrow">→</div>
 
-<div>Proof Fees Generated</div>
+<div class="card">LAT Demand</div>
 
 <div class="arrow">→</div>
 
-<div>LAT Demand</div>
+<div class="card">Staking Rewards</div>
 
 <div class="arrow">→</div>
 
-<div>Validator Staking</div>
-
-<div class="arrow">→</div>
-
-<div>Network Security</div>
+<div class="card">Network Security</div>
 
 </div>
 
-<p class="text-slate-400 mt-10">
-
-Network usage increases LAT demand, strengthening validator security and attracting more applications.
-
+<p class="text-slate-400 mt-10 max-w-2xl mx-auto">
+As more applications request validation, protocol fees increase demand for LAT.
+Validators earn rewards, attracting more security providers and strengthening the network.
 </p>
 
 </section>
 
-<!-- SECURITY -->
+<section id="token" class="container mx-auto px-6 section">
 
-<section id="security" class="container mx-auto px-6 py-24 bg-[#0a1120] rounded-3xl border border-slate-800">
-
-<div class="grid md:grid-cols-2 gap-16 items-center">
-
-<div>
-
-<h2 class="text-4xl font-bold mb-6">
-
-Post-Quantum Architecture
-
-</h2>
-
-<p class="text-slate-400 mb-6">
-
-LATTICE combines PQC cryptography with economic security mechanisms.
-
-</p>
-
-<ul class="space-y-3 text-sm">
-
-<li>Validator consensus bitmap</li>
-<li>Validator bond slashing</li>
-<li>Merkle validator set snapshot</li>
-<li>AVS economic security</li>
-
-</ul>
-
-</div>
-
-<div class="code p-6 text-sm">
-
-Secure transaction execution via PQC validation.
-
-</div>
-
-</div>
-
-</section>
-
-<!-- VALIDATORS -->
-
-<section id="validators" class="container mx-auto px-6 py-28 text-center">
-
-<h2 class="text-3xl font-bold mb-10">
-
-Become a Validator
-
-</h2>
-
-<p class="text-slate-400 max-w-2xl mx-auto mb-10">
-
-Validators secure the LATTICE network by staking LAT tokens and validating cryptographic proofs.
-
-</p>
-
-<button class="bg-blue-600 px-10 py-4 rounded-lg font-bold hover:bg-blue-500">
-
-Start Staking
-
-</button>
-
-</section>
-
-<!-- TOKEN -->
-
-<section id="token" class="container mx-auto px-6 py-24 bg-[#0a1120] rounded-3xl border border-slate-800">
-
-<div class="text-center mb-16">
-
-<h2 class="text-3xl font-bold">
-
+<h2 class="text-3xl font-bold text-center mb-16">
 LAT Token Utility
-
 </h2>
 
+<div class="grid md:grid-cols-4 gap-8">
+
+<div class="card text-center">
+<h3 class="font-semibold mb-2">Validator Staking</h3>
+<p class="text-slate-400 text-sm">Validators stake LAT to participate in validation.</p>
 </div>
 
-<div class="grid md:grid-cols-4 gap-10 text-center">
-
-<div>
-
-<h3 class="font-bold mb-2">Staking</h3>
-
-<p class="text-sm text-slate-400">
-Validators stake LAT as economic security.
-</p>
-
+<div class="card text-center">
+<h3 class="font-semibold mb-2">Protocol Fees</h3>
+<p class="text-slate-400 text-sm">Applications pay verification fees to the network.</p>
 </div>
 
-<div>
-
-<h3 class="font-bold mb-2">Protocol Fees</h3>
-
-<p class="text-sm text-slate-400">
-Every proof generates LAT demand.
-</p>
-
+<div class="card text-center">
+<h3 class="font-semibold mb-2">Slashing</h3>
+<p class="text-slate-400 text-sm">Malicious validators lose their staked LAT.</p>
 </div>
 
-<div>
-
-<h3 class="font-bold mb-2">Governance</h3>
-
-<p class="text-sm text-slate-400">
-LAT holders shape the protocol evolution.
-</p>
-
-</div>
-
-<div>
-
-<h3 class="font-bold mb-2">Security Collateral</h3>
-
-<p class="text-sm text-slate-400">
-LAT acts as the bond protecting the network.
-</p>
-
+<div class="card text-center">
+<h3 class="font-semibold mb-2">Governance</h3>
+<p class="text-slate-400 text-sm">LAT holders participate in protocol upgrades.</p>
 </div>
 
 </div>
 
 </section>
 
-<!-- CTA -->
+<section id="roadmap" class="container mx-auto px-6 section text-center">
 
-<section class="container mx-auto px-6 py-32 text-center">
-
-<h2 class="text-4xl font-bold mb-6">
-
-Future-Proof Your dApp
-
+<h2 class="text-3xl font-bold mb-16">
+Roadmap
 </h2>
 
-<p class="text-slate-400 mb-10">
+<div class="grid md:grid-cols-4 gap-8">
 
-Add Post-Quantum security with one integration.
+<div class="card">
+Phase 1<br><br>
+Protocol Design
+</div>
 
-</p>
+<div class="card">
+Phase 2<br><br>
+Validator Testnet
+</div>
 
-<button class="bg-white text-black px-10 py-4 rounded-lg font-bold">
+<div class="card">
+Phase 3<br><br>
+Developer API Launch
+</div>
 
-Start Building
+<div class="card">
+Phase 4<br><br>
+Mainnet PQC Layer
+</div>
 
-</button>
+</div>
 
 </section>
 
-<!-- FOOTER -->
+<footer class="border-t border-slate-900 py-16 text-center text-sm text-slate-500">
 
-<footer class="container mx-auto px-6 py-20 border-t border-slate-900 text-center">
+<div class="space-x-6 mb-6">
 
-<p class="text-slate-500 text-sm">
+<a href="#">Twitter</a>
+<a href="#">Telegram</a>
+<a href="#">GitHub</a>
 
-© 2026 LATTICE Labs — Securing the Base Ecosystem.
+</div>
 
+<p>
+© 2026 LATTICE Labs — The Quantum Security Layer for Base
 </p>
 
 </footer>
 
+<script>
+
+function comingSoon(){
+alert("Staking App Coming Soon");
+}
+
+</script>
+
 </body>
-</htm
+</html>
