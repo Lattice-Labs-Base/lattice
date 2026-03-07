@@ -12,75 +12,82 @@
     .section{ padding-top:100px; padding-bottom:100px; }
     .card{ background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:28px; transition:0.3s; height: 100%; }
     .card:hover{ border-color:#3b82f6; transform:translateY(-4px); }
-    .flywheel{ display:flex; flex-wrap:wrap; justify-content:center; gap:20px; align-items:center; }
 </style>
 </head>
 <body>
 
 <div class="hero-bg"></div>
 
-<nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
-    <div class="text-2xl font-bold text-blue-400">LATTICE</div>
+<nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center relative z-20">
+    <div class="text-2xl font-bold text-blue-400 tracking-tighter cursor-pointer" onclick="location.reload()">LATTICE</div>
     <div class="space-x-8 text-sm hidden md:flex font-medium">
         <a href="#architecture" class="hover:text-blue-400">Architecture</a>
         <a href="#protocol" class="hover:text-blue-400">Protocol</a>
         <a href="#token" class="hover:text-blue-400">Token</a>
         <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
     </div>
-    <a href="./%20whitepaper.pdf" target="_blank" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold">Whitepaper</a>
+    <a href="./%20whitepaper.pdf" target="_blank" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-500">Whitepaper</a>
 </nav>
 
 <section class="text-center section max-w-5xl mx-auto px-6 relative z-10">
     <h1 class="text-7xl font-bold mb-6 text-blue-400 tracking-tight">LATTICE</h1>
-    <p class="text-2xl text-slate-300 mb-6 font-semibold">Validator Infrastructure for the Base Ecosystem</p>
+    <p class="text-2xl text-slate-300 mb-6 font-semibold uppercase tracking-widest">Validator Infrastructure</p>
     <p class="text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-        [span_0](start_span)[span_1](start_span)Lattice is a decentralized validator network providing high-performance, quantum-safe infrastructure for on-chain applications on Base[span_0](end_span)[span_1](end_span).
+        Lattice is a decentralized validator network providing high-performance, quantum-safe infrastructure for the Base ecosystem.
     </p>
 
     <div class="flex justify-center gap-6 flex-wrap">
-        <a href="./%20whitepaper.pdf" target="_blank" class="bg-white text-black px-10 py-4 rounded-lg font-bold">Read Whitepaper</a>
-        <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank" class="border border-slate-600 px-10 py-4 rounded-lg font-bold">View Token</a>
-        <button onclick="comingSoon()" class="bg-blue-600 px-10 py-4 rounded-lg font-bold shadow-[0_0_20px_rgba(37,99,235,0.5)]">Stake LAT</button>
+        <a href="./%20whitepaper.pdf" target="_blank" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200">Read Whitepaper</a>
+        <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank" class="border border-slate-600 px-10 py-4 rounded-lg font-bold hover:bg-white/5">View Token</a>
+        <button onclick="comingSoon()" class="bg-blue-600 px-10 py-4 rounded-lg font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-blue-500">Stake LAT</button>
     </div>
 </section>
 
 <section id="architecture" class="section text-center">
     <h2 class="text-3xl font-bold mb-12">Network Architecture</h2>
     <div class="max-w-4xl mx-auto px-6">
-        <img src="./lattice-architecture.png" onerror="this.src='./lattice-architecture.PNG'" alt="LATTICE Architecture" class="mx-auto border border-slate-800 rounded-2xl shadow-2xl w-full">
+        <img src="./lattice-architecture.png" onerror="this.src='./lattice-architecture.PNG'" alt="Architecture" class="mx-auto border border-slate-800 rounded-2xl shadow-2xl w-full">
     </div>
 </section>
 
-<section id="protocol" class="section border-t border-slate-900">
-    <h2 class="text-3xl text-center font-bold mb-16">Protocol Infrastructure</h2>
-    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+<section id="roadmap" class="section border-t border-slate-900 px-6">
+    <h2 class="text-3xl font-bold mb-16 text-center">Strategic Roadmap</h2>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 text-left">
         <div class="card">
-            <h3 class="text-xl font-bold mb-4 text-blue-400">Validator Network</h3>
-            [span_2](start_span)<p class="text-slate-400 text-sm">Validators secure the protocol by staking LAT tokens and verifying proofs[span_2](end_span).</p>
+            <div class="text-blue-500 font-bold mb-2">PHASE 1 (COMPLETED)</div>
+            <h3 class="text-xl font-bold mb-4">Protocol Design</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Infrastructure architecture for Base network and Dilithium-based security research finalized.</p>
         </div>
         <div class="card">
-            <h3 class="text-xl font-bold mb-4 text-blue-400">PQC Security</h3>
-            [span_3](start_span)<p class="text-slate-400 text-sm">Dilithium-based signatures shield Base against quantum threats like Shor's Algorithm[span_3](end_span).</p>
+            <div class="text-blue-500 font-bold mb-2">PHASE 2 (2026 Q2)</div>
+            <h3 class="text-xl font-bold mb-4">Network Launch</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Deployment of decentralized validator testnet and staking protocol activation.</p>
         </div>
         <div class="card">
-            <h3 class="text-xl font-bold mb-4 text-blue-400">Economic Flywheel</h3>
-            [span_4](start_span)[span_5](start_span)<p class="text-slate-400 text-sm">Network usage drives token demand and validator rewards in a self-reinforcing loop[span_4](end_span)[span_5](end_span).</p>
+            <div class="text-blue-500 font-bold mb-2">PHASE 3 (2026 Q4)</div>
+            <h3 class="text-xl font-bold mb-4">Dev Tools & PQC</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Public release of Developer SDKs and full integration of Post-Quantum Cryptography layer.</p>
+        </div>
+        <div class="card">
+            <div class="text-blue-500 font-bold mb-2">PHASE 4 (2027+)</div>
+            <h3 class="text-xl font-bold mb-4">Ecosystem Expansion</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Scaling the validator network to secure cross-chain protocols and high-value dApps.</p>
         </div>
     </div>
 </section>
 
 <footer class="border-t border-slate-900 pt-20 pb-10 text-center px-6">
     <div class="flex justify-center gap-10 mb-10 text-sm font-bold">
-        <a href="https://x.com/Lattice_Base" target="_blank">Twitter</a>
-        <a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
-        <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank">GitHub</a>
+        <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-white">Twitter</a>
+        <a href="https://t.me/Lattice_LAT" target="_blank" class="hover:text-white">Telegram</a>
+        <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-white">GitHub</a>
     </div>
-    <p class="font-mono text-blue-400 text-sm break-all">Contract: 0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74</p>
+    <p class="font-mono text-blue-400 text-sm break-all">0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74</p>
 </footer>
 
 <script>
     function comingSoon() {
-        [span_6](start_span)[span_7](start_span)alert("LATTICE Mainnet Launch: Q2 2026. Staking dashboard will be available at launch[span_6](end_span)[span_7](end_span). Stay tuned!");
+        alert("LATTICE Infrastructure Mainnet Launch: Q2 2026.\n\nStaking and Validator Dashboard will be available upon launch. Stay tuned on Twitter/Telegram for updates!");
     }
 </script>
 
