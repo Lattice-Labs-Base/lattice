@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LATTICE | Base Infrastructure</title>
+<title>Lattice | Validator Infrastructure for Base</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -22,23 +22,29 @@ background:radial-gradient(circle at center, rgba(0,120,255,0.25), transparent 7
 }
 
 .section{
-padding:120px 20px;
 max-width:1100px;
 margin:auto;
+padding:100px 20px;
 }
 
 .card{
 background:#0a0f1c;
 border:1px solid rgba(255,255,255,0.08);
 border-radius:14px;
-padding:28px;
+padding:30px;
 }
 
-a.button{
+.button{
 background:#2563eb;
-padding:12px 24px;
+padding:12px 26px;
 border-radius:10px;
 font-weight:600;
+}
+
+.button-outline{
+border:1px solid rgba(255,255,255,0.2);
+padding:12px 26px;
+border-radius:10px;
 }
 
 </style>
@@ -57,17 +63,9 @@ LATTICE
 
 <div class="flex gap-6 text-sm">
 
-<a href="https://github.com/lattice-labs-base/lattice" target="_blank">
-GitHub
-</a>
-
-<a href="https://x.com/Lattice_Base" target="_blank">
-X
-</a>
-
-<a href="https://t.me/Lattice_LAT" target="_blank">
-Telegram
-</a>
+<a href="https://github.com/lattice-labs-base/lattice" target="_blank">GitHub</a>
+<a href="https://x.com/Lattice_Base" target="_blank">X</a>
+<a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
 
 </div>
 
@@ -78,23 +76,36 @@ Telegram
 <section class="hero text-center py-32">
 
 <h2 class="text-5xl font-bold mb-6">
-Quantum-Safe Infrastructure for Base
+
+Decentralized Validator Infrastructure for Base
+
 </h2>
 
 <p class="text-gray-400 max-w-xl mx-auto mb-10">
-Lattice provides a decentralized validation network
-designed to protect blockchain infrastructure
-from future quantum threats.
+
+Lattice is a distributed validator network designed to secure
+the Base ecosystem.  
+Its first deployment delivers post-quantum cryptographic protection
+for next-generation blockchain applications.
+
 </p>
 
-<div class="flex justify-center gap-6">
+<div class="flex justify-center gap-6 flex-wrap">
 
-<a href="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/%20whitepaper.pdf" class="button" target="_blank">
+<a
+href="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/%20whitepaper.pdf"
+target="_blank"
+class="button"
+>
 Read Whitepaper
 </a>
 
-<a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" class="button" target="_blank">
-View Token
+<a
+href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
+target="_blank"
+class="button-outline"
+>
+View LAT Token
 </a>
 
 </div>
@@ -111,17 +122,17 @@ Lattice Architecture
 
 <img
 src="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/lattice-architecture.PNG?raw=true"
-class="rounded-xl mx-auto border border-white/10"
+class="mx-auto rounded-xl border border-white/10"
 />
 
 </section>
 
-<!-- PROTOCOL -->
+<!-- FEATURES -->
 
 <section class="section">
 
-<h3 class="text-3xl font-bold mb-12 text-center">
-Protocol Design
+<h3 class="text-3xl font-bold text-center mb-14">
+Core Components
 </h3>
 
 <div class="grid md:grid-cols-3 gap-8">
@@ -133,8 +144,11 @@ Validator Network
 </h4>
 
 <p class="text-gray-400">
-Decentralized validators coordinate cryptographic
-verification across the network.
+
+A decentralized network of validators
+that coordinate cryptographic verification
+for blockchain security.
+
 </p>
 
 </div>
@@ -142,12 +156,15 @@ verification across the network.
 <div class="card">
 
 <h4 class="text-xl font-bold mb-2">
-Post-Quantum Cryptography
+Post-Quantum Security
 </h4>
 
 <p class="text-gray-400">
-Dilithium-based signature verification ensures
-future-proof security against quantum computing.
+
+Lattice integrates quantum-resistant
+signature verification to protect
+future blockchain infrastructure.
+
 </p>
 
 </div>
@@ -155,12 +172,14 @@ future-proof security against quantum computing.
 <div class="card">
 
 <h4 class="text-xl font-bold mb-2">
-Base Integration
+Base Ecosystem
 </h4>
 
 <p class="text-gray-400">
-Designed specifically for Base ecosystem
-smart contracts and applications.
+
+Built specifically for applications
+running on the Base Layer-2 ecosystem.
+
 </p>
 
 </div>
@@ -177,10 +196,11 @@ smart contracts and applications.
 LAT Token
 </h3>
 
-<p class="text-gray-400 max-w-xl mx-auto mb-6">
+<p class="text-gray-400 max-w-xl mx-auto mb-8">
 
 LAT coordinates validator incentives,
-network governance and protocol security.
+governance, and security participation
+within the Lattice network.
 
 </p>
 
@@ -189,7 +209,7 @@ href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
 target="_blank"
 class="button"
 >
-View Token on BaseScan
+View on BaseScan
 </a>
 
 </section>
@@ -202,9 +222,10 @@ View Token on BaseScan
 Whitepaper
 </h3>
 
-<p class="text-gray-400 mb-6">
+<p class="text-gray-400 mb-8">
 
-Read the full Lattice protocol specification.
+Read the full protocol specification and
+technical architecture of the Lattice network.
 
 </p>
 
@@ -213,9 +234,7 @@ href="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578
 target="_blank"
 class="button"
 >
-
 Download Whitepaper
-
 </a>
 
 </section>
@@ -224,30 +243,20 @@ Download Whitepaper
 
 <footer class="text-center py-20 border-t border-white/10">
 
-<div class="flex justify-center gap-6 mb-6">
+<div class="flex justify-center gap-8 mb-6">
 
-<a href="https://x.com/Lattice_Base" target="_blank">
-X
-</a>
+<a href="https://x.com/Lattice_Base" target="_blank">X</a>
 
-<a href="https://t.me/Lattice_LAT" target="_blank">
-Telegram
-</a>
+<a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
 
-<a href="https://github.com/lattice-labs-base/lattice" target="_blank">
-GitHub
-</a>
+<a href="https://github.com/lattice-labs-base/lattice" target="_blank">GitHub</a>
 
-<a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank">
-BaseScan
-</a>
+<a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank">BaseScan</a>
 
 </div>
 
 <p class="text-gray-500 text-sm">
-
 © 2026 Lattice Labs
-
 </p>
 
 </footer>
