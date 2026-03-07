@@ -24,7 +24,7 @@ position:absolute;
 top:-200px;
 left:50%;
 transform:translateX(-50%);
-width:1000px;
+width:900px;
 height:600px;
 background:radial-gradient(circle,rgba(59,130,246,0.25),transparent 70%);
 z-index:-1;
@@ -39,7 +39,7 @@ padding-bottom:100px;
 background:#0f172a;
 border:1px solid #1e293b;
 border-radius:14px;
-padding:30px;
+padding:28px;
 transition:0.3s;
 }
 
@@ -53,41 +53,12 @@ display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:20px;
+align-items:center;
 }
 
 .arrow{
 font-size:22px;
 opacity:0.7;
-}
-
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.modal-content{
-width:90%;
-height:90%;
-background:#020617;
-border-radius:12px;
-overflow:hidden;
-}
-
-.close{
-position:absolute;
-top:20px;
-right:30px;
-font-size:28px;
-cursor:pointer;
-color:white;
 }
 
 </style>
@@ -103,9 +74,7 @@ color:white;
 <nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
 
 <div class="text-2xl font-bold text-blue-400">
-
 LATTICE
-
 </div>
 
 <div class="space-x-8 text-sm hidden md:flex">
@@ -117,12 +86,13 @@ LATTICE
 
 </div>
 
-<button onclick="openWhitepaper()"
+<a href="whitepaper.pdf"
+target="_blank"
 class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold">
 
 Whitepaper
 
-</button>
+</a>
 
 </nav>
 
@@ -138,7 +108,7 @@ LATTICE
 
 <p class="text-2xl text-slate-300 mb-6">
 
-Validator Infrastructure for Base
+Validator Infrastructure for the Base Ecosystem
 
 </p>
 
@@ -151,12 +121,13 @@ the Base ecosystem with post-quantum cryptography.
 
 <div class="flex justify-center gap-6 flex-wrap">
 
-<button onclick="openWhitepaper()"
+<a href="whitepaper.pdf"
+target="_blank"
 class="bg-white text-black px-8 py-4 rounded-lg font-bold">
 
 Read Whitepaper
 
-</button>
+</a>
 
 <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
 target="_blank"
@@ -166,11 +137,10 @@ View Token
 
 </a>
 
-<a href="https://github.com/lattice-labs-base/lattice"
-target="_blank"
-class="border border-slate-600 px-8 py-4 rounded-lg">
+<a href="#staking"
+class="bg-blue-600 px-8 py-4 rounded-lg font-bold">
 
-GitHub
+Stake LAT
 
 </a>
 
@@ -189,10 +159,8 @@ Architecture
 </h2>
 
 <img
-
-src="https://raw.githubusercontent.com/Lattice-Labs-Base/lattice/main/lattice-architecture.PNG"
-
-class="mx-auto border border-slate-800 rounded-xl max-w-4xl">
+src="lattice-architecture.png"
+class="mx-auto border border-slate-800 rounded-xl w-full max-w-3xl">
 
 </section>
 
@@ -210,7 +178,9 @@ Protocol Infrastructure
 
 <div class="card">
 
-<h3 class="text-xl font-bold mb-2">Post-Quantum Security</h3>
+<h3 class="text-xl font-bold mb-2">
+Post-Quantum Security
+</h3>
 
 <p class="text-slate-400 text-sm">
 
@@ -223,12 +193,14 @@ against future quantum attacks.
 
 <div class="card">
 
-<h3 class="text-xl font-bold mb-2">Validator Network</h3>
+<h3 class="text-xl font-bold mb-2">
+Validator Network
+</h3>
 
 <p class="text-slate-400 text-sm">
 
-A distributed network validating cryptographic proofs
-for blockchain security.
+A decentralized validator network verifying
+cryptographic proofs.
 
 </p>
 
@@ -236,12 +208,14 @@ for blockchain security.
 
 <div class="card">
 
-<h3 class="text-xl font-bold mb-2">Developer Integration</h3>
+<h3 class="text-xl font-bold mb-2">
+Developer Integration
+</h3>
 
 <p class="text-slate-400 text-sm">
 
-Applications integrate quantum protection
-through simple validation calls.
+Applications integrate security through
+simple validation calls.
 
 </p>
 
@@ -326,11 +300,8 @@ Roadmap
 <div class="max-w-3xl mx-auto space-y-6 text-slate-400">
 
 <p>2025 — Protocol Design</p>
-
 <p>2026 — Validator Network Launch</p>
-
 <p>2026 — Post-Quantum Security Integration</p>
-
 <p>Future — Base Ecosystem Expansion</p>
 
 </div>
@@ -343,59 +314,28 @@ Roadmap
 
 <div class="flex justify-center gap-10 mb-10 text-sm font-bold">
 
-<a href="https://x.com/Lattice_Base" target="_blank">Twitter</a>
+<a href="https://x.com/Lattice_Base" target="_blank">
+Twitter
+</a>
 
-<a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
+<a href="https://t.me/Lattice_LAT" target="_blank">
+Telegram
+</a>
 
-<a href="https://github.com/lattice-labs-base/lattice" target="_blank">GitHub</a>
+<a href="https://github.com/lattice-labs-base/lattice" target="_blank">
+GitHub
+</a>
 
 </div>
 
 <p class="font-mono text-slate-400">
 
+Token Contract  
 0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74
 
 </p>
 
 </footer>
-
-<!-- WHITEPAPER MODAL -->
-
-<div id="whitepaperModal" class="modal">
-
-<span class="close" onclick="closeWhitepaper()">×</span>
-
-<div class="modal-content">
-
-<iframe
-
-src="https://raw.githubusercontent.com/Lattice-Labs-Base/lattice/main/whitepaper.pdf"
-
-width="100%"
-
-height="100%">
-
-</iframe>
-
-</div>
-
-</div>
-
-<script>
-
-function openWhitepaper(){
-
-document.getElementById("whitepaperModal").style.display="flex";
-
-}
-
-function closeWhitepaper(){
-
-document.getElementById("whitepaperModal").style.display="none";
-
-}
-
-</script>
 
 </body>
 </html>
