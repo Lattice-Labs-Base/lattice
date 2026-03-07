@@ -5,46 +5,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lattice | Validator Infrastructure for Base</title>
+<title>LATTICE | Validator Infrastructure for Base</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 body{
+font-family:'Inter',sans-serif;
 background:#05070d;
-color:white;
-font-family:system-ui;
+color:#e2e8f0;
 }
 
-.hero{
-background:radial-gradient(circle at center, rgba(0,120,255,0.25), transparent 70%);
+.hero-bg{
+position:absolute;
+top:-200px;
+left:50%;
+transform:translateX(-50%);
+width:1000px;
+height:600px;
+background:radial-gradient(circle,rgba(59,130,246,0.25),transparent 70%);
+z-index:-1;
 }
 
 .section{
-max-width:1100px;
-margin:auto;
-padding:100px 20px;
+padding-top:100px;
+padding-bottom:100px;
 }
 
 .card{
-background:#0a0f1c;
-border:1px solid rgba(255,255,255,0.08);
+background:#0f172a;
+border:1px solid #1e293b;
 border-radius:14px;
 padding:30px;
+transition:0.3s;
 }
 
-.button{
-background:#2563eb;
-padding:12px 26px;
-border-radius:10px;
-font-weight:600;
+.card:hover{
+border-color:#3b82f6;
+transform:translateY(-4px);
 }
 
-.button-outline{
-border:1px solid rgba(255,255,255,0.2);
-padding:12px 26px;
-border-radius:10px;
+.flywheel{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.arrow{
+font-size:22px;
+opacity:0.7;
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.modal-content{
+width:90%;
+height:90%;
+background:#020617;
+border-radius:12px;
+overflow:hidden;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:28px;
+cursor:pointer;
+color:white;
 }
 
 </style>
@@ -53,59 +96,82 @@ border-radius:10px;
 
 <body>
 
+<div class="hero-bg"></div>
+
 <!-- NAV -->
 
-<nav class="flex justify-between items-center p-6 max-w-6xl mx-auto">
+<nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
 
-<h1 class="text-xl font-bold tracking-widest">
+<div class="text-2xl font-bold text-blue-400">
+
 LATTICE
-</h1>
-
-<div class="flex gap-6 text-sm">
-
-<a href="https://github.com/lattice-labs-base/lattice" target="_blank">GitHub</a>
-<a href="https://x.com/Lattice_Base" target="_blank">X</a>
-<a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
 
 </div>
+
+<div class="space-x-8 text-sm hidden md:flex">
+
+<a href="#architecture">Architecture</a>
+<a href="#protocol">Protocol</a>
+<a href="#token">Token</a>
+<a href="#roadmap">Roadmap</a>
+
+</div>
+
+<button onclick="openWhitepaper()"
+class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold">
+
+Whitepaper
+
+</button>
 
 </nav>
 
 <!-- HERO -->
 
-<section class="hero text-center py-32">
+<section class="text-center section max-w-5xl mx-auto px-6">
 
-<h2 class="text-5xl font-bold mb-6">
+<h1 class="text-7xl font-bold mb-6 text-blue-400">
 
-Decentralized Validator Infrastructure for Base
+LATTICE
 
-</h2>
+</h1>
 
-<p class="text-gray-400 max-w-xl mx-auto mb-10">
+<p class="text-2xl text-slate-300 mb-6">
 
-Lattice is a distributed validator network designed to secure
-the Base ecosystem.  
-Its first deployment delivers post-quantum cryptographic protection
-for next-generation blockchain applications.
+Validator Infrastructure for Base
+
+</p>
+
+<p class="text-slate-400 mb-10 max-w-2xl mx-auto">
+
+Lattice is a decentralized validator network securing
+the Base ecosystem with post-quantum cryptography.
 
 </p>
 
 <div class="flex justify-center gap-6 flex-wrap">
 
-<a
-href="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/%20whitepaper.pdf"
-target="_blank"
-class="button"
->
+<button onclick="openWhitepaper()"
+class="bg-white text-black px-8 py-4 rounded-lg font-bold">
+
 Read Whitepaper
+
+</button>
+
+<a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
+target="_blank"
+class="border border-slate-600 px-8 py-4 rounded-lg">
+
+View Token
+
 </a>
 
-<a
-href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
+<a href="https://github.com/lattice-labs-base/lattice"
 target="_blank"
-class="button-outline"
->
-View LAT Token
+class="border border-slate-600 px-8 py-4 rounded-lg">
+
+GitHub
+
 </a>
 
 </div>
@@ -114,39 +180,54 @@ View LAT Token
 
 <!-- ARCHITECTURE -->
 
-<section class="section text-center">
+<section id="architecture" class="section text-center">
 
-<h3 class="text-3xl font-bold mb-12">
-Lattice Architecture
-</h3>
+<h2 class="text-3xl font-bold mb-12">
+
+Architecture
+
+</h2>
 
 <img
-src="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/lattice-architecture.PNG?raw=true"
-class="mx-auto rounded-xl border border-white/10"
-/>
+
+src="https://raw.githubusercontent.com/Lattice-Labs-Base/lattice/main/lattice-architecture.PNG"
+
+class="mx-auto border border-slate-800 rounded-xl max-w-4xl">
 
 </section>
 
-<!-- FEATURES -->
+<!-- PROTOCOL -->
 
-<section class="section">
+<section id="protocol" class="section border-t border-slate-900">
 
-<h3 class="text-3xl font-bold text-center mb-14">
-Core Components
-</h3>
+<h2 class="text-3xl text-center font-bold mb-16">
 
-<div class="grid md:grid-cols-3 gap-8">
+Protocol Infrastructure
+
+</h2>
+
+<div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
 
 <div class="card">
 
-<h4 class="text-xl font-bold mb-2">
-Validator Network
-</h4>
+<h3 class="text-xl font-bold mb-2">Post-Quantum Security</h3>
 
-<p class="text-gray-400">
+<p class="text-slate-400 text-sm">
 
-A decentralized network of validators
-that coordinate cryptographic verification
+Dilithium-based cryptography protects Base
+against future quantum attacks.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3 class="text-xl font-bold mb-2">Validator Network</h3>
+
+<p class="text-slate-400 text-sm">
+
+A distributed network validating cryptographic proofs
 for blockchain security.
 
 </p>
@@ -155,34 +236,50 @@ for blockchain security.
 
 <div class="card">
 
-<h4 class="text-xl font-bold mb-2">
-Post-Quantum Security
-</h4>
+<h3 class="text-xl font-bold mb-2">Developer Integration</h3>
 
-<p class="text-gray-400">
+<p class="text-slate-400 text-sm">
 
-Lattice integrates quantum-resistant
-signature verification to protect
-future blockchain infrastructure.
+Applications integrate quantum protection
+through simple validation calls.
 
 </p>
 
 </div>
 
-<div class="card">
-
-<h4 class="text-xl font-bold mb-2">
-Base Ecosystem
-</h4>
-
-<p class="text-gray-400">
-
-Built specifically for applications
-running on the Base Layer-2 ecosystem.
-
-</p>
-
 </div>
+
+</section>
+
+<!-- FLYWHEEL -->
+
+<section class="section text-center">
+
+<h2 class="text-3xl font-bold mb-10">
+
+Security Flywheel
+
+</h2>
+
+<div class="flywheel">
+
+<div class="card">dApp Usage</div>
+
+<div class="arrow">→</div>
+
+<div class="card">Verification Fees</div>
+
+<div class="arrow">→</div>
+
+<div class="card">LAT Demand</div>
+
+<div class="arrow">→</div>
+
+<div class="card">Validator Yield</div>
+
+<div class="arrow">→</div>
+
+<div class="card">Network Security</div>
 
 </div>
 
@@ -190,76 +287,115 @@ running on the Base Layer-2 ecosystem.
 
 <!-- TOKEN -->
 
-<section class="section text-center">
+<section id="token" class="section border-t border-slate-900 text-center">
 
-<h3 class="text-3xl font-bold mb-10">
+<h2 class="text-3xl font-bold mb-10">
+
 LAT Token
-</h3>
 
-<p class="text-gray-400 max-w-xl mx-auto mb-8">
+</h2>
 
-LAT coordinates validator incentives,
-governance, and security participation
-within the Lattice network.
+<p class="text-slate-400 mb-8 max-w-xl mx-auto">
+
+LAT powers validator staking, protocol security,
+and decentralized governance.
 
 </p>
 
 <a
 href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74"
 target="_blank"
-class="button"
->
+class="bg-blue-600 px-6 py-3 rounded-lg font-bold">
+
 View on BaseScan
+
 </a>
 
 </section>
 
-<!-- WHITEPAPER -->
+<!-- ROADMAP -->
 
-<section class="section text-center">
+<section id="roadmap" class="section border-t border-slate-900 text-center">
 
-<h3 class="text-3xl font-bold mb-10">
-Whitepaper
-</h3>
+<h2 class="text-3xl font-bold mb-12">
 
-<p class="text-gray-400 mb-8">
+Roadmap
 
-Read the full protocol specification and
-technical architecture of the Lattice network.
+</h2>
 
-</p>
+<div class="max-w-3xl mx-auto space-y-6 text-slate-400">
 
-<a
-href="https://github.com/Lattice-Labs-Base/lattice/blob/d46e04a9a8c9a87210dd0578a68a3f25abd9fd2e/%20whitepaper.pdf"
-target="_blank"
-class="button"
->
-Download Whitepaper
-</a>
+<p>2025 — Protocol Design</p>
+
+<p>2026 — Validator Network Launch</p>
+
+<p>2026 — Post-Quantum Security Integration</p>
+
+<p>Future — Base Ecosystem Expansion</p>
+
+</div>
 
 </section>
 
 <!-- FOOTER -->
 
-<footer class="text-center py-20 border-t border-white/10">
+<footer class="border-t border-slate-900 pt-20 pb-10 text-center">
 
-<div class="flex justify-center gap-8 mb-6">
+<div class="flex justify-center gap-10 mb-10 text-sm font-bold">
 
-<a href="https://x.com/Lattice_Base" target="_blank">X</a>
+<a href="https://x.com/Lattice_Base" target="_blank">Twitter</a>
 
 <a href="https://t.me/Lattice_LAT" target="_blank">Telegram</a>
 
 <a href="https://github.com/lattice-labs-base/lattice" target="_blank">GitHub</a>
 
-<a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank">BaseScan</a>
-
 </div>
 
-<p class="text-gray-500 text-sm">
-© 2026 Lattice Labs
+<p class="font-mono text-slate-400">
+
+0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74
+
 </p>
 
 </footer>
+
+<!-- WHITEPAPER MODAL -->
+
+<div id="whitepaperModal" class="modal">
+
+<span class="close" onclick="closeWhitepaper()">×</span>
+
+<div class="modal-content">
+
+<iframe
+
+src="https://raw.githubusercontent.com/Lattice-Labs-Base/lattice/main/whitepaper.pdf"
+
+width="100%"
+
+height="100%">
+
+</iframe>
+
+</div>
+
+</div>
+
+<script>
+
+function openWhitepaper(){
+
+document.getElementById("whitepaperModal").style.display="flex";
+
+}
+
+function closeWhitepaper(){
+
+document.getElementById("whitepaperModal").style.display="none";
+
+}
+
+</script>
 
 </body>
 </html>
