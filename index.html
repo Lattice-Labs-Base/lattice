@@ -45,12 +45,38 @@
     </div>
 </section>
 
-<section id="architecture" class="section text-center">
-    <h2 class="text-3xl font-bold mb-12">Network Architecture</h2>
-    <div class="max-w-4xl mx-auto px-6">
-        <img src="./lattice-architecture.png" onerror="this.src='./lattice-architecture.PNG'" alt="Architecture" class="mx-auto border border-slate-800 rounded-2xl shadow-2xl w-full">
-        <p class="text-slate-400 text-sm mt-6 max-w-xl mx-auto leading-relaxed italic">
-            The VERA Protocol verifies quantum-resistant lattice signatures through a decentralized off-chain verifier network tightly coupled with Base smart contract nodes.
+<section id="architecture" class="section text-center border-t border-slate-900">
+    <h2 class="text-3xl font-bold mb-12">Network Architecture (Sandbox Flow)</h2>
+    <div class="max-w-3xl mx-auto px-6 text-left">
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 md:p-8 font-mono text-xs md:text-sm text-blue-400 leading-relaxed shadow-2xl overflow-x-auto whitespace-pre">┌───────────────────────────────────────────────────────────┐
+│               1. USER / FRONTEND INTERFACE                │
+│  - Triggers Security Verification Request                 │
+│  - Synced with Standard EVM Wallet (MetaMask)             │
+└─────────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+┌───────────────────────────────────────────────────────────┐
+│              2. VERA PROTOCOL MIDDLEWARE                  │
+│  - Generates Simulated Lattice-Based Cryptographic Proof  │
+│  - Computes Shortest Vector Matrix Parameter Envelopes    │
+└─────────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+┌───────────────────────────────────────────────────────────┐
+│                3. ON-CHAIN STATE SETTLEMENT               │
+│  - Network: Base Sepolia Testnet                          │
+│  - Target Contract: 0x3915f1CAb29C890b6627a6AB28fBE13760A2 │
+│  - Execution Method: commitProof(keyId, poly)             │
+└─────────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+┌───────────────────────────────────────────────────────────┐
+│                4. PUBLIC LEDGER VERIFICATION              │
+│  - Cryptographic Artifact Sealed inside Blockspace        │
+│  - State Anchoring Immutable & Verifiable on BaseScan     │
+└───────────────────────────────────────────────────────────┘</div>
+        <p class="text-slate-400 text-sm mt-6 max-w-xl mx-auto text-center leading-relaxed italic">
+            The VERA Protocol sandbox maps out the complete transaction sequence from end-to-end user client integration to immutable state settlement on the Base Sepolia blockspace.
         </p>
     </div>
 </section>
