@@ -23,10 +23,10 @@
     <div class="space-x-8 text-sm hidden md:flex font-medium">
         <a href="#architecture" class="hover:text-blue-400">Architecture</a>
         <a href="#protocol" class="hover:text-blue-400">Protocol</a>
-        <a href="#token" class="hover:text-blue-400">Token</a>
+        <a href="#token" class="hover:text-blue-400">Tokenomics</a>
         <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
     </div>
-    <a href="./%20whitepaper.pdf" target="_blank" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-500">Whitepaper</a>
+    <a href="./whitepaper.pdf" target="_blank" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-500">Whitepaper</a>
 </nav>
 
 <section class="text-center section max-w-5xl mx-auto px-6 relative z-10">
@@ -35,11 +35,11 @@
         Post-Quantum Security Layer for Base
     </p>
     <p class="text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed text-lg">
-        LATTICE is a decentralized validator network that brings post-quantum cryptographic verification to the Base ecosystem.
+        LATTICE is a decentralized validator network introducing the VERA Protocol—a modular post-quantum cryptographic verification layer engineered for the Base ecosystem.
     </p>
 
     <div class="flex justify-center gap-6 flex-wrap">
-        <a href="./%20whitepaper.pdf" target="_blank" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200">Read Whitepaper</a>
+        <a href="./whitepaper.pdf" target="_blank" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200">Read Whitepaper</a>
         <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank" class="border border-slate-600 px-10 py-4 rounded-lg font-bold hover:bg-white/5">View Token</a>
         <button onclick="comingSoon()" class="bg-blue-600 px-10 py-4 rounded-lg font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-blue-500">Stake LAT</button>
     </div>
@@ -50,7 +50,7 @@
     <div class="max-w-4xl mx-auto px-6">
         <img src="./lattice-architecture.png" onerror="this.src='./lattice-architecture.PNG'" alt="Architecture" class="mx-auto border border-slate-800 rounded-2xl shadow-2xl w-full">
         <p class="text-slate-400 text-sm mt-6 max-w-xl mx-auto leading-relaxed italic">
-            LATTICE verifies quantum-resistant signatures through a decentralized validator network integrated with Base smart contracts.
+            The VERA Protocol verifies quantum-resistant lattice signatures through a decentralized off-chain verifier network tightly coupled with Base smart contract nodes.
         </p>
     </div>
 </section>
@@ -59,16 +59,32 @@
     <h2 class="text-3xl text-center font-bold mb-16">Infrastructure Layers</h2>
     <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
         <div class="card">
-            <h3 class="text-xl font-bold mb-4 text-blue-400">PQC Verification</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Utilizing Dilithium-based algorithms to provide a security layer that shields Base from quantum-level threats.</p>
+            <h3 class="text-xl font-bold mb-4 text-blue-400">VERA PQC Engine</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Utilizing matrix shortest vector evaluation and lattice-based algorithms to provide a dual-key routing layer that shields networks from Shor's algorithm threats.</p>
         </div>
         <div class="card">
             <h3 class="text-xl font-bold mb-4 text-blue-400">Validator Staking</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">A robust economic model where validators stake LAT tokens to ensure the accuracy and integrity of cryptographic proofs.</p>
+            <p class="text-slate-400 text-sm leading-relaxed">A robust consensus backing model where node clusters bond LAT tokens to guarantee the correctness of state commitments and penalize malicious behavior via slashing.</p>
         </div>
         <div class="card">
-            <h3 class="text-xl font-bold mb-4 text-blue-400">Seamless SDK</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">Empowering Base developers to integrate quantum-resistant security into their dApps with minimal architectural changes.</p>
+            <h3 class="text-xl font-bold mb-4 text-blue-400">Extend, Not Replace</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Empowering Base developers to integrate post-quantum security parameters seamlessly into existing dApps and standard ECDSA pipelines with zero friction.</p>
+        </div>
+    </div>
+</section>
+
+<section id="token" class="section border-t border-slate-900 px-6">
+    <h2 class="text-3xl font-bold mb-16 text-center">Tokenomics & Network Asset</h2>
+    <div class="max-w-4xl mx-auto text-center">
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="card text-left">
+                <h3 class="text-lg font-bold mb-2 text-blue-400">Security Collateral</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">LAT tokens function as mandatory cryptographic bonding. Verifiers stake LAT to join the PQC network, aligning economic incentives with network integrity.</p>
+            </div>
+            <div class="card text-left">
+                <h3 class="text-lg font-bold mb-2 text-blue-400">Protocol Utility Fees</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Every state anchor verification and quantum-safe payload compilation bundles an infrastructure settlement premium powered entirely by the LAT asset.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -78,23 +94,23 @@
     <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 text-left">
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 1 (COMPLETED)</div>
-            <h3 class="text-lg font-bold mb-3">Protocol Research</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Architecture for Base network and PQC research finalized.</p>
+            <h3 class="text-lg font-bold mb-3">Protocol Research & Design</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Core mathematical framework architecture for Base network integration and initial lattice-inspired cryptographic matrices finalized.</p>
         </div>
         <div class="card">
-            <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 2 (2026 Q2)</div>
-            <h3 class="text-lg font-bold mb-3">Network Launch</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Deployment of decentralized validator testnet and staking activation.</p>
+            <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 2 (2026 Q2 - LAUNCHING)</div>
+            <h3 class="text-lg font-bold mb-3">Sandbox Sandbox & Network Testnet</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Public terminal simulation deployment, contract anchor testing on Base Sepolia, and staking contract orchestration initialization.</p>
         </div>
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 3 (2026 Q4)</div>
-            <h3 class="text-lg font-bold mb-3">Dev Tools Release</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Public release of SDKs for high-security Base dApp integration.</p>
+            <h3 class="text-lg font-bold mb-3">Decentralized Verifier Tools</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Public release of client-facing SDKs and expansion into independent multi-node verification clusters.</p>
         </div>
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 4 (2027+)</div>
-            <h3 class="text-lg font-bold mb-3">Standardization</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Scaling the network to become the global PQC standard for L2 ecosystems.</p>
+            <h3 class="text-lg font-bold mb-3">Zero-Knowledge Standardization</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Transitioning matrix computations into native ZK-proofs, standardizing the network as the ultimate L2 quantum protection consensus layer.</p>
         </div>
     </div>
 </section>
@@ -106,7 +122,7 @@
         <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-white transition">GitHub</a>
     </div>
     <div class="bg-slate-900/50 p-4 rounded-xl max-w-lg mx-auto mb-6 border border-slate-800">
-        <p class="text-[10px] text-slate-500 mb-1 uppercase tracking-widest font-bold">Base Contract</p>
+        <p class="text-[10px] text-slate-500 mb-1 uppercase tracking-widest font-bold">Base Token Contract</p>
         <p class="font-mono text-blue-400 text-xs break-all">0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74</p>
     </div>
     <p class="text-slate-600 text-xs">© 2026 Lattice Labs. Securing the Decentralized Future.</p>
@@ -120,4 +136,3 @@
 
 </body>
 </html>
-
