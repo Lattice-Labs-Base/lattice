@@ -12,6 +12,9 @@
     .section{ padding-top:100px; padding-bottom:100px; }
     .card{ background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:28px; transition:0.3s; height: 100%; }
     .card:hover{ border-color:#3b82f6; transform:translateY(-4px); }
+    /* ブラウザ風の装飾 */
+    .browser-mockup { border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; background: #0f172a; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .browser-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
 </style>
 </head>
 <body>
@@ -21,7 +24,7 @@
 <nav class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center relative z-20">
     <div class="text-2xl font-bold text-blue-400 tracking-tighter cursor-pointer" onclick="location.reload()">LATTICE</div>
     <div class="space-x-8 text-sm hidden md:flex font-medium">
-        <a href="#architecture" class="hover:text-blue-400">Architecture</a>
+        <a href="#architecture" class="hover:text-blue-400">Sandbox</a>
         <a href="#protocol" class="hover:text-blue-400">Protocol</a>
         <a href="#token" class="hover:text-blue-400">Tokenomics</a>
         <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
@@ -39,67 +42,73 @@
     </p>
 
     <div class="flex justify-center gap-6 flex-wrap">
+        <a href="https://vera-sandbox.vercel.app" target="_blank" class="bg-blue-600 text-white px-10 py-4 rounded-lg font-bold shadow-[0_0_30px_rgba(37,99,235,0.5)] hover:bg-blue-500 transform hover:scale-105 transition">Launch Sandbox</a>
         <a href="./whitepaper.pdf" target="_blank" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-slate-200">Read Whitepaper</a>
         <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank" class="border border-slate-600 px-10 py-4 rounded-lg font-bold hover:bg-white/5">View Token</a>
-        <button onclick="comingSoon()" class="bg-blue-600 px-10 py-4 rounded-lg font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:bg-blue-500">Stake LAT</button>
     </div>
 </section>
 
-<section id="architecture" class="section text-center border-t border-slate-900">
-    <h2 class="text-3xl font-bold mb-12 px-6">Network Architecture (Sandbox Flow)</h2>
-    <div class="max-w-xl mx-auto px-6 text-left space-y-6 relative">
+<section id="architecture" class="section border-t border-slate-900">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl font-bold mb-4 text-center">Protocol in Action</h2>
+        <p class="text-slate-400 text-center mb-16 max-w-2xl mx-auto">Experience the end-to-end verification flow on Base Sepolia through our public sandbox terminal.</p>
         
-        <div class="absolute top-4 bottom-4 left-[27px] w-0.5 bg-slate-800 z-0"></div>
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <div class="browser-mockup">
+                <div class="px-4 py-3 bg-slate-900 flex items-center gap-1 border-b border-slate-800">
+                    <span class="browser-dot bg-red-500"></span>
+                    <span class="browser-dot bg-yellow-500"></span>
+                    <span class="browser-dot bg-green-500"></span>
+                    <span class="ml-4 text-[10px] text-slate-500 font-mono">vera-sandbox.vercel.app</span>
+                </div>
+                <div class="aspect-video bg-black relative">
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                        <source src="./sandbox-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="p-4 bg-slate-900/50 text-center">
+                    <a href="https://vera-sandbox.vercel.app" target="_blank" class="text-blue-400 text-sm font-bold hover:underline">Open Live Sandbox Terminal ↗</a>
+                </div>
+            </div>
 
-        <div class="flex items-start gap-4 relative z-10">
-            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">1</div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs md:text-sm">
-                <div class="text-blue-400 font-bold mb-2 uppercase tracking-wide text-[11px] md:text-xs">1. User / Frontend Interface</div>
-                <ul class="list-disc list-inside text-slate-400 space-y-1 text-[11px] md:text-xs">
-                    <li>Triggers Security Verification Request</li>
-                    <li>Synced with Standard EVM Wallet (MetaMask)</li>
-                </ul>
+            <div class="space-y-6 relative">
+                <div class="absolute top-4 bottom-4 left-[27px] w-0.5 bg-slate-800 z-0"></div>
+                
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">1</div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
+                        <div class="text-blue-400 font-bold mb-1 uppercase">User / Frontend Interface</div>
+                        <p class="text-slate-500">MetaMaskとの同期および検証リクエストの開始。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">2</div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
+                        <div class="text-blue-400 font-bold mb-1 uppercase">VERA Protocol Middleware</div>
+                        <p class="text-slate-500">LWE(格子暗号)ベースのシミュレーションペイロードの生成。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">3</div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
+                        <div class="text-blue-400 font-bold mb-1 uppercase">On-Chain State Settlement</div>
+                        <p class="text-slate-500 break-all">Base Sepoliaへの書き込み (commitProof)。</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">4</div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
+                        <div class="text-blue-400 font-bold mb-1 uppercase">Public Ledger Verification</div>
+                        <p class="text-slate-500">BaseScan上での不可逆なエビデンスの構築。</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="flex items-start gap-4 relative z-10">
-            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">2</div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs md:text-sm">
-                <div class="text-blue-400 font-bold mb-2 uppercase tracking-wide text-[11px] md:text-xs">2. VERA Protocol Middleware</div>
-                <ul class="list-disc list-inside text-slate-400 space-y-1 text-[11px] md:text-xs">
-                    <li>Generates Simulated Lattice-Based Cryptographic Proof</li>
-                    <li>Computes Shortest Vector Matrix Parameter Envelopes</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="flex items-start gap-4 relative z-10">
-            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">3</div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs md:text-sm">
-                <div class="text-blue-400 font-bold mb-2 uppercase tracking-wide text-[11px] md:text-xs">3. On-Chain State Settlement</div>
-                <ul class="list-disc list-inside text-slate-400 space-y-1 text-[11px] md:text-xs">
-                    <li>Network: <span class="text-slate-200">Base Sepolia Testnet</span></li>
-                    <li>Target Contract: <span class="text-slate-300 break-all text-[10px] md:text-xs">0x3915f1CAb29C890b6627a6AB28fBE13760A2</span></li>
-                    <li>Execution Method: <span class="text-slate-200">commitProof(keyId, poly)</span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="flex items-start gap-4 relative z-10">
-            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">4</div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs md:text-sm">
-                <div class="text-blue-400 font-bold mb-2 uppercase tracking-wide text-[11px] md:text-xs">4. Public Ledger Verification</div>
-                <ul class="list-disc list-inside text-slate-400 space-y-1 text-[11px] md:text-xs">
-                    <li>Cryptographic Artifact Sealed inside Blockspace</li>
-                    <li>State Anchoring Immutable & Verifiable on BaseScan</li>
-                </ul>
-            </div>
-        </div>
-
     </div>
-    <p class="text-slate-400 text-sm mt-8 max-w-xl mx-auto text-center px-6 leading-relaxed italic">
-        The VERA Protocol sandbox maps out the complete transaction sequence from end-to-end user client integration to immutable state settlement on the Base Sepolia blockspace.
-    </p>
 </section>
 
 <section id="protocol" class="section border-t border-slate-900">
@@ -142,22 +151,22 @@
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 1 (COMPLETED)</div>
             <h3 class="text-lg font-bold mb-3">Protocol Research & Design</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Core mathematical framework architecture for Base network integration and initial lattice-inspired cryptographic matrices finalized.</p>
+            <p class="text-slate-400 text-xs leading-relaxed">Core mathematical framework architecture for Base network integration finalized.</p>
         </div>
         <div class="card">
-            <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 2 (2026 Q2 - LAUNCHING)</div>
-            <h3 class="text-lg font-bold mb-3">Sandbox Deployment & Network Testnet</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Public terminal simulation deployment, contract anchor testing on Base Sepolia, and staking contract orchestration initialization.</p>
+            <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 2 (2026 Q2-Q3)</div>
+            <h3 class="text-lg font-bold mb-3">Sandbox Deployment & Testing</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">Public release of the VERA Sandbox terminal and intensive on-chain workflow validation.</p>
         </div>
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 3 (2026 Q4)</div>
             <h3 class="text-lg font-bold mb-3">Decentralized Verifier Tools</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Public release of client-facing SDKs and expansion into independent multi-node verification clusters.</p>
+            <p class="text-slate-400 text-xs leading-relaxed">Public release of client-facing SDKs and expansion into independent multi-node clusters.</p>
         </div>
         <div class="card">
             <div class="text-blue-500 font-bold mb-2 text-xs">PHASE 4 (2027+)</div>
             <h3 class="text-lg font-bold mb-3">Zero-Knowledge Standardization</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">Transitioning matrix computations into native ZK-proofs, standardizing the network as the ultimate L2 quantum protection consensus layer.</p>
+            <p class="text-slate-400 text-xs leading-relaxed">Transitioning matrix computations into native ZK-proofs for the ultimate L2 protection.</p>
         </div>
     </div>
 </section>
@@ -177,7 +186,7 @@
 
 <script>
     function comingSoon() {
-        alert("LATTICE Mainnet Launch: Q2 2026.\n\nStaking and Validator dashboard will be available at launch. Follow us for early access!");
+        alert("LATTICE Mainnet Launch: Q2 2026.\n\nValidator dashboard will be available at launch. Use the Sandbox to test the protocol today!");
     }
 </script>
 
