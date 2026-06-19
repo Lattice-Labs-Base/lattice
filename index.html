@@ -12,7 +12,7 @@
     .section{ padding-top:100px; padding-bottom:100px; }
     .card{ background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:28px; transition:0.3s; height: 100%; }
     .card:hover{ border-color:#3b82f6; transform:translateY(-4px); }
-    /* ブラウザ風の装飾 */
+    /* Browser Window Mockup */
     .browser-mockup { border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; background: #0f172a; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
     .browser-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
 </style>
@@ -62,10 +62,11 @@
                     <span class="ml-4 text-[10px] text-slate-500 font-mono">vera-sandbox.vercel.app</span>
                 </div>
                 <div class="aspect-video bg-black relative">
-                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-    <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
-    Your browser does not support the video tag.
-</video>
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline controlslist="nodownload">
+                        <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
+                        <source src="./sandbox-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="p-4 bg-slate-900/50 text-center">
                     <a href="https://vera-sandbox.vercel.app" target="_blank" class="text-blue-400 text-sm font-bold hover:underline">Open Live Sandbox Terminal ↗</a>
@@ -78,32 +79,32 @@
                 <div class="flex items-start gap-4 relative z-10">
                     <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">1</div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
-                        <div class="text-blue-400 font-bold mb-1 uppercase">User / Frontend Interface</div>
-                        <p class="text-slate-500">MetaMaskとの同期および検証リクエストの開始。</p>
+                        <div class="text-blue-400 font-bold mb-1 uppercase">1. User / Frontend Interface</div>
+                        <p class="text-slate-400">Triggers Security Verification Request and syncs with standard EVM wallet inputs.</p>
                     </div>
                 </div>
 
                 <div class="flex items-start gap-4 relative z-10">
                     <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">2</div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
-                        <div class="text-blue-400 font-bold mb-1 uppercase">VERA Protocol Middleware</div>
-                        <p class="text-slate-500">LWE(格子暗号)ベースのシミュレーションペイロードの生成。</p>
+                        <div class="text-blue-400 font-bold mb-1 uppercase">2. VERA Protocol Middleware</div>
+                        <p class="text-slate-400">Generates simulated lattice-based cryptographic proof structures and computes vector matrices.</p>
                     </div>
                 </div>
 
                 <div class="flex items-start gap-4 relative z-10">
                     <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">3</div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
-                        <div class="text-blue-400 font-bold mb-1 uppercase">On-Chain State Settlement</div>
-                        <p class="text-slate-500 break-all">Base Sepoliaへの書き込み (commitProof)。</p>
+                        <div class="text-blue-400 font-bold mb-1 uppercase">3. On-Chain State Settlement</div>
+                        <p class="text-slate-400 break-all">Executes state commitment anchoring via commitProof() on the Base Sepolia Testnet contract.</p>
                     </div>
                 </div>
 
                 <div class="flex items-start gap-4 relative z-10">
                     <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-black mt-1">4</div>
                     <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 w-full font-mono text-xs">
-                        <div class="text-blue-400 font-bold mb-1 uppercase">Public Ledger Verification</div>
-                        <p class="text-slate-500">BaseScan上での不可逆なエビデンスの構築。</p>
+                        <div class="text-blue-400 font-bold mb-1 uppercase">4. Public Ledger Verification</div>
+                        <p class="text-slate-400">Seals the post-quantum cryptographic artifact inside immutable blockspace, fully verifiable on BaseScan.</p>
                     </div>
                 </div>
             </div>
