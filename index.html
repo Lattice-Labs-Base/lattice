@@ -61,15 +61,17 @@
                     <span class="browser-dot bg-green-500"></span>
                     <span class="ml-4 text-[10px] text-slate-500 font-mono">vera-sandbox.vercel.app</span>
                 </div>
-                <div class="aspect-video bg-black relative">
-                    <video class="w-full h-full object-cover" autoplay muted loop playsinline controlslist="nodownload">
+                <div class="bg-black w-full flex items-center justify-center overflow-hidden">
+                    <video class="w-full h-auto max-h-[70vh] object-contain" autoplay muted loop playsinline controls>
                         <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
                         <source src="./sandbox-demo.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="p-4 bg-slate-900/50 text-center">
-                    <a href="https://vera-sandbox.vercel.app" target="_blank" class="text-blue-400 text-sm font-bold hover:underline">Open Live Sandbox Terminal ↗</a>
+                <div class="p-4 bg-slate-900 border-t border-slate-800 text-center">
+                    <a href="https://vera-sandbox.vercel.app" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2.5 px-6 rounded-md transition">
+                        Open Live Sandbox Terminal ↗
+                    </a>
                 </div>
             </div>
 
