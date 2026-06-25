@@ -15,6 +15,11 @@
     /* Browser Window Mockup */
     .browser-mockup { border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; background: #0f172a; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
     .browser-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+    .modal-open { overflow: hidden; }
+    /* Custom Scrollbar for Terminal Log */
+    .custom-scroll::-webkit-scrollbar { width: 4px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #020617; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
 </style>
 </head>
 <body>
@@ -29,7 +34,7 @@
         <a href="#protocol" class="hover:text-blue-400">Protocol</a>
         <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
     </div>
-    <a href="./whitepaper.pdf" target="_blank" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-500">Whitepaper</a>
+    <button onclick="openWhitepaper()" class="bg-blue-600 px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-500 transition">Whitepaper</button>
 </nav>
 
 <section class="text-center pt-20 pb-12 max-w-5xl mx-auto px-6 relative z-10">
@@ -48,29 +53,95 @@
 </section>
 
 <section id="sandbox" class="section border-t border-slate-900/50">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6">
         <h2 class="text-4xl font-bold mb-4 text-center">VERA Sandbox Terminal</h2>
-        <p class="text-slate-400 text-center mb-10 max-w-2xl mx-auto">
-            Watch the post-quantum cryptographic proof generation running live on the Base Sepolia network.
+        <p class="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
+            Experience the simulated post-quantum verification engine. Click below to test or watch the interface flow.
         </p>
         
-        <div class="browser-mockup max-w-2xl mx-auto">
-            <div class="px-4 py-3 bg-slate-900 flex items-center gap-1 border-b border-slate-800">
-                <span class="browser-dot bg-red-500"></span>
-                <span class="browser-dot bg-yellow-500"></span>
-                <span class="browser-dot bg-green-500"></span>
-                <span class="ml-4 text-[10px] text-slate-500 font-mono">vera-sandbox.vercel.app</span>
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="browser-mockup lg:col-span-5">
+                <div class="px-4 py-3 bg-slate-900 flex items-center gap-1 border-b border-slate-800">
+                    <span class="browser-dot bg-red-500"></span>
+                    <span class="browser-dot bg-yellow-500"></span>
+                    <span class="browser-dot bg-green-500"></span>
+                    <span class="ml-4 text-[10px] text-slate-500 font-mono">Walkthrough_Demo.mp4</span>
+                </div>
+                <div class="bg-black w-full flex items-center justify-center overflow-hidden aspect-video">
+                    <video class="w-full h-full object-contain" autoplay muted loop playsinline controls>
+                        <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
+                        <source src="./sandbox-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
             </div>
-            <div class="bg-black w-full flex items-center justify-center overflow-hidden">
-                <video class="w-full h-auto max-h-[70vh] object-contain" autoplay muted loop playsinline controls>
-                    <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
-                    <source src="./sandbox-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+
+            <div class="browser-mockup lg:col-span-7">
+                <div class="px-4 py-3 bg-slate-900 flex justify-between items-center border-b border-slate-800">
+                    <div class="flex items-center gap-1">
+                        <span class="browser-dot bg-blue-500"></span>
+                        <span class="ml-2 text-[10px] text-slate-400 font-mono">vera-interactive-terminal v1.0.2</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900">Base Sepolia Ready</span>
+                </div>
+                
+                <div class="p-5 bg-slate-950 font-mono text-xs md:text-sm h-64 overflow-y-auto custom-scroll flex flex-col justify-between" id="terminal-screen">
+                    <div id="terminal-log" class="space-y-1.5 text-slate-400">
+                        <div class="text-slate-500">// LATTICE Cryptographic Verification Environment</div>
+                        <div class="text-slate-500">// Status: Awaiting pipeline initiation trigger...</div>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-t border-slate-900 flex justify-between items-center flex-wrap gap-4" id="terminal-actions">
+                        <div class="text-xs text-slate-500">Payload: <span class="text-blue-400">Standard EVM TX Field</span></div>
+                        <button onclick="runSimulation()" id="sim-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2 rounded text-xs transition tracking-wide shadow-lg shadow-blue-900/30">
+                            GENERATE PQC PROOF
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="p-4 bg-slate-900 border-t border-slate-800 text-center">
-                <a href="https://vera-sandbox.vercel.app" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2.5 px-8 rounded-md transition">
-                    Open Live Sandbox Terminal ↗
+        </div>
+
+        <div class="mt-16 max-w-4xl mx-auto">
+            <div class="flex items-center justify-between border-b border-slate-900 pb-4 mb-6">
+                <h3 class="text-lg font-bold tracking-tight flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Latest On-Chain PQC Anchors
+                </h3>
+                <span class="text-xs text-slate-500 font-mono">Network: Base-Sepolia-L2</span>
+            </div>
+            
+            <div class="space-y-3" id="anchor-history-container">
+                <div class="bg-slate-900/40 border border-slate-900 hover:border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition font-mono text-xs">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="text-blue-400 font-bold">Anchor #186</span>
+                            <span class="text-slate-500 text-[10px]">2026-06-25 05:41:22 UTC</span>
+                        </div>
+                        <div class="text-slate-400 text-[11px]">TxHash: <span class="text-slate-500 break-all">0x7d24a8fc3c2189fb...06c8949fa4b74</span></div>
+                    </div>
+                    <div class="flex items-center gap-3 self-end sm:self-center">
+                        <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">ML-DSA-65</span>
+                        <span class="text-emerald-400 font-bold">● Verified</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/40 border border-slate-900 hover:border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition font-mono text-xs">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="text-blue-400 font-bold">Anchor #185</span>
+                            <span class="text-slate-500 text-[10px]">2026-06-25 02:19:05 UTC</span>
+                        </div>
+                        <div class="text-slate-400 text-[11px]">TxHash: <span class="text-slate-500 break-all">0x4b89dc12ea5f71cb...28d10C8daC9fB56</span></div>
+                    </div>
+                    <div class="flex items-center gap-3 self-end sm:self-center">
+                        <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">ML-DSA-65</span>
+                        <span class="text-emerald-400 font-bold">● Verified</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-6">
+                <a href="https://vera-sandbox.vercel.app" target="_blank" class="text-xs text-blue-400 hover:underline">
+                    Access External Live Sandbox Terminal Fullscreen ↗
                 </a>
             </div>
         </div>
@@ -169,7 +240,7 @@
         <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-white transition">X (Twitter)</a>
         <a href="https://t.me/Lattice_LAT" target="_blank" class="hover:text-white transition">Telegram</a>
         <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-white transition">GitHub</a>
-        <a href="./whitepaper.pdf" target="_blank" class="hover:text-white transition">Whitepaper (PDF)</a>
+        <button onclick="openWhitepaper()" class="hover:text-white transition">Whitepaper (PDF)</button>
     </div>
     <div class="bg-slate-900/50 p-4 rounded-xl max-w-lg mx-auto mb-6 border border-slate-800">
         <p class="text-[10px] text-slate-500 mb-1 uppercase tracking-widest font-bold">Base Token Contract</p>
@@ -177,6 +248,125 @@
     </div>
     <p class="text-slate-600 text-xs">© 2026 Lattice Labs. Securing the Decentralized Future.</p>
 </footer>
+
+<div id="wpModal" class="fixed inset-0 bg-black/90 z-50 hidden flex flex-col justify-between p-4">
+    <div class="flex justify-between items-center max-w-5xl w-full mx-auto pb-3 border-b border-slate-800">
+        <span class="text-xs font-mono text-slate-400">LATTICE_WHITEPAPER.PDF</span>
+        <button onclick="closeWhitepaper()" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-4 py-2 rounded-md transition">
+            ✕ Close & Return
+        </button>
+    </div>
+    <div class="w-full max-w-5xl mx-auto flex-grow my-4 bg-slate-950 rounded-lg overflow-hidden border border-slate-800">
+        <object data="./whitepaper.pdf" type="application/pdf" class="w-full h-full">
+            <div class="flex flex-col items-center justify-center h-full p-6 text-center">
+                <p class="text-slate-400 mb-4 text-sm">Your browser requires direct opening to read the PDF document.</p>
+                <a href="./whitepaper.pdf" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg text-sm">
+                    Open PDF Document ↗
+                </a>
+            </div>
+        </object>
+    </div>
+    <div class="text-center pb-2">
+        <p class="text-[10px] text-slate-600">Lattice Labs Post-Quantum Protocol Framework v1.0</p>
+    </div>
+</div>
+
+<script>
+    // 1. Modal Controls
+    function openWhitepaper() {
+        document.getElementById('wpModal').classList.remove('hidden');
+        document.body.classList.add('modal-open');
+    }
+    function closeWhitepaper() {
+        document.getElementById('wpModal').classList.add('hidden');
+        document.body.classList.remove('modal-open');
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") closeWhitepaper();
+    });
+
+    // 2. Interactive Terminal & History Core Logic
+    let currentAnchorId = 186;
+
+    async function runSimulation() {
+        const btn = document.getElementById('sim-btn');
+        const log = document.getElementById('terminal-log');
+        const screen = document.getElementById('terminal-screen');
+        
+        if(btn.disabled) return;
+        btn.disabled = true;
+        btn.classList.replace('bg-blue-600', 'bg-slate-800');
+        btn.innerText = "PROCESSING...";
+
+        // Terminal animation logs
+        const processSteps = [
+            { text: "<span class='text-amber-400'>[INFO]</span> Initializing VERA PQC Pipeline...", delay: 200 },
+            { text: "<span class='text-amber-400'>[INFO]</span> Fetching standard ECDSA pipeline fields from wallet...", delay: 500 },
+            { text: "<span class='text-blue-400'>[PQC]</span> Simulating ML-DSA-65 (Dilithium) matrix key pair generation...", delay: 800 },
+            { text: "<span class='text-blue-400'>[PQC]</span> Vector polynomial multiplication completed. Matrix size: k=5, l=4.", delay: 500 },
+            { text: "<span class='text-blue-400'>[PQC]</span> Cryptographic artifact generated successfully (Size: 3,296 bytes).", delay: 600 },
+            { text: "<span class='text-amber-400'>[INFO]</span> Transmitting commitProof() hash to Base Sepolia ledger...", delay: 700 }
+        ];
+
+        log.innerHTML = `<div class="text-slate-500">// Resetting active verification pipeline buffers...</div>`;
+        
+        // Loop through logging elements
+        for(let step of processSteps) {
+            await new Promise(r => setTimeout(r, step.delay));
+            log.innerHTML += `<div>${step.text}</div>`;
+            screen.scrollTop = screen.scrollHeight;
+        }
+
+        // Finalize transaction block generation
+        await new Promise(r => setTimeout(r, 600));
+        currentAnchorId++;
+        const mockTx = "0x" + Array.from({length:64}, () => Math.floor(Math.random()*16).toString(16)).join('');
+        const abbreviatedTx = mockTx.substring(0, 18) + "..." + mockTx.substring(48);
+
+        log.innerHTML += `
+            <div class="text-emerald-400 font-bold mt-2">[SUCCESS] State block committed securely!</div>
+            <div class="text-slate-300 text-[11px] bg-slate-900 p-2 rounded mt-1 border border-slate-800">
+                Anchor ID: #${currentAnchorId}<br>
+                Algorithm: ML-DSA-65 (Dilithium)<br>
+                BaseScan Tx: <a href="https://sepolia.basescan.org/" target="_blank" class="text-blue-400 underline">${abbreviatedTx}</a>
+            </div>
+        `;
+        screen.scrollTop = screen.scrollHeight;
+
+        // Append to history container
+        const historyContainer = document.getElementById('anchor-history-container');
+        const now = new Date().toISOString().replace('T', ' ').substring(0, 19) + " UTC";
+        
+        const newHistoryItem = document.createElement('div');
+        newHistoryItem.className = "bg-slate-900/80 border border-blue-900/50 hover:border-blue-500 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition font-mono text-xs opacity-0 transform -translate-y-2";
+        newHistoryItem.style.transition = "all 0.5s ease";
+        
+        newHistoryItem.innerHTML = `
+            <div>
+                <div class="flex items-center gap-3 mb-1">
+                    <span class="text-blue-400 font-bold">Anchor #${currentAnchorId}</span>
+                    <span class="text-slate-500 text-[10px]">${now}</span>
+                </div>
+                <div class="text-slate-400 text-[11px]">TxHash: <span class="text-slate-500 break-all">${mockTx.substring(0,18)}...${mockTx.substring(50)}</span></div>
+            </div>
+            <div class="flex items-center gap-3 self-end sm:self-center">
+                <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">ML-DSA-65</span>
+                <span class="text-emerald-400 font-bold">● Verified</span>
+            </div>
+        `;
+
+        // Prepend and animate item entry
+        historyContainer.insertBefore(newHistoryItem, historyContainer.firstChild);
+        setTimeout(() => {
+            newHistoryItem.classList.remove('opacity-0', '-translate-y-2');
+        }, 50);
+
+        // Reset button state
+        btn.classList.replace('bg-slate-800', 'bg-blue-600');
+        btn.disabled = false;
+        btn.innerText = "GENERATE AGAIN";
+    }
+</script>
 
 </body>
 </html>
