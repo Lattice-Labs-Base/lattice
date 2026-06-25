@@ -131,7 +131,7 @@
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">02</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
                     <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">2. VERA Protocol Middleware</div>
-                    <p class="text-slate-400 leading-relaxed">Generates simulated lattice-based cryptographic proof structures and computes vector matrices.</p>
+                    <p class="text-slate-400 leading-relaxed">Generates modular lattice-inspired cryptographic proof structures and structures vector matrices.</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
@@ -260,14 +260,14 @@
                 card.innerHTML = `
                     <div class="w-full sm:w-auto">
                         <div class="flex flex-wrap items-center gap-2 mb-1">
-                            <span class="text-blue-400 font-bold">Proof #0${txCount > 0 ? txCount - i : 32 - i}</span>
+                            <span class="text-blue-400 font-bold">Anchor #0${txCount > 0 ? txCount - i : 32 - i}</span>
                             <span class="text-slate-500 text-[10px]">${timeString}</span>
                             <span class="text-slate-600 text-[10px]">Block: ${targetBlockNum}</span>
                         </div>
-                        <div class="text-slate-400 text-[11px] truncate">TxHash: <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-slate-500 hover:text-blue-400 underline">${shortTx}</a></div>
+                        <div class="text-slate-400 text-[11px] truncate">Commit Hash: <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-slate-500 hover:text-blue-400 underline">${shortTx}</a></div>
                     </div>
                     <div class="flex items-center gap-3 self-end sm:self-center shrink-0">
-                        <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">ML-DSA-65</span>
+                        <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">Lattice Prototype Payload</span>
                         <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-emerald-400 font-bold hover:underline">● BaseScan ↗</a>
                     </div>
                 `;
@@ -291,9 +291,9 @@
 
         const steps = [
             { text: "<span class='text-amber-400'>[INFO]</span> Initializing VERA PQC Pipeline...", delay: 200 },
-            { text: "<span class='text-blue-400'>[PQC]</span> Generating ML-DSA-65 signatures (k=5, l=4)...", delay: 600 },
-            { text: "<span class='text-blue-400'>[PQC]</span> Cryptographic matrix blocks bound successfully.", delay: 400 },
-            { text: "<span class='text-amber-400'>[INFO]</span> Relaying parameters into Base Sepolia consensus...", delay: 500 }
+            { text: "<span class='text-blue-400'>[PQC]</span> Structuring demonstration lattice parameters (k=5, l=4)...", delay: 600 },
+            { text: "<span class='text-blue-400'>[PQC]</span> Prototype matrix cryptographic vectors bound successfully.", delay: 400 },
+            { text: "<span class='text-amber-400'>[INFO]</span> Relaying state parameters into Base Sepolia consensus...", delay: 500 }
         ];
 
         log.innerHTML = `<div class="text-slate-500">// Purging active verification buffers...</div>`;
@@ -308,7 +308,7 @@
             <div class="text-emerald-400 font-bold mt-2">[SUCCESS] Simulation trace finalized!</div>
             <div class="text-slate-400 text-[10px] mt-1 bg-slate-900 p-2 rounded border border-slate-800">
                 Operator: ${TARGET_WALLET.substring(0,8)}...${TARGET_WALLET.substring(36)}<br>
-                Algorithm: ML-DSA-65 (Dilithium)<br>
+                Type: Demonstration Lattice-Based Payload<br>
                 Network: Base Sepolia Testnet
             </div>`;
         screen.scrollTop = screen.scrollHeight;
