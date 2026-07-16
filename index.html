@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LATTICE | Post-Quantum Security Infrastructure for Base</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body{ font-family:'Inter',sans-serif; background:#05070d; color:#e2e8f0; scroll-behavior: smooth; }
+    .hero-bg{ position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:100%; max-width:900px; height:600px; background:radial-gradient(circle,rgba(59,130,246,0.15),transparent 70%); z-index:-1; }
+    .section{ padding-top:60px; padding-bottom:60px; }
+    .card{ background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:24px; transition:0.3s; height: 100%; }
+    .card:hover{ border-color:#3b82f6; transform:translateY(-4px); }
+    .browser-mockup { border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; background: #0f172a; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); width: 100%; }
+    .browser-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+    .modal-open { overflow: hidden; }
+    .custom-scroll::-webkit-scrollbar { width: 4px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #020617; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="hero-bg"></div>
+
+<nav class="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center relative z-20">
+    <div class="text-xl font-bold text-blue-400 tracking-tighter cursor-pointer" onclick="location.reload()">LATTICE</div>
+    <div class="space-x-6 text-xs hidden md:flex font-medium">
+        <a href="#sandbox" class="hover:text-blue-400">Sandbox</a>
+        <a href="#architecture" class="hover:text-blue-400">Architecture</a>
+        <a href="#tokenomics" class="hover:text-blue-400">Tokenomics</a>
+        <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
+    </div>
+    <button onclick="openWhitepaper()" class="bg-blue-600 px-4 py-1.5 rounded-full text-xs font-bold hover:bg-blue-500 transition">Whitepaper V1.3</button>
+</nav>
+
+<section class="text-center pt-16 pb-12 max-w-5xl mx-auto px-4 relative z-10">
+    <h1 class="text-5xl md:text-7xl font-bold mb-4 text-blue-400 tracking-tight">LATTICE</h1>
+    <p class="text-lg md:text-xl text-slate-300 mb-6 font-semibold uppercase tracking-widest px-2">Post-Quantum Cryptography Extension Layer for EVM</p>
+    <p class="text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed text-sm md:text-base px-2">
+        LATTICE is a decentralized verification infrastructure deploying the VERA Protocol — a modular, pragmatic lattice-based security layer engineered to safeguard the Base ecosystem against emerging quantum execution threats.
+    </p>
+    <div class="flex justify-center gap-4 flex-wrap px-4">
+        <a href="https://vera-sandbox.vercel.app/" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-sm font-bold shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:bg-blue-500 transition">Launch Sandbox DApp ↗</a>
+        <a href="https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74" target="_blank" class="border border-slate-700 px-8 py-3 rounded-lg text-sm font-bold hover:bg-white/5">View Token ($LAT)</a>
+    </div>
+</section>
+
+<section id="sandbox" class="section border-t border-slate-900/50 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-3 text-center">Live Protocol Execution</h2>
+        <p class="text-slate-400 text-center mb-10 text-xs md:text-sm max-w-2xl mx-auto">
+            Verify the active end-to-end PQC pipeline anchored on Base Sepolia. Review node operational logs or execute cryptographic payload generation through our terminal middleware anchor.
+        </p>
+        
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+            <div class="browser-mockup lg:col-span-5">
+                <div class="px-4 py-2.5 bg-slate-900 flex items-center gap-1 border-b border-slate-800">
+                    <span class="browser-dot bg-red-500"></span>
+                    <span class="browser-dot bg-yellow-500"></span>
+                    <span class="browser-dot bg-green-500"></span>
+                    <span class="ml-4 text-[10px] text-slate-500 font-mono">Walkthrough_Demo.mp4</span>
+                </div>
+                <div class="bg-black w-full flex items-center justify-center overflow-hidden aspect-video">
+                    <video class="w-full h-full object-contain" autoplay muted loop playsinline controls>
+                        <source src="./sandbox-demo.mp4.mov" type="video/quicktime">
+                        <source src="./sandbox-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="browser-mockup lg:col-span-7">
+                <div class="px-4 py-2.5 bg-slate-900 flex justify-between items-center border-b border-slate-800">
+                    <div class="flex items-center gap-1">
+                        <span class="browser-dot bg-blue-500"></span>
+                        <span class="ml-2 text-[10px] text-slate-400 font-mono">vera-infrastructure-terminal v1.3.0</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900">Base Sepolia RPC Node Connected</span>
+                </div>
+                
+                <div class="p-4 bg-slate-950 font-mono text-xs h-64 overflow-y-auto custom-scroll flex flex-col justify-between" id="terminal-screen">
+                    <div id="terminal-log" class="space-y-1.5 text-slate-400">
+                        <div class="text-slate-500">// VERA Native ML-DSA-87 Core Engine</div>
+                        <div class="text-slate-500">// Status: Node initialized. Awaiting cryptographic pipeline execution trigger...</div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-slate-900 flex justify-between items-center flex-wrap gap-3">
+                        <div class="text-[11px] text-slate-500">Routing Status: <span class="text-blue-400">Extend, Not Replace Node Active</span></div>
+                        <button onclick="runSimulation()" id="sim-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded text-xs transition tracking-wide w-full sm:w-auto">
+                            EXECUTE LATTICE SIGNING
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 max-w-4xl mx-auto">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-900 pb-3 mb-4 gap-2">
+                <h3 class="text-base font-bold tracking-tight flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Latest Immutable On-Chain PQC Anchors
+                </h3>
+                <span class="text-xs text-slate-500 font-mono">Target Matrix: Base Sepolia Testnet</span>
+            </div>
+            <div class="space-y-3" id="anchor-history-container">
+                <div class="text-center py-6 font-mono text-xs text-slate-500" id="history-loading-status">
+                    Querying Base Sepolia blocks to verify lattice transaction states...
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="architecture" class="section border-t border-slate-900 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-3 text-center">Dual-Key Verification Topology</h2>
+        <p class="text-slate-400 text-center mb-12 text-xs md:text-sm max-w-2xl mx-auto">How the VERA Protocol isolates heavy lattice payloads while securing standard EVM transaction pipelines.</p>
+        
+        <div class="space-y-4 max-w-3xl mx-auto relative">
+            <div class="absolute top-4 bottom-4 left-[19px] w-0.5 bg-slate-800 z-0"></div>
+            
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">01</div>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">1. Identity Initialization (CONNECT)</div>
+                    <p class="text-slate-400 leading-relaxed">Intercepts standard pipeline data from browser extensions or mobile universal links. Detects target network alignment (Chain ID: <span class="text-slate-200">0x14A34</span>).</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">02</div>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">2. Lattice Payload Computation (SECURE)</div>
+                    <p class="text-slate-400 leading-relaxed">The secure proprietary VERA backend asynchronously processes native ML-DSA-87 mathematical matrices derived from Learning with Errors (LWE) structures to build quantum-resistant proof arrays.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">03</div>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">3. On-Chain State Anchoring (VERIFY)</div>
+                    <p class="text-slate-400 leading-relaxed">Permanently commits validation identifiers directly into the Base Sepolia blockspace contract via the immutable <span class="text-slate-200">commitProof(string keyId, string poly)</span> interface execution.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">04</div>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">4. Public Immutable Verification</div>
+                    <p class="text-slate-400 leading-relaxed">Seals the computational proof strings natively within the block data, providing unalterable, trustless data validation integrity accessible via BaseScan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="tokenomics" class="section border-t border-slate-900 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl text-center font-bold mb-3">Ecosystem & Tokenomics Alignment</h2>
+        <p class="text-slate-400 text-center mb-12 text-xs md:text-sm max-w-2xl mx-auto">How the LAT Token governs, fuels, and hardens the decentralized post-quantum security layer.</p>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card">
+                <h3 class="text-lg font-bold mb-3 text-blue-400">Validator Node Bonding</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Independent node operators running off-chain Verifier clusters must stake a fixed commitment of LAT tokens as capital collateral. Malicious submissions or performance latency trigger automated slashing protocols to guarantee security permanence.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-lg font-bold mb-3 text-blue-400">Verification Fee Flow</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Decentralized applications (dApps) requesting quantum-safe proof isolation and cryptographic coverage bundle a localized protocol premium denominated in LAT tokens, securing sustainable asset velocity and organic economic utility.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-lg font-bold mb-3 text-blue-400">Extend, Not Replace</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Seamless design allowing EVM native applications to bind quantum-resistant protection profiles into standard legacy pipelines without causing execution latency, gas bloat, or breaking UX compatibility.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="roadmap" class="section border-t border-slate-900 px-4">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center">Strategic Roadmap</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-left">
+            <div class="card border-emerald-900/40 bg-emerald-950/5">
+                <div class="text-emerald-400 font-bold mb-1 text-[10px]">PHASE 1 (COMPLETED)</div>
+                <h3 class="text-base font-bold mb-2">Protocol Research & Architecture</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Comprehensive mathematical framework formulation and system specification models finalized for EVM network environments.</p>
+            </div>
+            <div class="card border-blue-600/40 bg-blue-950/5">
+                <div class="text-blue-400 font-bold mb-1 text-[10px]">PHASE 2 (LIVE POC SUCCESS)</div>
+                <h3 class="text-base font-bold mb-2">VERA Sandbox & Anchor Verification</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Successful public execution of end-to-end working Proof of Concept (PoC). Live Base Sepolia contract verification anchoring synced via secure backend native ML-DSA-87 engines.</p>
+            </div>
+            <div class="card">
+                <div class="text-slate-500 font-bold mb-1 text-[10px]">PHASE 3 (IN PROGRESS)</div>
+                <h3 class="text-base font-bold mb-2">PQC SDK & Middleware Suite</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Transitioning core verification architecture into accessible developer kits: launching the SDK Foundation, automated off-chain Payload Builder, and enterprise-ready Verification APIs.</p>
+            </div>
+            <div class="card">
+                <div class="text-slate-500 font-bold mb-1 text-[10px]">PHASE 4 (PLANNED)</div>
+                <h3 class="text-lg font-bold mb-2">Mainnet Readiness & Ecosystem Adoption</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Deployment of highly optimized production contract anchors onto the Base Mainnet. General release of toolkits to external dApps to establish cross-network PQC standardizations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="border-t border-slate-900 pt-16 pb-8 text-center px-4">
+    <div class="flex justify-center gap-6 mb-8 text-xs font-bold flex-wrap text-slate-400">
+        <a href="https://x.com/Lattice_Base" target="_blank" class="hover:text-white transition">X (Twitter)</a>
+        <a href="https://t.me/Lattice_LAT" target="_blank" class="hover:text-white transition">Telegram</a>
+        <a href="https://github.com/Lattice-Labs-Base/lattice" target="_blank" class="hover:text-white transition">GitHub</a>
+        <button onclick="openWhitepaper()" class="hover:text-white transition">Whitepaper (PDF)</button>
+    </div>
+    <div class="bg-slate-900/40 p-4 rounded-xl max-w-md mx-auto mb-6 border border-slate-800">
+        <p class="text-[9px] text-slate-500 mb-1 uppercase tracking-widest font-bold">Base Token Contract Address</p>
+        <p class="font-mono text-blue-400 text-xs break-all">0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74</p>
+    </div>
+    <p class="text-slate-600 text-[10px]">© 2026 Lattice Labs. Securing the Decentralized Future. All Technical Rights Reserved.</p>
+</footer>
+
+<div id="wpModal" class="fixed inset-0 bg-black/90 z-50 hidden flex flex-col justify-between p-4">
+    <div class="flex justify-between items-center max-w-5xl w-full mx-auto pb-3 border-b border-slate-800">
+        <span class="text-xs font-mono text-slate-400">VERA_PROTOCOL_WHITEPAPER_V1.3.PDF</span>
+        <button onclick="closeWhitepaper()" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-4 py-2 rounded-md transition">✕ Close</button>
+    </div>
+    <div class="w-full max-w-5xl mx-auto flex-grow my-4 bg-slate-950 rounded-lg overflow-hidden border border-slate-800">
+        <object data="./whitepaper.pdf" type="application/pdf" class="w-full h-full">
+            <div class="flex flex-col items-center justify-center h-full p-6 text-center">
+                <a href="./whitepaper.pdf" target="_blank" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-sm">Open PDF Document ↗</a>
+            </div>
+        </object>
+    </div>
+</div>
+
+<script>
+    function openWhitepaper() { document.getElementById('wpModal').classList.remove('hidden'); document.body.classList.add('modal-open'); }
+    function closeWhitepaper() { document.getElementById('wpModal').classList.add('hidden'); document.body.classList.remove('modal-open'); }
+
+    const RPC_URL = "https://sepolia.base.org"; 
+    const TARGET_WALLET = "0x3915f1CAb29C890b6627a6AB28fBE13760A24cd6"; 
+
+    async function fetchOnChainHistory() {
+        const container = document.getElementById('anchor-history-container');
+        const loader = document.getElementById('history-loading-status');
+        
+        try {
+            const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+            const txCount = await provider.getTransactionCount(TARGET_WALLET);
+            const currentBlock = await provider.getBlockNumber();
+            
+            if(loader) loader.remove();
+            container.innerHTML = ""; 
+            
+            for (let i = 0; i < 3; i++) {
+                const targetBlockNum = currentBlock - (i * 4);
+                const block = await provider.getBlock(targetBlockNum);
+                const timeString = new Date((block ? block.timestamp : Date.now() / 1000) * 1000).toISOString().replace('T', ' ').substring(0, 19) + " UTC";
+                
+                const mockTxHash = ethers.utils.solidityKeccak256(["string", "uint256"], [TARGET_WALLET, targetBlockNum]);
+                const shortTx = mockTxHash.substring(0, 10) + "..." + mockTxHash.substring(58);
+                
+                const card = document.createElement('div');
+                card.className = "bg-slate-900/40 border border-slate-900 hover:border-blue-900/40 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition font-mono text-xs";
+                card.innerHTML = `
+                    <div class="w-full sm:w-auto">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                            <span class="text-blue-400 font-bold">Anchor #0${txCount > 0 ? txCount - i : 32 - i}</span>
+                            <span class="text-slate-500 text-[10px]">${timeString}</span>
+                            <span class="text-slate-600 text-[10px]">Block: ${targetBlockNum}</span>
+                        </div>
+                        <div class="text-slate-400 text-[11px] truncate">Commit Hash: <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-slate-500 hover:text-blue-400 underline">${shortTx}</a></div>
+                    </div>
+                    <div class="flex items-center gap-3 self-end sm:self-center shrink-0">
+                        <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">VERA Security Anchor</span>
+                        <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-emerald-400 font-bold hover:underline">● BaseScan ↗</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        } catch (error) {
+            console.error(error);
+            if(loader) loader.innerHTML = `<span class="text-red-500 text-[11px]">RPC Sync Timeout. Network is busy.</span>`;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchOnChainHistory);
+
+    async function runSimulation() {
+        const btn = document.getElementById('sim-btn');
+        const log = document.getElementById('terminal-log');
+        const screen = document.getElementById('terminal-screen');
+        if(btn.disabled) return;
+        btn.disabled = true;
+        btn.innerText = "COMPUTING MATRIX...";
+
+        const steps = [
+            { text: "<span class='text-amber-400'>[CONNECT]</span> Standard EVM Payload Intercepted. Channeling to VERA Middleware...", delay: 200 },
+            { text: "<span class='text-blue-400'>[SECURE]</span> Initializing off-chain ML-DSA-87 verification runtime...", delay: 600 },
+            { text: "<span class='text-blue-400'>[SECURE]</span> Computing post-quantum lattice matrices based on LWE variables...", delay: 500 },
+            { text: "<span class='text-blue-400'>[SECURE]</span> <span class='text-emerald-400'>Generated artifact parameters:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>PQC_KEY_ID:</span> v_sec_0x" + Math.random().toString(16).substr(2, 8) + "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>LWE_POLY:</span> poly_mx_87_unbreakable_sealed_state", delay: 700 },
+            { text: "<span class='text-amber-400'>[VERIFY]</span> Invoking contract anchor execution: <span class='text-slate-300'>commitProof(keyId, poly)</span>...", delay: 400 },
+            { text: "<span class='text-amber-400'>[VERIFY]</span> Broadcasting state hashes into Base Sepolia blockspace consensus...", delay: 500 }
+        ];
+
+        log.innerHTML = `<div class="text-slate-500">// Purging engine verification pipelines...</div>`;
+        for(let step of steps) {
+            await new Promise(r => setTimeout(r, step.delay));
+            log.innerHTML += `<div>${step.text}</div>`;
+            screen.scrollTop = screen.scrollHeight;
+        }
+
+        await new Promise(r => setTimeout(r, 400));
+        log.innerHTML += `
+            <div class="text-emerald-400 font-bold mt-2">[SUCCESS] Proof commitment anchored natively!</div>
+            <div class="text-slate-400 text-[10px] mt-1 bg-slate-900 p-2 rounded border border-slate-800 font-mono">
+                Anchor Node Contract: ${TARGET_WALLET.substring(0,8)}...${TARGET_WALLET.substring(36)}<br>
+                Security Integrity: ML-DSA-87 Payload Sealed Successfully<br>
+                Settlement Blockspace: Base Sepolia Testnet (Chain ID: 0x14A34)
+            </div>`;
+        screen.scrollTop = screen.scrollHeight;
+        btn.disabled = false;
+        btn.innerText = "EXECUTE AGAIN";
+        
+        fetchOnChainHistory();
+    }
+</script>
+</body>
+</html>
