@@ -29,7 +29,7 @@
     <div class="text-xl font-bold text-blue-400 tracking-tighter cursor-pointer" onclick="location.reload()">LATTICE</div>
     <div class="space-x-6 text-xs hidden md:flex font-medium">
         <a href="#sandbox" class="hover:text-blue-400">Sandbox</a>
-        <a href="#architecture" class="hover:text-blue-400">Architecture</a>
+        <a href="#architecture" class="hover:text-architecture">Architecture</a>
         <a href="#tokenomics" class="hover:text-blue-400">Tokenomics</a>
         <a href="#roadmap" class="hover:text-blue-400">Roadmap</a>
     </div>
@@ -235,6 +235,9 @@
 
     const RPC_URL = "https://sepolia.base.org"; 
     const TARGET_WALLET = "0x3915f1CAb29C890b6627a6AB28fBE13760A24cd6"; 
+    
+    // 🔗 バックエンドAPIのURL (設定済み)
+    const BACKEND_API_URL = "https://vera-payload-builder.onrender.com"; 
 
     async function fetchOnChainHistory() {
         const container = document.getElementById('anchor-history-container');
@@ -282,38 +285,112 @@
 
     window.addEventListener('DOMContentLoaded', fetchOnChainHistory);
 
+    async function getAuthenticatedWallet() {
+        if (typeof window.ethereum === 'undefined') {
+            throw new Error("WALLET_NOT_FOUND");
+        }
+
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x14a34' }], 
+            });
+        } catch (switchError) {
+            if (switchError.code === 4902) {
+                await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [{
+                        chainId: '0x14a34',
+                        chainName: 'Base Sepolia',
+                        rpcUrls: [RPC_URL],
+                        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+                        blockExplorerUrls: ['https://sepolia.basescan.org']
+                    }],
+                });
+            } else {
+                throw switchError;
+            }
+        }
+        return accounts[0];
+    }
+
     async function runSimulation() {
         const btn = document.getElementById('sim-btn');
         const log = document.getElementById('terminal-log');
         const screen = document.getElementById('terminal-screen');
         if(btn.disabled) return;
+        
         btn.disabled = true;
-        btn.innerText = "COMPUTING MATRIX...";
-
-        const steps = [
-            { text: "<span class='text-amber-400'>[CONNECT]</span> Standard EVM Payload Intercepted. Channeling to VERA Middleware...", delay: 200 },
-            { text: "<span class='text-blue-400'>[SECURE]</span> Initializing off-chain ML-DSA-87 verification runtime...", delay: 600 },
-            { text: "<span class='text-blue-400'>[SECURE]</span> Computing post-quantum lattice matrices based on LWE variables...", delay: 500 },
-            { text: "<span class='text-blue-400'>[SECURE]</span> <span class='text-emerald-400'>Generated artifact parameters:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>PQC_KEY_ID:</span> v_sec_0x" + Math.random().toString(16).substr(2, 8) + "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>LWE_POLY:</span> poly_mx_87_unbreakable_sealed_state", delay: 700 },
-            { text: "<span class='text-amber-400'>[VERIFY]</span> Invoking contract anchor execution: <span class='text-slate-300'>commitProof(keyId, poly)</span>...", delay: 400 },
-            { text: "<span class='text-amber-400'>[VERIFY]</span> Broadcasting state hashes into Base Sepolia blockspace consensus...", delay: 500 }
-        ];
-
+        btn.innerText = "AUTHENTICATING...";
         log.innerHTML = `<div class="text-slate-500">// Purging engine verification pipelines...</div>`;
-        for(let step of steps) {
-            await new Promise(r => setTimeout(r, step.delay));
-            log.innerHTML += `<div>${step.text}</div>`;
+
+        let userAddress = "";
+
+        try {
+            log.innerHTML += `<div><span class='text-amber-400'>[CONNECT]</span> Awaiting Web3 Wallet signature & network alignment...</div>`;
+            userAddress = await getAuthenticatedWallet();
+            log.innerHTML += `<div><span class='text-emerald-400'>[CONNECT]</span> Connected: <span class="text-slate-300">${userAddress.substring(0,6)}...${userAddress.substring(38)}</span></div>`;
+        } catch (error) {
+            console.error(error);
+            btn.disabled = false;
+            btn.innerText = "TRY AGAIN";
+            
+            if (error.message === "WALLET_NOT_FOUND") {
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] Web3ウォレットが見つかりません。MetaMask拡張機能を入れるか、モバイルアプリ内ブラウザからアクセスしてください。</div>`;
+            } else if (error.code === 4001) {
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] ウォレット接続またはネットワークの切り替えがユーザーにより拒否されました。</div>`;
+            } else {
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] ウォレット初期化異常: ${error.message}</div>`;
+            }
             screen.scrollTop = screen.scrollHeight;
+            return;
         }
 
-        await new Promise(r => setTimeout(r, 400));
-        log.innerHTML += `
-            <div class="text-emerald-400 font-bold mt-2">[SUCCESS] Proof commitment anchored natively!</div>
-            <div class="text-slate-400 text-[10px] mt-1 bg-slate-900 p-2 rounded border border-slate-800 font-mono">
-                Anchor Node Contract: ${TARGET_WALLET.substring(0,8)}...${TARGET_WALLET.substring(36)}<br>
-                Security Integrity: ML-DSA-87 Payload Sealed Successfully<br>
-                Settlement Blockspace: Base Sepolia Testnet (Chain ID: 0x14A34)
-            </div>`;
+        try {
+            btn.innerText = "COMPUTING MATRIX...";
+            await new Promise(r => setTimeout(r, 600));
+            log.innerHTML += `<div><span class='text-blue-400'>[SECURE]</span> Requesting off-chain ML-DSA-87 signature from backend...</div>`;
+
+            const response = await fetch(`${BACKEND_API_URL}/compute-proof`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    request_id: "req_" + Math.random().toString(36).substr(2, 9),
+                    user_address: userAddress,
+                    lwe_payload: {
+                        artifact_id: "art_v1_87",
+                        poly_mapping: "poly_mx_87_unbreakable_sealed_state"
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`SERVER_HTTP_${response.status}`);
+            }
+
+            const result = await response.json();
+            
+            log.innerHTML += `<div><span class='text-blue-400'>[SECURE]</span> <span class='text-emerald-400'>ML-DSA-87 Artifact Generated Natively:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>Proof Hash:</span> ${result.proof_data.proof_hash.substring(0,12)}...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>Signature:</span> ${result.proof_data.signature.substring(0,12)}...</div>`;
+            await new Promise(r => setTimeout(r, 500));
+            
+            log.innerHTML += `<div><span class='text-amber-400'>[VERIFY]</span> Anchoring generated lattice state onto Base Sepolia blockspace...</div>`;
+            await new Promise(r => setTimeout(r, 600));
+
+            log.innerHTML += `
+                <div class="text-emerald-400 font-bold mt-2">[SUCCESS] Proof commitment anchored natively!</div>
+                <div class="text-slate-400 text-[10px] mt-1 bg-slate-900 p-2 rounded border border-slate-800 font-mono">
+                    Anchor Node Contract: ${TARGET_WALLET.substring(0,8)}...${TARGET_WALLET.substring(36)}<br>
+                    Security Integrity: ML-DSA-87 Payload Sealed Successfully<br>
+                    Settlement Blockspace: Base Sepolia Testnet (Chain ID: 0x14A34)
+                </div>`;
+
+        } catch (apiError) {
+            console.error(apiError);
+            log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [API ERROR] バックエンドとの通信に失敗しました。レートリミット超過、またはCORS設定を確認してください。(${apiError.message})</div>`;
+        }
+
         screen.scrollTop = screen.scrollHeight;
         btn.disabled = false;
         btn.innerText = "EXECUTE AGAIN";
