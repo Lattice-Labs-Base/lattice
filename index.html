@@ -337,12 +337,13 @@
             btn.disabled = false;
             btn.innerText = "TRY AGAIN";
             
+            // 🌐 英語表記に統一
             if (error.message === "WALLET_NOT_FOUND") {
-                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] Web3ウォレットが見つかりません。MetaMask拡張機能を入れるか、モバイルアプリ内ブラウザからアクセスしてください。</div>`;
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] No Web3 Wallet detected. Please install MetaMask extension or access via MetaMask Mobile Browser.</div>`;
             } else if (error.code === 4001) {
-                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] ウォレット接続またはネットワークの切り替えがユーザーにより拒否されました。</div>`;
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] Wallet connection or network switch was rejected by user.</div>`;
             } else {
-                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] ウォレット初期化異常: ${error.message}</div>`;
+                log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] Wallet initialization error: ${error.message}</div>`;
             }
             screen.scrollTop = screen.scrollHeight;
             return;
@@ -388,7 +389,8 @@
 
         } catch (apiError) {
             console.error(apiError);
-            log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [API ERROR] バックエンドとの通信に失敗しました。レートリミット超過、またはCORS設定を確認してください。(${apiError.message})</div>`;
+            // 🌐 英語表記に統一
+            log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [API ERROR] Failed to communicate with backend. Check rate limits or CORS settings. (${apiError.message})</div>`;
         }
 
         screen.scrollTop = screen.scrollHeight;
