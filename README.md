@@ -26,10 +26,10 @@ LATTICE is a decentralized verification infrastructure designed to protect the B
    [ Frontend (Vercel) ]
             │
             ▼
-  [ Verification Gateway ]
+ [ VERA Verification API ]
             │
             ▼
- [ Render Go Engine (ML-DSA-87) ]
+    [ Go PQC Engine ]
             │
             ▼
  [ Base Sepolia Anchor Contract ]</code></pre>
@@ -107,8 +107,8 @@ Triggers the end-to-end verification process, converting standard payload inputs
 
 ###### **Expected Response (200 OK)**
 - **success**: true
-- **message**: "Render Go-based ML-DSA PQC Engine processed successfully."
-- **verification**: Valid (true), Method ("render_go_mldsa_87_verify")
+- **message**: "VERA Post-Quantum Verification Pipeline executed successfully."
+- **verification**: Valid (true), Algorithm ("ML-DSA-87 / NIST FIPS 204")
 - **data**: Contains the calculated payload (algorithmId, publicKeyHash, proofHash, userAddress, expiry, timestamp) and the computed signature.
 
 ---
