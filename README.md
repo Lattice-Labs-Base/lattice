@@ -3,16 +3,16 @@
 LATTICE is a decentralized verification infrastructure designed to protect the Base ecosystem against quantum computation threats through the modular VERA Protocol.
 
 ### 🌐 Official Links
-- **Website:** [https://lattice-labs-base.github.io/lattice/](https://lattice-labs-base.github.io/lattice/)
+- **Website:** https://lattice-labs-base.github.io/lattice/
 - **Telegram:** t.me/Lattice_LAT
-- **BaseScan (Mainnet Asset Layer):** [https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74](https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74)
+- **BaseScan (Mainnet Asset Layer):** https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74
 
 ### 📊 Project Status
 - **Current Core Phase:** Phase 4: Automated On-Chain Anchoring & E2E Pipeline Active
 - **Asset Settlement:** Base Mainnet ($LAT Token Layer)
-- **Verification Engine:** Render (Go ML-DSA-87 Backend)
-- **Blockchain Anchor:** Base Sepolia (Automated Proof Anchoring)
-- **Security & Integrity:** Production-Oriented Core Architecture (Proprietary Middleware Engine with Publicly Verifiable Anchors)
+- **Verification Engine:** Go-based ML-DSA-87 Engine
+- **Blockchain Anchor:** Base Sepolia Testnet
+- **Security & Integrity:** Production-Oriented Architecture
 - **LAT Token Contract:** `0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`
 - **VERA Anchor Contract (Base Sepolia V5):** `0x223214bd2C52D2ACBF22f87a8b6C3aED1C6D9A03`
 
@@ -26,7 +26,7 @@ LATTICE is a decentralized verification infrastructure designed to protect the B
    [ Frontend (Vercel) ]
             │
             ▼
- [ Verification API (Proxy) ]
+  [ Verification Gateway ]
             │
             ▼
  [ Render Go Engine (ML-DSA-87) ]
@@ -38,15 +38,15 @@ LATTICE is a decentralized verification infrastructure designed to protect the B
 
 ### 🚀 VERA Sandbox Terminal (Live Proof of Concept)
 Experience our live end-to-end post-quantum cryptographic verification Proof of Concept (PoC). The terminal demonstrates how standard EVM user pipelines sync with a native ML-DSA-87 backend engine, anchoring cryptographic parameters directly onto the Base Sepolia blockspace in automated real-time transactions.
-- **Live Demo Sandbox Website:** [https://lattice-labs-base.github.io/lattice/](https://lattice-labs-base.github.io/lattice/)
-- **Launch Sandbox DApp (Vercel):** [https://sdk-nu-red.vercel.app](https://sdk-nu-red.vercel.app)
+- **Live Demo Sandbox Website:** https://lattice-labs-base.github.io/lattice/
+- **Launch Sandbox DApp (Vercel):** https://sdk-nu-red.vercel.app
 
 ### 🛡️ Core Architecture & Technical Workflow
 The VERA Protocol utilizes a dual-key routing topology that decouples standard ledger authorization from quantum-safe proof anchoring, enforcing "Extend, not Replace" integration:
 
 1. **Identity & Connectivity (CONNECT)**: Intercepts standard Web3 pipeline payloads from user interactions. Detects network parity on Base Sepolia (Chain ID: `0x14A34`).
 2. **Lattice Payload Computation (SECURE)**: The secure backend performs native ML-DSA-87 signing and verification using lattice-based cryptographic primitives based on the ML-DSA algorithm standardized in NIST FIPS 204.
-3. **On-Chain State Anchoring (VERIFY)**: Executes automated state commitment anchoring via the `CommitProofToChain` pipeline, permanently recording data integrity permanence inside the Base Sepolia ledger (`VERA_Protocol_V5_0`).
+3. **On-Chain State Anchoring (VERIFY)**: Executes automated state commitment anchoring via the `CommitProofToChain` pipeline, permanently anchoring proof metadata on the Base Sepolia ledger (`VERA_Protocol_V5_0`).
 
 ---
 
@@ -89,7 +89,7 @@ This section provides the technical integration specifications for the **VERA Pa
 #### 🌐 Active API Endpoints
 These are backend API endpoints designed to receive structured JSON payloads. Accessing the frontend endpoint directly in a browser will return a 404 Not Found.
 
-- **Frontend API (Vercel Endpoint):** [https://sdk-nu-red.vercel.app/api/test-sign](https://sdk-nu-red.vercel.app/api/test-sign)
+- **Frontend API (Vercel Endpoint):** https://sdk-nu-red.vercel.app/api/test-sign
 - **PQC Backend (Render Engine):** Protected under internal network routing and secure access controls.
 
 #### 🔒 Security & Key Management
