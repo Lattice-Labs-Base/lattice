@@ -70,7 +70,6 @@ Developers can integrate post-quantum proof generation and Base Mainnet anchorin
     }
   }
 </script>
-
 🖥️ 2. Sandbox Terminal
  Live Terminal DApp: https://vera-sdk-mainnet.vercel.app/
  Official Portal: https://lattice-labs-base.github.io/lattice/
