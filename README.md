@@ -6,110 +6,97 @@ LATTICE is a decentralized verification infrastructure designed to protect the B
 - **Website:** https://lattice-labs-base.github.io/lattice/
 - **Telegram:** t.me/Lattice_LAT
 - **BaseScan (Mainnet Asset Layer):** https://basescan.org/token/0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74
+- **Live Terminal DApp:** https://vera-sdk-mainnet.vercel.app/
+- **SDK JavaScript Distribution:** https://vera-sdk-mainnet.vercel.app/vera-pqc-sdk.js
 
 ### 📊 Project Status
-- **Current Core Phase:** Phase 4: Automated On-Chain Anchoring & E2E Pipeline Active
+- **Current Core Phase:** Phase 4: Production Mainnet Deployment & Developer SDK Active
 - **Asset Settlement:** Base Mainnet ($LAT Token Layer)
-- **Verification Engine:** Go-based ML-DSA-87 Engine
-- **Blockchain Anchor:** Base Sepolia Testnet
-- **Security & Integrity:** Production-Oriented Architecture
+- **Verification Engine:** Go-based ML-DSA-87 Engine (Render Microservice)
+- **Blockchain Anchor:** Base Mainnet
+- **Security & Integrity:** Production-Oriented Post-Quantum Anchoring Architecture
 - **LAT Token Contract:** `0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`
-- **VERA Anchor Contract (Base Sepolia V5):** `0x223214bd2C52D2ACBF22f87a8b6C3aED1C6D9A03`
+- **VERA Anchor Contract (Base Mainnet V5):** `0x34233747E842082fCfeAC2f248159EcB4a6c6f04`
 
 ---
 
 ### 🏗️ System Architecture
 
-<pre><code>  [ Web3 Wallet / DApp ]
-            │
-            ▼
-   [ Frontend (Vercel) ]
-            │
-            ▼
- [ VERA Verification API ]
-            │
-            ▼
-    [ Go PQC Engine ]
-            │
-            ▼
- [ Base Sepolia Anchor Contract ]</code></pre>
+<pre><code>  [ Web3 Wallet / External DApp ]
+                 │
+                 ▼
+  [ VERA PQC Client SDK / Terminal ]
+                 │
+                 ▼
+     [ Vercel Routing Layer ]
+                 │
+                 ▼
+   [ Go PQC Engine (Render Node) ]
+   (ML-DSA-87 / NIST FIPS 204)
+                 │
+                 ▼
+   [ Base Mainnet Anchor Contract ]
+  (0x3423...6f04 / commitProof)</code></pre>
 
 ---
 
-### 🚀 VERA Sandbox Terminal (Live Proof of Concept)
-Experience our live end-to-end post-quantum cryptographic verification Proof of Concept (PoC). The terminal demonstrates how standard EVM user pipelines sync with a native ML-DSA-87 backend engine, anchoring cryptographic parameters directly onto the Base Sepolia blockspace in automated real-time transactions.
-- **Live Demo Sandbox Website:** https://lattice-labs-base.github.io/lattice/
-- **Launch Sandbox DApp (Vercel):** https://sdk-nu-red.vercel.app
+### 🚀 VERA Terminal & Client Integration
 
-### 🛡️ Core Architecture & Technical Workflow
-The VERA Protocol utilizes a dual-key routing topology that decouples standard ledger authorization from quantum-safe proof anchoring, enforcing "Extend, not Replace" integration:
+VERA Protocol provides both a live interactive terminal and an integrable JavaScript SDK (`vera-pqc-sdk.js`) for Web3 application developers to secure EVM workflows against post-quantum threats.
 
-1. **Identity & Connectivity (CONNECT)**: Intercepts standard Web3 pipeline payloads from user interactions. Detects network parity on Base Sepolia (Chain ID: `0x14A34`).
-2. **Lattice Payload Computation (SECURE)**: The secure backend performs native ML-DSA-87 signing and verification using lattice-based cryptographic primitives based on the ML-DSA algorithm standardized in NIST FIPS 204.
-3. **On-Chain State Anchoring (VERIFY)**: Executes automated state commitment anchoring via the `CommitProofToChain` pipeline, permanently anchoring proof metadata on the Base Sepolia ledger (`VERA_Protocol_V5_0`).
+#### ⚡ 1. One-Line SDK Integration
+Developers can integrate post-quantum proof generation and Base Mainnet anchoring directly into their HTML/JS application:
 
----
+```html
+<!-- Ethers.js Dependency -->
+<script src="[https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js](https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js)"></script>
 
-### 🪙 Tokenomics & $LAT Utility
-The **$LAT Token** serves as the core baseline economic asset governing and securing the post-quantum validation ecosystem:
+<!-- VERA PQC SDK -->
+<script src="[https://vera-sdk-mainnet.vercel.app/vera-pqc-sdk.js](https://vera-sdk-mainnet.vercel.app/vera-pqc-sdk.js)"></script>
 
-- **Validator Staking Requirements**: Independent nodes running off-chain Verifier clusters will be required to lock a predetermined allocation of $LAT tokens as collateral. Malicious actions, prolonged downtime, or incorrect proof validation results in capital slashing.
-- **Verification Fee Architecture**: Applications and external protocols requesting decentralized quantum-resistant state security coverage will bundle protocol interaction premiums denominated in $LAT, driving sustainable organic asset demand.
+<script>
+  // Initialize SDK
+  const vera = new VeraSDK();
 
----
-
-### 🗺️ Strategic Roadmap & Milestones
-
-#### 🟩 Phase 1: Research & Architecture ✔ Completed
-- Comprehensive mathematical formulation and system design of lattice-based post-quantum cryptography extensions compatible with EVM network layer rules.
-
-#### 🟦 Phase 2: VERA Sandbox & Proof Anchoring ✔ Completed
-- Execution of a fully functional, end-to-end working Proof of Concept (PoC).
-- Successful deployment of the initial on-chain contract anchor on Base Sepolia.
-- Integration of a native ML-DSA-87 secure backend middleware suite syncing wallet-to-blockchain latency pipelines.
-
-#### 🟨 Phase 3: PQC SDK & Middleware Foundation ✔ Completed
-- Transitioned the core validation pipeline into production-ready Go-based middleware API components.
-- Integrated native ML-DSA-87 / NIST FIPS 204 signature calculation and verification engines.
-
-#### 🟥 Phase 4: Automated On-Chain Anchoring & Ecosystem Adoption (In Progress)
-- **✔ Completed:** Automated end-to-end on-chain proof anchoring on Base Sepolia (`VERA_Protocol_V5_0`).
-- **✔ Completed:** Full Vercel DApp ⇔ Render Go API ⇔ Base Sepolia EVM pipeline integration with active IP rate-limiting.
-- Deployment of optimized production contract anchors onto the Base Mainnet.
-- Strategic onboarding of external decentralized applications (dApps) to build a primary PQC validation network infrastructure across the EVM ecosystem.
-
-Implementation details may evolve as the protocol matures. Public documentation describes the protocol architecture and interfaces, while selected implementation details remain proprietary.
-
----
-
-### ⚙️ VERA Payload Builder (PQC Engine Specs)
-
-This section provides the technical integration specifications for the **VERA Payload Builder (Go-based PQC Engine)**, which serves as the core cryptographic backend.
-
-#### 🌐 Active API Endpoints
-These are backend API endpoints designed to receive structured JSON payloads. Accessing the frontend endpoint directly in a browser will return a 404 Not Found.
-
-- **Frontend API (Vercel Endpoint):** https://sdk-nu-red.vercel.app/api/test-sign
-- **PQC Backend (Render Engine):** Protected under internal network routing and secure access controls.
-
-#### 🔒 Security & Key Management
-- Cryptographic secrets and private signing keys are securely managed through encrypted environment configuration inside Render's administration panel and are never exposed in the public repository.
-
-#### 🔌 API Specifications
-
-##### **PQC Generation & Verification Pipeline (POST /api/test-sign)**
-Triggers the end-to-end verification process, converting standard payload inputs into a secure, Go-calculated signature on the Render engine and anchoring it on-chain.
-
-###### **Request Payload (Example Fields)**
-- **algorithmId**: Integer (representing the selected quantum-safe signature scheme)
-- **userAddress**: String (EVM-compatible wallet address, e.g., "0x...")
-- **proofHash**: String (transaction or proof state hash, e.g., "0x...")
-
-###### **Expected Response (200 OK)**
-- **success**: true
-- **message**: "VERA Post-Quantum Verification Pipeline executed successfully."
-- **verification**: Valid (true), Algorithm ("ML-DSA-87 / NIST FIPS 204")
-- **data**: Contains the calculated payload (algorithmId, publicKeyHash, proofHash, userAddress, expiry, timestamp) and the computed signature.
-
----
-© 2026 Lattice Labs. All rights reserved. Some implementation details remain proprietary.
+  async function runPQC() {
+    try {
+      // Step 1: Connect, generate ML-DSA-87 proof, and commit anchor to Base Mainnet in one call
+      const result = await vera.anchor(window.ethereum);
+      
+      console.log("Transaction Hash:", result.transactionHash);
+      console.log("BaseScan URL:", result.scanUrl);
+    } catch (error) {
+      console.error("PQC Anchoring Failed:", error);
+    }
+  }
+</script>
+🖥️ 2. Sandbox Terminal
+ Live Terminal DApp: https://vera-sdk-mainnet.vercel.app/
+ Official Portal: https://lattice-labs-base.github.io/lattice/
+🛡️ Core Architecture & Technical Workflow
+The VERA Protocol utilizes a dual-key routing topology that decouples standard ledger authorization from quantum-safe proof anchoring, enforcing an "Extend, not Replace" integration paradigm:
+1. Identity & Connectivity (CONNECT): Intercepts Web3 provider payloads and ensures chain alignment with Base Mainnet (Chain ID: ⁠0x2105⁠ / ⁠8453⁠).
+2. Lattice Payload Computation (SECURE): The high-performance Go backend executes native ML-DSA-87 (Dilithium) signing based on NIST FIPS 204 post-quantum standards.
+3. On-Chain State Anchoring (VERIFY): Automatically commits the generated proof state hash to the ⁠VERA_Protocol_V5_0⁠ contract on Base Mainnet (⁠commitProof⁠), providing sub-cent transaction anchoring proof immutability.
+🪙 Tokenomics & $LAT Utility
+The $LAT Token serves as the primary economic asset governing and securing the post-quantum validation network:
+ Validator Staking Requirements: Independent nodes running off-chain Verifier clusters must stake a required quota of $LAT tokens as collateral. Malicious actions or invalid proof commitments result in automatic collateral slashing.
+ Verification Fee Architecture: External dApps requesting quantum-resistant state security cover bundle validation execution fees in $LAT, establishing continuous, utility-driven asset demand.
+🗺️ Strategic Roadmap & Milestones
+🟩 Phase 1: Research & Architecture ✔ Completed
+ Mathematical design and system architecture of EVM-compatible lattice-based cryptography.
+🟦 Phase 2: VERA Sandbox & Testnet Anchoring ✔ Completed
+ Successful execution of testnet Proof of Concept (PoC) on Base Sepolia.
+ Deployment and testing of internal Go-based proof computation microservices.
+🟨 Phase 3: PQC SDK & Middleware Foundation ✔ Completed
+ Production-ready Go microservice deployment supporting ML-DSA-87 / NIST FIPS 204 algorithms.
+ Release of ⁠vera-pqc-sdk.js⁠ for lightweight client-side dApp integration.
+🟥 Phase 4: Mainnet Deployment & Ecosystem Adoption (Active)
+ ✔ Completed: Full contract deployment onto Base Mainnet (⁠0x34233747E842082fCfeAC2f248159EcB4a6c6f04⁠).
+ ✔ Completed: Live End-to-End pipeline (Vercel DApp ⇔ Render Go Engine ⇔ Base Mainnet EVM).
+ In Progress: Onboarding external Base ecosystem dApps to expand primary PQC verification coverage.
+⚙️ Smart Contract Reference (Base Mainnet)
+ Network: Base Mainnet (Chain ID: ⁠8453⁠ / ⁠0x2105⁠)
+ Contract Address: ⁠0x34233747E842082fCfeAC2f248159EcB4a6c6f04⁠
+ Core Interface: ⁠commitProof(string requestId, address userAddress, string proofHash, string polyMapping)⁠
+© 2026 Lattice Labs. All rights reserved. Selected implementation details remain proprietary.
