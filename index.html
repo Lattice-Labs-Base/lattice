@@ -53,7 +53,7 @@
     <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-bold mb-3 text-center">Live Protocol Execution</h2>
         <p class="text-slate-400 text-center mb-10 text-xs md:text-sm max-w-2xl mx-auto">
-            Verify the active end-to-end PQC pipeline anchored on Base Sepolia. Review node operational logs or execute cryptographic payload generation through our terminal middleware anchor.
+            Verify the active end-to-end PQC pipeline anchored on Base Mainnet. Review node operational logs or execute cryptographic payload generation through our terminal middleware anchor.
         </p>
         
         <div class="grid lg:grid-cols-12 gap-6 items-start">
@@ -78,7 +78,7 @@
                         <span class="browser-dot bg-blue-500"></span>
                         <span class="ml-2 text-[10px] text-slate-400 font-mono">vera-infrastructure-terminal v1.3.0</span>
                     </div>
-                    <span class="text-[9px] font-mono text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900">Base Sepolia RPC Node Connected</span>
+                    <span class="text-[9px] font-mono text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900">Base Mainnet RPC Node Connected</span>
                 </div>
                 
                 <div class="p-4 bg-slate-950 font-mono text-xs h-64 overflow-y-auto custom-scroll flex flex-col justify-between" id="terminal-screen">
@@ -102,11 +102,11 @@
                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     Latest Immutable On-Chain PQC Anchors
                 </h3>
-                <span class="text-xs text-slate-500 font-mono">Target Matrix: Base Sepolia Testnet</span>
+                <span class="text-xs text-slate-500 font-mono">Target Matrix: Base Mainnet</span>
             </div>
             <div class="space-y-3" id="anchor-history-container">
                 <div class="text-center py-6 font-mono text-xs text-slate-500" id="history-loading-status">
-                    Querying Base Sepolia blocks to verify lattice transaction states...
+                    Querying Base Mainnet blocks to verify lattice transaction states...
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">01</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
                     <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">1. Identity Initialization (CONNECT)</div>
-                    <p class="text-slate-400 leading-relaxed">Intercepts standard pipeline data from browser extensions or mobile universal links. Detects target network alignment (Chain ID: <span class="text-slate-200">0x14A34</span>).</p>
+                    <p class="text-slate-400 leading-relaxed">Intercepts standard pipeline data from browser extensions or mobile universal links. Detects target network alignment (Chain ID: <span class="text-slate-200">0x2105</span>).</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
@@ -139,7 +139,7 @@
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">03</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
                     <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">3. On-Chain State Anchoring (VERIFY)</div>
-                    <p class="text-slate-400 leading-relaxed">Permanently commits validation identifiers directly into the Base Sepolia blockspace contract via the immutable <span class="text-slate-200">commitProof(string keyId, string poly)</span> interface execution.</p>
+                    <p class="text-slate-400 leading-relaxed">Permanently commits validation identifiers directly into the Base Mainnet blockspace contract via the immutable <span class="text-slate-200">commitProof(string keyId, string poly)</span> interface execution.</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
@@ -183,20 +183,20 @@
                 <h3 class="text-base font-bold mb-2">Protocol Research & Architecture</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">Comprehensive mathematical framework formulation and system specification models finalized for EVM network environments.</p>
             </div>
-            <div class="card border-blue-600/40 bg-blue-950/5">
-                <div class="text-blue-400 font-bold mb-1 text-[10px]">PHASE 2 (LIVE POC SUCCESS)</div>
+            <div class="card border-emerald-900/40 bg-emerald-950/5">
+                <div class="text-emerald-400 font-bold mb-1 text-[10px]">PHASE 2 (COMPLETED)</div>
                 <h3 class="text-base font-bold mb-2">VERA Sandbox & Anchor Verification</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">Successful public execution of end-to-end working Proof of Concept (PoC). Live Base Sepolia contract verification anchoring synced via secure backend native ML-DSA-87 engines.</p>
             </div>
-            <div class="card">
-                <div class="text-slate-500 font-bold mb-1 text-[10px]">PHASE 3 (IN PROGRESS)</div>
-                <h3 class="text-base font-bold mb-2">PQC SDK & Middleware Suite</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Transitioning core verification architecture into accessible developer kits: launching the SDK Foundation, automated off-chain Payload Builder, and enterprise-ready Verification APIs.</p>
+            <div class="card border-blue-600/40 bg-blue-950/5">
+                <div class="text-blue-400 font-bold mb-1 text-[10px]">PHASE 3 (LIVE ON MAINNET)</div>
+                <h3 class="text-base font-bold mb-2">Mainnet Deployment & SDK Middleware</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Core VERAProtocol contract deployed to Base Mainnet. Transitioning verification architecture into accessible developer kits: launching the SDK Foundation and Payload Builder APIs.</p>
             </div>
             <div class="card">
                 <div class="text-slate-500 font-bold mb-1 text-[10px]">PHASE 4 (PLANNED)</div>
-                <h3 class="text-lg font-bold mb-2">Mainnet Readiness & Ecosystem Adoption</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Deployment of highly optimized production contract anchors onto the Base Mainnet. General release of toolkits to external dApps to establish cross-network PQC standardizations.</p>
+                <h3 class="text-lg font-bold mb-2">Ecosystem Adoption & Scaling</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">General release of toolkits to external dApps to establish cross-network PQC standardizations across the Base ecosystem.</p>
             </div>
         </div>
     </div>
@@ -210,8 +210,8 @@
         <button onclick="openWhitepaper()" class="hover:text-white transition">Whitepaper (PDF)</button>
     </div>
     <div class="bg-slate-900/40 p-4 rounded-xl max-w-md mx-auto mb-6 border border-slate-800">
-        <p class="text-[9px] text-slate-500 mb-1 uppercase tracking-widest font-bold">Base Token Contract Address</p>
-        <p class="font-mono text-blue-400 text-xs break-all">0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74</p>
+        <p class="text-[9px] text-slate-500 mb-1 uppercase tracking-widest font-bold">VERA Protocol Contract Address (Base Mainnet)</p>
+        <p class="font-mono text-blue-400 text-xs break-all">0x34233747E842082fCfeAC2f248159EcB4a6c6f04</p>
     </div>
     <p class="text-slate-600 text-[10px]">© 2026 Lattice Labs. Securing the Decentralized Future. All Technical Rights Reserved.</p>
 </footer>
@@ -234,10 +234,13 @@
     function openWhitepaper() { document.getElementById('wpModal').classList.remove('hidden'); document.body.classList.add('modal-open'); }
     function closeWhitepaper() { document.getElementById('wpModal').classList.add('hidden'); document.body.classList.remove('modal-open'); }
 
-    const RPC_URL = "https://sepolia.base.org"; 
-    const TARGET_WALLET = "0x3915f1CAb29C890b6627a6AB28fBE13760A24cd6"; 
+    // 🔗 Base Mainnet RPC
+    const RPC_URL = "https://mainnet.base.org"; 
     
-    // 🔗 バックエンドAPIのURL (設定済み)
+    // 🔗 メインネットの正確な VERAProtocol コントラクトアドレス
+    const TARGET_WALLET = "0x34233747E842082fCfeAC2f248159EcB4a6c6f04"; 
+    
+    // 🔗 バックエンドAPIのURL
     const BACKEND_API_URL = "https://vera-payload-builder.onrender.com"; 
 
     async function fetchOnChainHistory() {
@@ -269,11 +272,11 @@
                             <span class="text-slate-500 text-[10px]">${timeString}</span>
                             <span class="text-slate-600 text-[10px]">Block: ${targetBlockNum}</span>
                         </div>
-                        <div class="text-slate-400 text-[11px] truncate">Commit Hash: <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-slate-500 hover:text-blue-400 underline">${shortTx}</a></div>
+                        <div class="text-slate-400 text-[11px] truncate">Commit Hash: <a href="https://basescan.org/block/${targetBlockNum}" target="_blank" class="text-slate-500 hover:text-blue-400 underline">${shortTx}</a></div>
                     </div>
                     <div class="flex items-center gap-3 self-end sm:self-center shrink-0">
                         <span class="bg-blue-950/50 text-blue-400 border border-blue-900 px-2 py-0.5 rounded text-[10px]">VERA Security Anchor</span>
-                        <a href="https://sepolia.basescan.org/block/${targetBlockNum}" target="_blank" class="text-emerald-400 font-bold hover:underline">● BaseScan ↗</a>
+                        <a href="https://basescan.org/block/${targetBlockNum}" target="_blank" class="text-emerald-400 font-bold hover:underline">● BaseScan ↗</a>
                     </div>
                 `;
                 container.appendChild(card);
@@ -286,6 +289,7 @@
 
     window.addEventListener('DOMContentLoaded', fetchOnChainHistory);
 
+    // ウォレット接続処理（Base Mainnet: 8453 = 0x2105）
     async function getAuthenticatedWallet() {
         if (typeof window.ethereum === 'undefined') {
             throw new Error("WALLET_NOT_FOUND");
@@ -296,18 +300,18 @@
         try {
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x14a34' }], 
+                params: [{ chainId: '0x2105' }], 
             });
         } catch (switchError) {
             if (switchError.code === 4902) {
                 await window.ethereum.request({
                     method: 'wallet_addEthereumChain',
                     params: [{
-                        chainId: '0x14a34',
-                        chainName: 'Base Sepolia',
+                        chainId: '0x2105',
+                        chainName: 'Base',
                         rpcUrls: [RPC_URL],
                         nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                        blockExplorerUrls: ['https://sepolia.basescan.org']
+                        blockExplorerUrls: ['https://basescan.org']
                     }],
                 });
             } else {
@@ -338,7 +342,6 @@
             btn.disabled = false;
             btn.innerText = "TRY AGAIN";
             
-            // 🌐 英語表記に統一
             if (error.message === "WALLET_NOT_FOUND") {
                 log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [ERROR] No Web3 Wallet detected. Please install MetaMask extension or access via MetaMask Mobile Browser.</div>`;
             } else if (error.code === 4001) {
@@ -377,7 +380,7 @@
             log.innerHTML += `<div><span class='text-blue-400'>[SECURE]</span> <span class='text-emerald-400'>ML-DSA-87 Artifact Generated Natively:</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>Proof Hash:</span> ${result.proof_data.proof_hash.substring(0,12)}...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;➔ <span class='text-blue-300'>Signature:</span> ${result.proof_data.signature.substring(0,12)}...</div>`;
             await new Promise(r => setTimeout(r, 500));
             
-            log.innerHTML += `<div><span class='text-amber-400'>[VERIFY]</span> Anchoring generated lattice state onto Base Sepolia blockspace...</div>`;
+            log.innerHTML += `<div><span class='text-amber-400'>[VERIFY]</span> Anchoring generated lattice state onto Base Mainnet blockspace...</div>`;
             await new Promise(r => setTimeout(r, 600));
 
             log.innerHTML += `
@@ -385,12 +388,11 @@
                 <div class="text-slate-400 text-[10px] mt-1 bg-slate-900 p-2 rounded border border-slate-800 font-mono">
                     Anchor Node Contract: ${TARGET_WALLET.substring(0,8)}...${TARGET_WALLET.substring(36)}<br>
                     Security Integrity: ML-DSA-87 Payload Sealed Successfully<br>
-                    Settlement Blockspace: Base Sepolia Testnet (Chain ID: 0x14A34)
+                    Settlement Blockspace: Base Mainnet (Chain ID: 0x2105)
                 </div>`;
 
         } catch (apiError) {
             console.error(apiError);
-            // 🌐 英語表記に統一
             log.innerHTML += `<div class="text-red-500 font-bold mt-2">❌ [API ERROR] Failed to communicate with backend. Check rate limits or CORS settings. (${apiError.message})</div>`;
         }
 
