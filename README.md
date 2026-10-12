@@ -86,11 +86,18 @@ The VERA Protocol utilizes a dual-key routing topology that decouples standard l
 
 ---
 
-### 🪙 Tokenomics & $LAT Utility
-The **$LAT Token** serves as the primary economic asset governing and securing the post-quantum validation network:
+### 🪙 Ecosystem & $LAT Utility
 
-- **Validator Staking Requirements**: Independent nodes running off-chain Verifier clusters must stake a required quota of $LAT tokens as collateral. Malicious actions or invalid proof commitments result in automatic collateral slashing.
-- **Verification Fee Architecture**: External dApps requesting quantum-resistant state security cover bundle validation execution fees in $LAT, establishing continuous, utility-driven asset demand.
+The **$LAT token** (`0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`) is the ecosystem token associated with the broader Lattice project. 
+
+#### 🔑 Key Principles & Integration Model
+- **No Token Mandate for VERA**: VERA is designed as an open, friction-free security middleware. Developers can integrate and utilize VERA PQC verification without being required to hold or purchase $LAT tokens.
+- **Independent Utility Layer**: $LAT provides governance and ecosystem coordination value without imposing access barriers on core cryptographic tools.
+
+#### 🎯 Proposed Roles & Roadmap Integration
+1. **Community Governance**: Holding $LAT enables community input on development priorities, integration roadmaps, and ecosystem initiatives.
+2. **Developer Support & Grants**: $LAT serves as an incentive asset to reward eligible integrations, open-source SDK contributions, security audits, and developer documentation.
+3. **Future Infrastructure Participation (Planned)**: As VERA evolves toward a decentralized verification network, $LAT is envisioned to play a role in node staking, proof validation, and network security mechanisms (subject to ongoing technical and security research).
 
 ---
 
