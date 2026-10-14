@@ -10,7 +10,7 @@ LATTICE is a decentralized verification infrastructure designed to protect the B
 - **SDK JavaScript Distribution:** [https://vera-sdk-mainnet.vercel.app/vera-pqc-sdk.js](https://vera-sdk-mainnet.vercel.app/vera-pqc-sdk.js)
 
 ### 📊 Project Status
-- **Current Core Phase:** Phase 4: Production Mainnet Deployment & Developer SDK Active
+- **Current Core Phase:** Phase 4: Production Mainnet Deployment & Commercialization Transition
 - **Asset Settlement:** Base Mainnet ($LAT Token Layer)
 - **Verification Engine:** Go-based ML-DSA-87 Engine (Render Microservice)
 - **Blockchain Anchor:** Base Mainnet
@@ -86,18 +86,23 @@ The VERA Protocol utilizes a dual-key routing topology that decouples standard l
 
 ---
 
-### 🪙 Ecosystem & $LAT Utility
+### 🪙 Ecosystem & $LAT Economic Model
 
-The **$LAT token** (`0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`) is the ecosystem token associated with the broader Lattice project. 
+The **$LAT token** (`0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`) is the primary value-capture and governance asset powering the Lattice ecosystem.
 
-#### 🔑 Key Principles & Integration Model
-- **No Token Mandate for VERA**: VERA is designed as an open, friction-free security middleware. Developers can integrate and utilize VERA PQC verification without being required to hold or purchase $LAT tokens.
-- **Independent Utility Layer**: $LAT provides governance and ecosystem coordination value without imposing access barriers on core cryptographic tools.
+#### 🔑 Progressive Integration Strategy
+- **Phase 1 (Current): Open Developer Onboarding**: VERA currently provides open, friction-free verification so developers can seamlessly integrate and test post-quantum security without initial token friction.
+- **Phase 2 (Planned): Commercialization & Revenue Generation**: VERA will introduce tiered commercial API models, usage-based verification fees for high-volume dApps, and enterprise SLA support.
 
-#### 🎯 Proposed Roles & Roadmap Integration
-1. **Community Governance**: Holding $LAT enables community input on development priorities, integration roadmaps, and ecosystem initiatives.
-2. **Developer Support & Grants**: $LAT serves as an incentive asset to reward eligible integrations, open-source SDK contributions, security audits, and developer documentation.
-3. **Future Infrastructure Participation (Planned)**: As VERA evolves toward a decentralized verification network, $LAT is envisioned to play a role in node staking, proof validation, and network security mechanisms (subject to ongoing technical and security research).
+#### 🎯 Core $LAT Value Capture & Revenue Allocation
+1. **Systematic Revenue Reinvestment (Planned)**:
+   - Net protocol revenues generated through commercial VERA offerings (such as API subscriptions, usage tiers, or enterprise integration services)—after operational infrastructure costs—will be **systematically reinvested back into the ecosystem**.
+   - Funds will be strategically allocated to **deepen and reinforce $LAT liquidity pools, drive developer adoption through marketing & ecosystem grants, and support ongoing protocol R&D**.
+   - This ensures that commercial VERA growth directly strengthens $LAT market depth, liquidity stability, and overall ecosystem footprint.
+2. **Community Governance**:
+   - Holding $LAT grants voting power on protocol parameters, Treasury allocations, grant distribution, and commercial fee structures.
+3. **Future Deflationary & Staking Evaluation (R&D)**:
+   - As the protocol reaches sustainable scale, the rollout of a targeted **$LAT Buyback & Burn mechanism** and **decentralized verifier node staking** will be evaluated based on network maturity and liquidity depth.
 
 ---
 
@@ -110,14 +115,14 @@ The **$LAT token** (`0x0a320C8daC9fB56C7FC766CDF2c6068949fa4B74`) is the ecosyst
 - Successful execution of testnet Proof of Concept (PoC) on Base Sepolia.
 - Deployment and testing of internal Go-based proof computation microservices.
 
-#### 🟨 Phase 3: PQC SDK & Middleware Foundation ✔ Completed
+#### 🟨 Phase 3: PQC SDK & Mainnet Foundation ✔ Completed
 - Production-ready Go microservice deployment supporting ML-DSA-87 / NIST FIPS 204 algorithms.
-- Release of `vera-pqc-sdk.js` for lightweight client-side dApp integration.
+- Release of `vera-pqc-sdk.js` and live Base Mainnet anchor contract deployment (`0x3423...6f04`).
 
-#### 🟥 Phase 4: Mainnet Deployment & Ecosystem Adoption (Active)
-- **✔ Completed:** Full contract deployment onto Base Mainnet (`0x34233747E842082fCfeAC2f248159EcB4a6c6f04`).
-- **✔ Completed:** Live End-to-End pipeline (Vercel DApp ⇔ Render Go Engine ⇔ Base Mainnet EVM).
-- **In Progress:** Onboarding external Base ecosystem dApps to expand primary PQC verification coverage.
+#### 🟥 Phase 4: Mainnet Ecosystem Adoption & Commercial Transition (Active)
+- **✔ Completed:** Live End-to-End production pipeline (Vercel DApp ⇔ Render Go Engine ⇔ Base Mainnet EVM).
+- **In Progress:** Onboarding Base ecosystem dApps through the free developer verification tier.
+- **Planned:** Rollout of commercial API subscription tiers and execution of the **$LAT Revenue Reinvestment Program**.
 
 ---
 
