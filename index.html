@@ -115,38 +115,43 @@
 
 <section id="architecture" class="section border-t border-slate-900 px-4">
     <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-3 text-center">Dual-Key Verification Topology</h2>
-        <p class="text-slate-400 text-center mb-12 text-xs md:text-sm max-w-2xl mx-auto">How the VERA Protocol isolates heavy lattice payloads while securing standard EVM transaction pipelines.</p>
+        <h2 class="text-3xl font-bold mb-3 text-center">Security Validation Architecture</h2>
+        <p class="text-slate-400 text-center mb-10 text-xs md:text-sm max-w-2xl mx-auto">How the VERA V5 Protocol routes and anchors quantum-safe cryptographic proofs on Base Mainnet.</p>
         
+        <!-- アーキテクチャ図の配置（画像ファイル名を architecture.png としてリポジトリに配置する場合） -->
+        <div class="max-w-3xl mx-auto mb-12 rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xl">
+            <img src="./architecture.png" alt="VERA V5 Security Anchoring Architecture" class="w-full h-auto object-cover">
+        </div>
+
         <div class="space-y-4 max-w-3xl mx-auto relative">
             <div class="absolute top-4 bottom-4 left-[19px] w-0.5 bg-slate-800 z-0"></div>
             
             <div class="flex items-start gap-4 relative z-10">
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">01</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
-                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">1. Identity Initialization (CONNECT)</div>
-                    <p class="text-slate-400 leading-relaxed">Intercepts standard pipeline data from browser extensions or mobile universal links. Detects target network alignment (Chain ID: <span class="text-slate-200">0x2105</span>).</p>
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">1. User Transaction / Web3 DApp (CONNECT)</div>
+                    <p class="text-slate-400 leading-relaxed">Intercepts Web3 provider payloads and validates target chain alignment with Base Mainnet (Chain ID: <span class="text-slate-200">0x2105</span>).</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">02</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
-                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">2. Lattice Payload Computation (SECURE)</div>
-                    <p class="text-slate-400 leading-relaxed">The secure proprietary VERA backend asynchronously processes native ML-DSA-87 mathematical matrices derived from Learning with Errors (LWE) structures to build quantum-resistant proof arrays.</p>
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">2. VERA PQC SDK (`vera-pqc-sdk.js`)</div>
+                    <p class="text-slate-400 leading-relaxed">Lightweight client-side JavaScript distribution allowing developers to seamlessly integrate post-quantum verification workflows into their applications.</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">03</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
-                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">3. On-Chain State Anchoring (VERIFY)</div>
-                    <p class="text-slate-400 leading-relaxed">Permanently commits validation identifiers directly into the Base Mainnet blockspace contract via the immutable <span class="text-slate-200">commitProof(string keyId, string poly)</span> interface execution.</p>
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">3. Go PQC Engine (ML-DSA-87 / NIST FIPS 204)</div>
+                    <p class="text-slate-400 leading-relaxed">High-performance Render microservice executing native lattice-based cryptographic signing based on NIST standards.</p>
                 </div>
             </div>
             <div class="flex items-start gap-4 relative z-10">
                 <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xs font-mono font-bold text-blue-400">04</div>
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 w-full font-mono text-xs">
-                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">4. Public Immutable Verification</div>
-                    <p class="text-slate-400 leading-relaxed">Seals the computational proof strings natively within the block data, providing unalterable, trustless data validation integrity accessible via BaseScan.</p>
+                    <div class="text-blue-400 font-bold mb-1 uppercase text-[11px]">4. Base Mainnet Anchor Contract (`commitProof`)</div>
+                    <p class="text-slate-400 leading-relaxed">Permanently commits validation identifiers directly into the Base Mainnet blockspace contract (`0x3423...6f04`) with sub-cent immutability.</p>
                 </div>
             </div>
         </div>
@@ -155,24 +160,24 @@
 
 <section id="tokenomics" class="section border-t border-slate-900 px-4">
     <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl text-center font-bold mb-3">Ecosystem & $LAT Utility</h2>
-        <p class="text-slate-400 text-center mb-12 text-xs md:text-sm max-w-2xl mx-auto">The $LAT token serves as the ecosystem coordination and governance asset for the broader Lattice project, balancing open developer access with long-term network alignment.</p>
+        <h2 class="text-3xl text-center font-bold mb-3">Ecosystem & $LAT Economic Model</h2>
+        <p class="text-slate-400 text-center mb-12 text-xs md:text-sm max-w-2xl mx-auto">The $LAT token serves as the primary value-capture and governance asset powering the Lattice ecosystem.</p>
         <div class="grid md:grid-cols-3 gap-6">
             <div class="card">
+                <h3 class="text-lg font-bold mb-3 text-blue-400">Systematic Revenue Reinvestment</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Net protocol revenues generated through commercial VERA offerings (after operational infrastructure costs) will be systematically reinvested back into the ecosystem to deepen $LAT liquidity pools, fund developer marketing, and support ongoing R&D.</p>
+            </div>
+            <div class="card">
                 <h3 class="text-lg font-bold mb-3 text-blue-400">Community Governance</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Holding $LAT enables community input on development priorities, integration roadmaps, and ecosystem initiatives, ensuring decentralized oversight as the protocol expands.</p>
+                <p class="text-slate-400 text-xs leading-relaxed">Holding $LAT grants voting power on protocol parameters, Treasury allocations, grant distribution, and commercial fee structures as the network scales.</p>
             </div>
             <div class="card">
-                <h3 class="text-lg font-bold mb-3 text-blue-400">Developer Support & Grants</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">Serving as an incentive asset to reward eligible SDK integrations, open-source contributions, security audits, and developer documentation across the Base ecosystem.</p>
-            </div>
-            <div class="card">
-                <h3 class="text-lg font-bold mb-3 text-blue-400">Future Infrastructure (Planned)</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">As VERA evolves toward a decentralized verification network, $LAT is envisioned to play a role in node staking and proof validation mechanisms (subject to ongoing technical research).</p>
+                <h3 class="text-lg font-bold mb-3 text-blue-400">Future Staking & Deflationary R&D</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">As the protocol reaches sustainable scale, the rollout of a targeted $LAT Buyback & Burn mechanism and decentralized verifier node staking will be evaluated based on network maturity.</p>
             </div>
         </div>
         <div class="mt-8 text-center">
-            <p class="text-[11px] text-slate-500 font-mono">Note: VERA PQC verification is fully accessible without holding $LAT. Staking and advanced mechanisms represent future roadmap milestones.</p>
+            <p class="text-[11px] text-slate-500 font-mono">Note: VERA PQC verification is freely accessible during Phase 4 onboarding. Commercial API tiers and revenue reinvestment models align network growth with market depth.</p>
         </div>
     </div>
 </section>
@@ -197,9 +202,9 @@
                 <p class="text-slate-400 text-xs leading-relaxed">Core VERAProtocol contract deployed to Base Mainnet (0x3423...6f04). Transitioning verification architecture into accessible developer kits: launched the SDK Foundation and Payload Builder APIs.</p>
             </div>
             <div class="card border-blue-600/40 bg-blue-950/5">
-                <div class="text-blue-400 font-bold mb-1 text-[10px]">PHASE 4 (IN PROGRESS)</div>
-                <h3 class="text-lg font-bold mb-2">Ecosystem Adoption & Scaling</h3>
-                <p class="text-slate-400 text-xs leading-relaxed">General release of toolkits to external dApps to establish cross-network PQC standardizations across the Base ecosystem.</p>
+                <div class="text-blue-400 font-bold mb-1 text-[10px]">PHASE 4 (ACTIVE)</div>
+                <h3 class="text-lg font-bold mb-2">Ecosystem Adoption & Commercial Transition</h3>
+                <p class="text-slate-400 text-xs leading-relaxed">Onboarding Base ecosystem dApps through free developer tiers, rolling out commercial API subscription plans, and initiating the $LAT Revenue Reinvestment program.</p>
             </div>
         </div>
     </div>
@@ -237,13 +242,8 @@
     function openWhitepaper() { document.getElementById('wpModal').classList.remove('hidden'); document.body.classList.add('modal-open'); }
     function closeWhitepaper() { document.getElementById('wpModal').classList.add('hidden'); document.body.classList.remove('modal-open'); }
 
-    // 🔗 Base Mainnet RPC
     const RPC_URL = "https://mainnet.base.org"; 
-    
-    // 🔗 メインネットの正確な VERAProtocol コントラクトアドレス
     const TARGET_WALLET = "0x34233747E842082fCfeAC2f248159EcB4a6c6f04"; 
-    
-    // 🔗 バックエンドAPIのURL
     const BACKEND_API_URL = "https://vera-payload-builder.onrender.com"; 
 
     async function fetchOnChainHistory() {
@@ -292,7 +292,6 @@
 
     window.addEventListener('DOMContentLoaded', fetchOnChainHistory);
 
-    // ウォレット接続処理
     async function getAuthenticatedWallet() {
         if (typeof window.ethereum === 'undefined') {
             throw new Error("WALLET_NOT_FOUND");
