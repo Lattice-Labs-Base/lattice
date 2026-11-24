@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101827">
-  <title>VERA V6 Offline Genesis Generator</title>
+  <title>VERA V6 Genesis & Transaction Signing</title>
   <style>
     :root {
       color-scheme: dark;
@@ -55,13 +55,14 @@
 </head>
 <body>
 <main>
-  <h1>VERA V6 Offline Genesis Generator</h1>
-  <p>ML-DSA-87鍵ペアとGenesis Registryをブラウザ内で生成・復元し、Transaction Payloadに署名します。</p>
+  <h1>VERA V6 Genesis & Transaction Signing</h1>
+  <p>ML-DSA-87鍵ペアとGenesis Registryをブラウザ内で生成・復元し、MetaMaskのEIP-712署名とTransaction Payload署名を行います。</p>
 
   <section class="panel warning">
     <strong>重要：秘密情報の取り扱い</strong>
     <ul>
-      <li>このHTMLは秘密鍵・パスフレーズ・バックアップを外部サービスへ送信しません。</li>
+      <li>秘密鍵・パスフレーズ・暗号化バックアップは外部サービスへ送信しません。</li>
+      <li>MetaMask署名はウォレット内で行い、API送信機能を追加する場合は署名・公開Registry・Payloadのみを送信します。</li>
       <li>暗号化バックアップは安全な場所に保管してください。</li>
       <li>パスフレーズを忘れると復元できません。</li>
       <li>署名処理ではGenesis Registryと復元鍵の整合性を検証します。</li>
@@ -155,7 +156,7 @@
 
   <section class="panel">
     <h2>6. Transaction Payload署名（ML-DSA-87）</h2>
-    <p class="small">既存のGenesis Registryと暗号化バックアップを読み込み、Transaction Payloadへ端末内で署名します。ここではMetaMask署名や決済処理は実行しません。</p>
+    <p class="small">既存のGenesis Registryと暗号化バックアップを読み込み、MetaMaskのEIP-712署名後にTransaction Payloadへ端末内で署名します。このページではトークン送金やAPI送信は実行しません。</p>
     <p class="warning">正しいPayloadであることを確認してから署名してください。署名後にPayloadを変更すると署名は無効になります。秘密情報は入力欄に貼り付けたままにせず、処理後に消去してください。</p>
 
     <label for="signRegistryFile">Genesis Registry JSON</label>
@@ -167,7 +168,13 @@
 
     <label for="transactionPayload">Transaction Payload JSON</label>
     <textarea id="transactionPayload" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='{"protocolVersion":"6.0.0","algorithm":"ML-DSA-87",...}'></textarea>
-    <p class="small">PayloadはVERA V6のTransactionPayload形式で入力してください。publicKeyIdはGenesis Registry HeadのKey IDと一致する必要があります。</p>
+    <p class="small">PayloadはVERA V6のTransactionPayload形式です。publicKeyIdはGenesis Registry HeadのKey IDと一致する必要があります。</p>
+
+    <button id="walletSignButton" class="secondary">テストPayloadを作成してMetaMask署名</button>
+    <p id="walletSignStatus" class="status">MetaMask署名待ち</p>
+    <p class="small">テスト設定：Base Sepolia、Buyerは既存のBuyerアドレス、MerchantとRecipientはAccount 16、vTESTは1 token（最小単位 1000000）。この操作では送金しません。</p>
+    <label for="walletSignatureResult">EIP-712 Wallet Signature</label>
+    <textarea id="walletSignatureResult" readonly></textarea>
 
     <button id="signButton" disabled>Transactionに署名</button>
     <p id="signStatus" class="status">WASM初期化待ち</p>
@@ -175,7 +182,7 @@
     <div id="signResults" class="hidden">
       <label>Payload Hash</label>
       <textarea id="signedPayloadHash" readonly></textarea>
-      <label>署名結果 JSON</label>
+      <label>署名結果 JSON（EIP-712署名・Payloadを含む）</label>
       <textarea id="transactionSignatureResult" readonly></textarea>
       <button id="downloadTransactionSignature" class="secondary">署名結果JSONを保存</button>
     </div>
@@ -761,6 +768,7 @@
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
 <script>
 "use strict";
 
@@ -779,6 +787,8 @@ let genesisJSON = "";
 let backupJSON = "";
 let recoveredRootPublicKey = "";
 let transactionSignatureJSON = "";
+let walletSignatureHex = "";
+let walletSignedPayloadJSON = "";
 
 function setStatus(message) {
   statusElement.textContent = message;
@@ -1055,6 +1065,167 @@ recoverButton.addEventListener("click", async () => {
   }
 });
 
+const VERA_TEST_CONFIG = {
+  chainId: 84532,
+  buyer: "0xe5b8c0fee774450f2ec628a006563989854e8291",
+  merchant: "0x0a92721fccf9cd90cab0de0e8db8b9354374151f",
+  paymentContract: "0xbc6dc1a12792f12a80e37bbe31ae8b13c1602ec2",
+  assetAddress: "0x77b0aefdb872e9c5a3a6f5e9bacf932770f67ecc",
+  recipient: "0x0a92721fccf9cd90cab0de0e8db8b9354374151f",
+  amount: "1000000"
+};
+
+const walletAuthorizationTypes = {
+  VERAWalletAuthorization: [
+    { name: "requestId", type: "string" },
+    { name: "orderId", type: "string" },
+    { name: "buyer", type: "address" },
+    { name: "merchant", type: "address" },
+    { name: "paymentContract", type: "address" },
+    { name: "assetAddress", type: "address" },
+    { name: "amount", type: "uint256" },
+    { name: "recipient", type: "address" },
+    { name: "calldataHash", type: "bytes32" },
+    { name: "nonce", type: "uint256" },
+    { name: "deadline", type: "uint256" }
+  ]
+};
+
+function setWalletSignStatus(message, className = "") {
+  const element = document.getElementById("walletSignStatus");
+  element.textContent = message;
+  element.className = "status " + className;
+}
+
+function readRegistryHeadKeyId(registry) {
+  const head = registry?.head;
+  const value = head?.Head?.KeyID ?? head?.Head?.keyId ?? head?.head?.keyId ?? head?.head?.KeyID;
+  if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{1,128}$/.test(value)) {
+    throw new Error("Genesis RegistryからHead Key IDを読み取れません。生成済みRegistry JSONを確認してください");
+  }
+  return value;
+}
+
+function buildTransferFromCalldataHash(buyer, recipient, amount) {
+  const selector = ethers.id("transferFrom(address,address,uint256)").slice(0, 10);
+  const encodedArgs = ethers.AbiCoder.defaultAbiCoder().encode(
+    ["address", "address", "uint256"],
+    [buyer, recipient, amount]
+  );
+  return ethers.keccak256(ethers.concat([selector, encodedArgs])).toLowerCase();
+}
+
+function buildWalletTypedData(payload) {
+  return {
+    domain: {
+      name: "VERA_V6",
+      version: "1",
+      chainId: String(payload.chainId),
+      verifyingContract: payload.paymentContract
+    },
+    types: walletAuthorizationTypes,
+    primaryType: "VERAWalletAuthorization",
+    message: {
+      requestId: payload.requestId,
+      orderId: payload.orderId,
+      buyer: payload.buyer,
+      merchant: payload.merchant,
+      paymentContract: payload.paymentContract,
+      assetAddress: payload.assetAddress,
+      amount: String(payload.amount),
+      recipient: payload.recipient,
+      calldataHash: payload.calldataHash,
+      nonce: String(payload.nonce),
+      deadline: String(payload.deadline)
+    }
+  };
+}
+
+document.getElementById("walletSignButton").addEventListener("click", async () => {
+  const button = document.getElementById("walletSignButton");
+  button.disabled = true;
+  walletSignatureHex = "";
+  walletSignedPayloadJSON = "";
+  document.getElementById("walletSignatureResult").value = "";
+  document.getElementById("transactionPayload").value = "";
+  setWalletSignStatus("Genesis RegistryとMetaMaskを確認しています…");
+  try {
+    if (!globalThis.ethers || !ethers.TypedDataEncoder) {
+      throw new Error("EIP-712ライブラリを読み込めません。インターネット接続後にページを再読み込みしてください");
+    }
+    if (!globalThis.ethereum || typeof ethereum.request !== "function") {
+      throw new Error("MetaMaskアプリ内ブラウザでこのページを開き、ウォレットを接続してください");
+    }
+    const registryText = await readJSONFile("signRegistryFile", MAX_REGISTRY_BYTES, "Genesis Registry JSON");
+    const registry = JSON.parse(registryText);
+    const publicKeyId = readRegistryHeadKeyId(registry);
+
+    const chainHex = await ethereum.request({ method: "eth_chainId" });
+    if (Number.parseInt(chainHex, 16) !== VERA_TEST_CONFIG.chainId) {
+      throw new Error("MetaMaskのネットワークをBase Sepolia（Chain ID 84532）に切り替えてください");
+    }
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    if (!Array.isArray(accounts) || !accounts[0]) throw new Error("MetaMaskアカウントを取得できません");
+    const buyer = accounts[0].toLowerCase();
+    if (buyer !== VERA_TEST_CONFIG.buyer) {
+      throw new Error("接続アカウントがテスト用Buyerと一致しません。Buyerアカウントを選択してください");
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const id = String(Date.now());
+    const payload = {
+      protocolVersion: "6.0.0",
+      algorithm: "ML-DSA-87",
+      requestId: "vera-test-" + id,
+      orderId: "vera-order-" + id,
+      chainId: String(VERA_TEST_CONFIG.chainId),
+      buyer,
+      merchant: VERA_TEST_CONFIG.merchant,
+      paymentContract: VERA_TEST_CONFIG.paymentContract,
+      assetAddress: VERA_TEST_CONFIG.assetAddress,
+      amount: VERA_TEST_CONFIG.amount,
+      recipient: VERA_TEST_CONFIG.recipient,
+      calldataHash: buildTransferFromCalldataHash(buyer, VERA_TEST_CONFIG.recipient, VERA_TEST_CONFIG.amount),
+      nonce: String(now),
+      deadline: String(now + 1800),
+      publicKeyId,
+      walletAuthorizationDigest: "0x" + "0".repeat(64)
+    };
+
+    const typedData = buildWalletTypedData(payload);
+    const digest = ethers.TypedDataEncoder.hash(typedData.domain, typedData.types, typedData.message).toLowerCase();
+    payload.walletAuthorizationDigest = digest;
+
+    setWalletSignStatus("MetaMaskでEIP-712署名を確認してください…");
+    const signature = await ethereum.request({
+      method: "eth_signTypedData_v4",
+      params: [buyer, JSON.stringify({
+        domain: typedData.domain,
+        types: { EIP712Domain: [
+          { name: "name", type: "string" },
+          { name: "version", type: "string" },
+          { name: "chainId", type: "uint256" },
+          { name: "verifyingContract", type: "address" }
+        ], ...typedData.types },
+        primaryType: typedData.primaryType,
+        message: typedData.message
+      })]
+    });
+    const recovered = ethers.verifyTypedData(typedData.domain, typedData.types, typedData.message, signature).toLowerCase();
+    if (recovered !== buyer) throw new Error("EIP-712署名者がBuyerと一致しません");
+
+    walletSignatureHex = signature.toLowerCase().replace(/^0x/, "");
+    walletSignedPayloadJSON = JSON.stringify(payload);
+    document.getElementById("transactionPayload").value = JSON.stringify(payload, null, 2);
+    document.getElementById("walletSignatureResult").value = "0x" + walletSignatureHex;
+    setWalletSignStatus("成功：EIP-712署名と署名者確認が完了。次にML-DSA-87署名へ進めます", "success");
+  } catch (error) {
+    setWalletSignStatus("MetaMask署名失敗: " + String(error?.message || error), "error");
+  } finally {
+    button.disabled = false;
+  }
+});
+
 signButton.addEventListener("click", async () => {
   signButton.disabled = true;
   document.getElementById("signResults").classList.add("hidden");
@@ -1081,6 +1252,18 @@ signButton.addEventListener("click", async () => {
     const payload = JSON.parse(payloadText);
     if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
       throw new Error("Transaction PayloadはJSONオブジェクトで入力してください");
+    }
+    if (!walletSignatureHex || !walletSignedPayloadJSON || JSON.stringify(payload) !== walletSignedPayloadJSON) {
+      throw new Error("PayloadがMetaMask署名後に変更されています。先に「テストPayloadを作成してMetaMask署名」をやり直してください");
+    }
+    const typedData = buildWalletTypedData(payload);
+    const calculatedDigest = ethers.TypedDataEncoder.hash(typedData.domain, typedData.types, typedData.message).toLowerCase();
+    if (calculatedDigest !== payload.walletAuthorizationDigest.toLowerCase()) {
+      throw new Error("Wallet Authorization Digestが一致しません。MetaMask署名をやり直してください");
+    }
+    const recoveredBuyer = ethers.verifyTypedData(typedData.domain, typedData.types, typedData.message, "0x" + walletSignatureHex).toLowerCase();
+    if (recoveredBuyer !== payload.buyer.toLowerCase()) {
+      throw new Error("MetaMask署名者がPayloadのBuyerと一致しません");
     }
 
     const request = {
@@ -1114,13 +1297,15 @@ signButton.addEventListener("click", async () => {
       algorithm: result.algorithm,
       publicKeyId: result.publicKeyId,
       payloadHash: result.payloadHash,
-      signatureHex: result.signatureHex
+      signatureHex: result.signatureHex,
+      walletSignatureHex: "0x" + walletSignatureHex,
+      payload
     }, null, 2);
 
     document.getElementById("signedPayloadHash").value = result.payloadHash;
     document.getElementById("transactionSignatureResult").value = transactionSignatureJSON;
     document.getElementById("signResults").classList.remove("hidden");
-    setSignStatus("署名成功。ML-DSA-87署名の自己検証も成功しました。MetaMaskのEIP-712署名は別途必要です。", "success");
+    setSignStatus("成功：EIP-712署名・ML-DSA-87署名・ML-DSA自己検証が完了しました。", "success");
   } catch (error) {
     setSignStatus("署名失敗: " + String(error), "error");
   } finally {
@@ -1142,6 +1327,23 @@ document.getElementById("downloadRecoveredRoot").addEventListener("click", () =>
 });
 document.getElementById("downloadTransactionSignature").addEventListener("click", () => {
   if (transactionSignatureJSON) downloadText("vera-transaction-signature.json", transactionSignatureJSON);
+});
+
+document.getElementById("transactionPayload").addEventListener("input", () => {
+  if (walletSignedPayloadJSON && document.getElementById("transactionPayload").value.trim()) {
+    try {
+      if (JSON.stringify(JSON.parse(document.getElementById("transactionPayload").value)) !== walletSignedPayloadJSON) {
+        walletSignatureHex = "";
+        walletSignedPayloadJSON = "";
+        document.getElementById("walletSignatureResult").value = "";
+        setWalletSignStatus("Payloadが変更されました。MetaMask署名をやり直してください", "error");
+      }
+    } catch (_) {
+      walletSignatureHex = "";
+      walletSignedPayloadJSON = "";
+      document.getElementById("walletSignatureResult").value = "";
+    }
+  }
 });
 
 const now = Math.floor(Date.now() / 1000);
