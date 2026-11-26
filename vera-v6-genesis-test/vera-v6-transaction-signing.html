@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,135 +56,135 @@
 <body>
 <main>
   <h1>VERA V6 Genesis & Transaction Signing</h1>
-  <p>ML-DSA-87鍵ペアとGenesis Registryをブラウザ内で生成・復元し、MetaMaskのEIP-712署名とTransaction Payload署名を行います。</p>
+  <p>Generate and restore ML-DSA-87 key pairs and the Genesis Registry in your browser. Sign EIP-712 wallet authorizations with MetaMask and sign Transaction Payloads locally.</p>
 
   <section class="panel warning">
-    <strong>重要：秘密情報の取り扱い</strong>
+    <strong>Important: Handling Sensitive Information</strong>
     <ul>
-      <li>秘密鍵・パスフレーズ・暗号化バックアップは外部サービスへ送信しません。</li>
-      <li>MetaMask署名はウォレット内で行い、API送信機能を追加する場合は署名・公開Registry・Payloadのみを送信します。</li>
-      <li>暗号化バックアップは安全な場所に保管してください。</li>
-      <li>パスフレーズを忘れると復元できません。</li>
-      <li>署名処理ではGenesis Registryと復元鍵の整合性を検証します。</li>
-      <li>秘密鍵は画面に表示せず、署名結果にも含めません。</li>
-      <li>Transaction署名とMetaMaskのEIP-712 Wallet Authorization署名は別の署名です。</li>
+      <li>Private keys, passphrases, and encrypted backups are never sent to external services.</li>
+      <li>MetaMask signatures are created in your wallet. If API submission is used, only signatures, the public Registry, and the Payload are sent.</li>
+      <li>Store your encrypted backup in a secure location.</li>
+      <li>If you lose the passphrase, the backup cannot be restored.</li>
+      <li>The signing process verifies consistency between the Genesis Registry and the restored keys.</li>
+      <li>Private keys are never displayed or included in signing results.</li>
+      <li>The Transaction signature and the MetaMask EIP-712 Wallet Authorization signature are separate signatures.</li>
     </ul>
   </section>
 
   <section class="panel">
-    <h2>1. Genesis設定</h2>
+    <h2>1. Genesis Configuration</h2>
     <label for="keyId">Key ID</label>
     <input id="keyId" value="vera-genesis-1" autocomplete="off">
-    <label for="issuedAt">Issued At（Unix秒）</label>
+    <label for="issuedAt">Issued At (Unix seconds)</label>
     <input id="issuedAt" type="number" min="1" step="1">
-    <label for="notBefore">Not Before（Unix秒）</label>
+    <label for="notBefore">Not Before (Unix seconds)</label>
     <input id="notBefore" type="number" min="1" step="1">
-    <label for="recordExpiresAt">Record Expires At（Unix秒）</label>
+    <label for="recordExpiresAt">Record Expires At (Unix seconds)</label>
     <input id="recordExpiresAt" type="number" min="1" step="1">
-    <label for="headExpiresAt">Head Expires At（Unix秒）</label>
+    <label for="headExpiresAt">Head Expires At (Unix seconds)</label>
     <input id="headExpiresAt" type="number" min="1" step="1">
-    <p class="small">時刻はUTC基準のUnix秒です。</p>
+    <p class="small">All timestamps are Unix seconds in UTC.</p>
   </section>
 
   <section class="panel">
-    <h2>2. バックアップ暗号化</h2>
-    <label for="passphrase">バックアップ用パスフレーズ</label>
+    <h2>2. Backup Encryption</h2>
+    <label for="passphrase">Backup Passphrase</label>
     <input id="passphrase" type="password" autocomplete="new-password">
-    <label for="passphraseConfirm">パスフレーズ（確認）</label>
+    <label for="passphraseConfirm">Confirm Passphrase</label>
     <input id="passphraseConfirm" type="password" autocomplete="new-password">
-    <p class="small">16バイト以上を指定してください。</p>
+    <p class="small">Enter at least 16 bytes.</p>
   </section>
 
   <section class="panel">
-    <h2>3. 生成</h2>
-    <p id="status" class="status">WASMを初期化しています…</p>
-    <button id="generateButton" disabled>Genesisを生成</button>
+    <h2>3. Generate</h2>
+    <p id="status" class="status">Initializing WASM…</p>
+    <button id="generateButton" disabled>Generate Genesis</button>
   </section>
 
   <section id="results" class="panel hidden">
-    <h2>生成結果</h2>
+    <h2>Generation Results</h2>
     <label>Root Public Key</label>
     <textarea id="rootPublicKey" readonly></textarea>
     <label>Transaction Public Key</label>
     <textarea id="transactionPublicKey" readonly></textarea>
     <label>Public Genesis Registry JSON</label>
     <textarea id="genesisRegistry" readonly></textarea>
-    <button id="downloadGenesis" class="secondary">Genesis JSONを保存</button>
+    <button id="downloadGenesis" class="secondary">Save Genesis JSON</button>
     <label>Encrypted Key Backup JSON</label>
     <textarea id="encryptedBackup" readonly></textarea>
-    <button id="downloadBackup" class="secondary">暗号化バックアップを保存</button>
+    <button id="downloadBackup" class="secondary">Save Encrypted Backup</button>
   </section>
 
   <section class="panel">
-    <h2>4. 暗号化バックアップの通常復元</h2>
-    <p class="small">保存済みのGenesis Registry JSONと暗号化バックアップJSONを選択してください。ファイルの内容はブラウザ内で読み込みます。</p>
+    <h2>4. Restore from Encrypted Backup</h2>
+    <p class="small">Select your saved Genesis Registry JSON and encrypted backup JSON. File contents are read locally in your browser.</p>
     <label for="restoreRegistryFile">Genesis Registry JSON</label>
     <input id="restoreRegistryFile" type="file" accept=".json,application/json">
     <label for="restoreBackupFile">Encrypted Key Backup JSON</label>
     <input id="restoreBackupFile" type="file" accept=".json,application/json">
-    <label for="trustedRootPublicKey">信頼済みRoot Public Key（Hex）</label>
-    <textarea id="trustedRootPublicKey" placeholder="生成時に表示されたRoot Public Key" autocomplete="off" spellcheck="false"></textarea>
-    <label for="restorePassphrase">バックアップ用パスフレーズ</label>
+    <label for="trustedRootPublicKey">Trusted Root Public Key (Hex)</label>
+    <textarea id="trustedRootPublicKey" placeholder="Root Public Key shown during generation" autocomplete="off" spellcheck="false"></textarea>
+    <label for="restorePassphrase">Backup Passphrase</label>
     <input id="restorePassphrase" type="password" autocomplete="new-password">
-    <p class="small">検証時刻には端末の現在時刻を使用します。端末時計が正しいことを確認してください。</p>
-    <button id="restoreButton" disabled>バックアップを復元・検証</button>
-    <p id="restoreStatus" class="status">WASM初期化待ち</p>
+    <p class="small">The device clock is used for validation. Make sure your device clock is accurate.</p>
+    <button id="restoreButton" disabled>Restore and Verify Backup</button>
+    <p id="restoreStatus" class="status">Waiting for WASM initialization</p>
   </section>
 
   <section class="panel">
-    <h2>5. Root Public Keyの復旧</h2>
-    <p class="small">Root Public Keyが手元にない場合の復旧機能です。暗号化バックアップから公開鍵を導出し、Genesis Registryの署名とTransaction Public Keyとの整合性を検証します。</p>
-    <p class="warning">この方法はバックアップとRegistryの内部整合性を確認するものです。以前に保存した信頼済みRoot Public Keyとの独立した照合ではありません。復旧結果を外部の信頼済み鍵と同等に扱わないでください。</p>
+    <h2>5. Recover Root Public Key</h2>
+    <p class="small">Use this recovery function if you no longer have your Root Public Key. The public key is derived from the encrypted backup, then checked against the Genesis Registry signature and Transaction Public Key.</p>
+    <p class="warning">This method checks internal consistency between the backup and Registry. It does not independently compare the result with a previously saved trusted Root Public Key. Do not treat the recovered key as equivalent to an independently trusted key.</p>
     <label for="recoverRegistryFile">Genesis Registry JSON</label>
     <input id="recoverRegistryFile" type="file" accept=".json,application/json">
     <label for="recoverBackupFile">Encrypted Key Backup JSON</label>
     <input id="recoverBackupFile" type="file" accept=".json,application/json">
-    <label for="recoverPassphrase">バックアップ用パスフレーズ</label>
+    <label for="recoverPassphrase">Backup Passphrase</label>
     <input id="recoverPassphrase" type="password" autocomplete="new-password">
-    <p class="small">検証時刻には端末の現在時刻を使用します。Registryの有効期限が切れている場合は復旧できません。</p>
-    <button id="recoverButton" disabled>バックアップからRoot Public Keyを復旧</button>
-    <p id="recoverStatus" class="status">WASM初期化待ち</p>
+    <p class="small">The device clock is used for validation. Recovery is unavailable if the Registry has expired.</p>
+    <button id="recoverButton" disabled>Recover Root Public Key from Backup</button>
+    <p id="recoverStatus" class="status">Waiting for WASM initialization</p>
     <div id="recoverResults" class="hidden">
-      <label>復旧されたRoot Public Key（Hex）</label>
+      <label>Recovered Root Public Key (Hex)</label>
       <textarea id="recoveredRootPublicKey" readonly></textarea>
       <label>Transaction Public Key（Hex）</label>
       <textarea id="recoveredTransactionPublicKey" readonly></textarea>
-      <p class="small">秘密鍵は表示・出力していません。公開鍵を安全な場所に保存してください。</p>
-      <button id="downloadRecoveredRoot" class="secondary">Root Public Keyを保存</button>
+      <p class="small">No private key is displayed or exported. Store the public key in a secure location.</p>
+      <button id="downloadRecoveredRoot" class="secondary">Save Root Public Key</button>
     </div>
   </section>
 
   <section class="panel">
-    <h2>6. Transaction Payload署名（ML-DSA-87）</h2>
-    <p class="small">既存のGenesis Registryと暗号化バックアップを読み込み、MetaMaskのEIP-712署名後にTransaction Payloadへ端末内で署名します。このページではトークン送金やAPI送信は実行しません。</p>
-    <p class="warning">正しいPayloadであることを確認してから署名してください。署名後にPayloadを変更すると署名は無効になります。秘密情報は入力欄に貼り付けたままにせず、処理後に消去してください。</p>
+    <h2>6. Transaction Payload Signing (ML-DSA-87)</h2>
+    <p class="small">Load the existing Genesis Registry and encrypted backup. After the MetaMask EIP-712 signature, the Transaction Payload is signed locally on this device. This page does not transfer tokens or submit requests to the API.</p>
+    <p class="warning">Verify the Payload before signing. Any change to the Payload after signing invalidates the signature. Do not leave sensitive information in input fields; clear it after use.</p>
 
     <label for="signRegistryFile">Genesis Registry JSON</label>
     <input id="signRegistryFile" type="file" accept=".json,application/json">
     <label for="signBackupFile">Encrypted Key Backup JSON</label>
     <input id="signBackupFile" type="file" accept=".json,application/json">
-    <label for="signPassphrase">バックアップ用パスフレーズ</label>
+    <label for="signPassphrase">Backup Passphrase</label>
     <input id="signPassphrase" type="password" autocomplete="new-password">
 
     <label for="transactionPayload">Transaction Payload JSON</label>
     <textarea id="transactionPayload" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='{"protocolVersion":"6.0.0","algorithm":"ML-DSA-87",...}'></textarea>
-    <p class="small">PayloadはVERA V6のTransactionPayload形式です。publicKeyIdはGenesis Registry HeadのKey IDと一致する必要があります。</p>
+    <p class="small">The Payload must use the VERA V6 TransactionPayload format. publicKeyId must match the Key ID in the Genesis Registry Head.</p>
 
-    <button id="walletSignButton" class="secondary">テストPayloadを作成してMetaMask署名</button>
-    <p id="walletSignStatus" class="status">MetaMask署名待ち</p>
-    <p class="small">テスト設定：Base Sepolia、Buyerは既存のBuyerアドレス、MerchantとRecipientはAccount 16、vTESTは1 token（最小単位 1000000）。この操作では送金しません。</p>
+    <button id="walletSignButton" class="secondary">Create Test Payload and Sign with MetaMask</button>
+    <p id="walletSignStatus" class="status">Waiting for MetaMask signature</p>
+    <p class="small">Test configuration: Base Sepolia; Buyer is the existing Buyer address; Merchant and Recipient are Account 16; vTEST amount is 1 token (1,000,000 base units). This operation does not transfer tokens.</p>
     <label for="walletSignatureResult">EIP-712 Wallet Signature</label>
     <textarea id="walletSignatureResult" readonly></textarea>
 
-    <button id="signButton" disabled>Transactionに署名</button>
-    <p id="signStatus" class="status">WASM初期化待ち</p>
+    <button id="signButton" disabled>Sign Transaction</button>
+    <p id="signStatus" class="status">Waiting for WASM initialization</p>
 
     <div id="signResults" class="hidden">
       <label>Payload Hash</label>
       <textarea id="signedPayloadHash" readonly></textarea>
-      <label>署名結果 JSON（EIP-712署名・Payloadを含む）</label>
+      <label>Signature Result JSON (includes EIP-712 signature and Payload)</label>
       <textarea id="transactionSignatureResult" readonly></textarea>
-      <button id="downloadTransactionSignature" class="secondary">署名結果JSONを保存</button>
+      <button id="downloadTransactionSignature" class="secondary">Save Signature Result JSON</button>
     </div>
   </section>
 </main>
@@ -827,16 +827,16 @@ function downloadText(filename, content, mimeType = "application/json;charset=ut
 function numericField(id) {
   const value = Number(document.getElementById(id).value);
   if (!Number.isSafeInteger(value) || value <= 0) {
-    throw new Error(id + " は正の整数で入力してください");
+    throw new Error(id + " must be a positive integer");
   }
   return value;
 }
 
 async function readJSONFile(inputId, maxBytes, label) {
   const file = document.getElementById(inputId).files[0];
-  if (!file) throw new Error(label + "を選択してください");
+  if (!file) throw new Error(label + " must be selected");
   if (file.size <= 0 || file.size > maxBytes) {
-    throw new Error(label + "のサイズが不正です");
+    throw new Error(label + " has an invalid size");
   }
   const content = await file.text();
   JSON.parse(content);
@@ -858,7 +858,7 @@ function waitForGenerator(timeoutMs) {
         return;
       }
       if (Date.now() - started > timeoutMs) {
-        reject(new Error("WASM初期化がタイムアウトしました"));
+        reject(new Error("WASM initialization timed out"));
         return;
       }
       setTimeout(check, 50);
@@ -870,7 +870,7 @@ function waitForGenerator(timeoutMs) {
 async function initializeWasm() {
   try {
     if (!globalThis.crypto || typeof globalThis.crypto.getRandomValues !== "function") {
-      throw new Error("安全な乱数機能を利用できません");
+      throw new Error("Secure random number generation is unavailable");
     }
 
     const runtimePlaceholder = document.getElementById("wasm-runtime-placeholder");
@@ -878,7 +878,7 @@ async function initializeWasm() {
     const unresolvedRuntimeToken = "__WASM" + "_EXEC_JS__";
 
     if (!runtimeCode || runtimeCode.trim().length === 0 || runtimeCode.includes(unresolvedRuntimeToken)) {
-      throw new Error("Go WASMランタイムが埋め込まれていません");
+      throw new Error("The Go WASM runtime is not embedded");
     }
 
     const runtimeScript = document.createElement("script");
@@ -887,7 +887,7 @@ async function initializeWasm() {
     runtimePlaceholder.remove();
 
     if (typeof globalThis.Go !== "function") {
-      throw new Error("Go WASMランタイムを読み込めません");
+      throw new Error("Unable to load the Go WASM runtime");
     }
 
     const binaryString = atob(VERA_WASM_BASE64);
@@ -900,7 +900,7 @@ async function initializeWasm() {
     const result = await WebAssembly.instantiate(wasmBytes, go.importObject);
 
     go.run(result.instance).catch(error => {
-      const message = "WASM実行エラー: " + String(error);
+      const message = "WASM runtime error: " + String(error);
       setStatus(message);
       setRestoreStatus(message, "error");
       setRecoverStatus(message, "error");
@@ -913,16 +913,16 @@ async function initializeWasm() {
 
     await waitForGenerator(15000);
 
-    setStatus("初期化完了。Genesis生成・復元・Transaction署名を利用できます。");
+    setStatus("Initialization complete. Genesis generation, backup restoration, and Transaction signing are available.");
     generateButton.disabled = false;
     restoreButton.disabled = false;
     recoverButton.disabled = false;
     signButton.disabled = false;
-    setRestoreStatus("通常復元を実行できます");
-    setRecoverStatus("Root Public Keyの復旧を実行できます");
-    setSignStatus("Transaction署名を実行できます");
+    setRestoreStatus("Backup restoration is available");
+    setRecoverStatus("Root Public Key recovery is available");
+    setSignStatus("Transaction signing is available");
   } catch (error) {
-    const message = "初期化失敗: " + String(error);
+    const message = "Initialization failed: " + String(error);
     setStatus(message);
     setRestoreStatus(message, "error");
     setRecoverStatus(message, "error");
@@ -932,17 +932,17 @@ async function initializeWasm() {
 
 generateButton.addEventListener("click", () => {
   generateButton.disabled = true;
-  setStatus("Genesisを生成しています…");
+  setStatus("Generating Genesis…");
   try {
     const keyId = document.getElementById("keyId").value.trim();
     const passphrase = document.getElementById("passphrase").value;
     const confirmation = document.getElementById("passphraseConfirm").value;
 
-    if (!keyId) throw new Error("Key IDを入力してください");
+    if (!keyId) throw new Error("Enter a Key ID");
     if (new TextEncoder().encode(passphrase).length < 16) {
-      throw new Error("パスフレーズは16バイト以上必要です");
+      throw new Error("The passphrase must be at least 16 bytes");
     }
-    if (passphrase !== confirmation) throw new Error("パスフレーズが一致しません");
+    if (passphrase !== confirmation) throw new Error("Passphrases do not match");
 
     const request = {
       keyId,
@@ -955,10 +955,10 @@ generateButton.addEventListener("click", () => {
 
     const result = JSON.parse(globalThis.VERA.generateGenesis(request));
     if (!result || result.success !== true) {
-      throw new Error(result?.error || "Genesis生成に失敗しました");
+      throw new Error(result?.error || "Genesis generation failed");
     }
     if (!result.rootPublicKeyHex || !result.transactionPublicKeyHex || !result.genesisRegistry || !result.encryptedBackup) {
-      throw new Error("WASM応答形式が不正です");
+      throw new Error("Invalid WASM response format");
     }
 
     genesisJSON = typeof result.genesisRegistry === "string"
@@ -974,9 +974,9 @@ generateButton.addEventListener("click", () => {
     document.getElementById("results").classList.remove("hidden");
     document.getElementById("passphrase").value = "";
     document.getElementById("passphraseConfirm").value = "";
-    setStatus("生成成功。2つのJSONを保存してください。");
+    setStatus("Generation successful. Save both JSON files.");
   } catch (error) {
-    setStatus("生成失敗: " + String(error));
+    setStatus("Generation failed: " + String(error));
   } finally {
     generateButton.disabled = false;
   }
@@ -984,19 +984,19 @@ generateButton.addEventListener("click", () => {
 
 restoreButton.addEventListener("click", async () => {
   restoreButton.disabled = true;
-  setRestoreStatus("バックアップを検証しています…");
+  setRestoreStatus("Verifying backup…");
   const passphraseInput = document.getElementById("restorePassphrase");
   try {
     const registryJSON = await readJSONFile("restoreRegistryFile", MAX_REGISTRY_BYTES, "Genesis Registry JSON");
-    const encryptedBackupJSON = await readJSONFile("restoreBackupFile", MAX_BACKUP_BYTES, "暗号化バックアップJSON");
+    const encryptedBackupJSON = await readJSONFile("restoreBackupFile", MAX_BACKUP_BYTES, "Encrypted Backup JSON");
     const trustedRootPublicKeyHex = document.getElementById("trustedRootPublicKey").value.trim();
     const passphrase = passphraseInput.value;
 
     if (!/^[0-9a-fA-F]{5184}$/.test(trustedRootPublicKeyHex)) {
-      throw new Error("Root Public Keyは2592バイトのHexで入力してください");
+      throw new Error("Enter the Root Public Key as 2,592 bytes of hexadecimal data");
     }
     if (new TextEncoder().encode(passphrase).length < 16) {
-      throw new Error("パスフレーズは16バイト以上必要です");
+      throw new Error("The passphrase must be at least 16 bytes");
     }
 
     const request = {
@@ -1008,11 +1008,11 @@ restoreButton.addEventListener("click", async () => {
     };
     const result = JSON.parse(globalThis.VERA.restoreGenesis(request));
     if (!result || result.success !== true || result.verified !== true) {
-      throw new Error(result?.error || "バックアップ復元・検証に失敗しました");
+      throw new Error(result?.error || "Backup restoration and verification failed");
     }
-    setRestoreStatus("復元・検証成功。Root鍵とTransaction鍵の整合性を確認しました。", "success");
+    setRestoreStatus("Restore and verification successful. Root and Transaction key consistency has been confirmed.", "success");
   } catch (error) {
-    setRestoreStatus("復元失敗: " + String(error), "error");
+    setRestoreStatus("Restore failed: " + String(error), "error");
   } finally {
     passphraseInput.value = "";
     restoreButton.disabled = false;
@@ -1021,7 +1021,7 @@ restoreButton.addEventListener("click", async () => {
 
 recoverButton.addEventListener("click", async () => {
   recoverButton.disabled = true;
-  setRecoverStatus("バックアップを復号・検証しています…");
+  setRecoverStatus("Decrypting and verifying backup…");
   const passphraseInput = document.getElementById("recoverPassphrase");
   document.getElementById("recoverResults").classList.add("hidden");
   document.getElementById("recoveredRootPublicKey").value = "";
@@ -1030,10 +1030,10 @@ recoverButton.addEventListener("click", async () => {
 
   try {
     const registryJSON = await readJSONFile("recoverRegistryFile", MAX_REGISTRY_BYTES, "Genesis Registry JSON");
-    const encryptedBackupJSON = await readJSONFile("recoverBackupFile", MAX_BACKUP_BYTES, "暗号化バックアップJSON");
+    const encryptedBackupJSON = await readJSONFile("recoverBackupFile", MAX_BACKUP_BYTES, "Encrypted Backup JSON");
     const passphrase = passphraseInput.value;
     if (new TextEncoder().encode(passphrase).length < 16) {
-      throw new Error("パスフレーズは16バイト以上必要です");
+      throw new Error("The passphrase must be at least 16 bytes");
     }
 
     const request = {
@@ -1049,16 +1049,16 @@ recoverButton.addEventListener("click", async () => {
       !/^[0-9a-fA-F]{5184}$/.test(result.rootPublicKeyHex || "") ||
       !/^[0-9a-fA-F]{5184}$/.test(result.transactionPublicKeyHex || "")
     ) {
-      throw new Error(result?.error || "Root Public Keyの復旧・検証に失敗しました");
+      throw new Error(result?.error || "Root Public Key recovery and verification failed");
     }
 
     recoveredRootPublicKey = result.rootPublicKeyHex;
     document.getElementById("recoveredRootPublicKey").value = result.rootPublicKeyHex;
     document.getElementById("recoveredTransactionPublicKey").value = result.transactionPublicKeyHex;
     document.getElementById("recoverResults").classList.remove("hidden");
-    setRecoverStatus("復旧成功。バックアップとRegistryの内部整合性を確認しました。独立した信頼済み鍵による認証ではありません。", "success");
+    setRecoverStatus("Recovery successful. Internal consistency between the backup and Registry has been confirmed. This is not authentication by an independently trusted key.", "success");
   } catch (error) {
-    setRecoverStatus("復旧失敗: " + String(error), "error");
+    setRecoverStatus("Recovery failed: " + String(error), "error");
   } finally {
     passphraseInput.value = "";
     recoverButton.disabled = false;
@@ -1101,7 +1101,7 @@ function readRegistryHeadKeyId(registry) {
   const head = registry?.head;
   const value = head?.Head?.KeyID ?? head?.Head?.keyId ?? head?.head?.keyId ?? head?.head?.KeyID;
   if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{1,128}$/.test(value)) {
-    throw new Error("Genesis RegistryからHead Key IDを読み取れません。生成済みRegistry JSONを確認してください");
+    throw new Error("Unable to read the Head Key ID from the Genesis Registry. Check the generated Registry JSON.");
   }
   return value;
 }
@@ -1148,13 +1148,13 @@ document.getElementById("walletSignButton").addEventListener("click", async () =
   walletSignedPayloadJSON = "";
   document.getElementById("walletSignatureResult").value = "";
   document.getElementById("transactionPayload").value = "";
-  setWalletSignStatus("Genesis RegistryとMetaMaskを確認しています…");
+  setWalletSignStatus("Checking Genesis Registry and MetaMask…");
   try {
     if (!globalThis.ethers || !ethers.TypedDataEncoder) {
-      throw new Error("EIP-712ライブラリを読み込めません。インターネット接続後にページを再読み込みしてください");
+      throw new Error("Unable to load the EIP-712 library. Connect to the internet and reload the page.");
     }
     if (!globalThis.ethereum || typeof ethereum.request !== "function") {
-      throw new Error("MetaMaskアプリ内ブラウザでこのページを開き、ウォレットを接続してください");
+      throw new Error("Open this page in the MetaMask in-app browser and connect your wallet");
     }
     const registryText = await readJSONFile("signRegistryFile", MAX_REGISTRY_BYTES, "Genesis Registry JSON");
     const registry = JSON.parse(registryText);
@@ -1162,13 +1162,13 @@ document.getElementById("walletSignButton").addEventListener("click", async () =
 
     const chainHex = await ethereum.request({ method: "eth_chainId" });
     if (Number.parseInt(chainHex, 16) !== VERA_TEST_CONFIG.chainId) {
-      throw new Error("MetaMaskのネットワークをBase Sepolia（Chain ID 84532）に切り替えてください");
+      throw new Error("Switch MetaMask to Base Sepolia (Chain ID 84532)");
     }
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    if (!Array.isArray(accounts) || !accounts[0]) throw new Error("MetaMaskアカウントを取得できません");
+    if (!Array.isArray(accounts) || !accounts[0]) throw new Error("Unable to retrieve the MetaMask account");
     const buyer = accounts[0].toLowerCase();
     if (buyer !== VERA_TEST_CONFIG.buyer) {
-      throw new Error("接続アカウントがテスト用Buyerと一致しません。Buyerアカウントを選択してください");
+      throw new Error("The connected account does not match the test Buyer. Select the Buyer account.");
     }
 
     const now = Math.floor(Date.now() / 1000);
@@ -1196,7 +1196,7 @@ document.getElementById("walletSignButton").addEventListener("click", async () =
     const digest = ethers.TypedDataEncoder.hash(typedData.domain, typedData.types, typedData.message).toLowerCase();
     payload.walletAuthorizationDigest = digest;
 
-    setWalletSignStatus("MetaMaskでEIP-712署名を確認してください…");
+    setWalletSignStatus("Please approve the EIP-712 signature in MetaMask…");
     const signature = await ethereum.request({
       method: "eth_signTypedData_v4",
       params: [buyer, JSON.stringify({
@@ -1212,15 +1212,15 @@ document.getElementById("walletSignButton").addEventListener("click", async () =
       })]
     });
     const recovered = ethers.verifyTypedData(typedData.domain, typedData.types, typedData.message, signature).toLowerCase();
-    if (recovered !== buyer) throw new Error("EIP-712署名者がBuyerと一致しません");
+    if (recovered !== buyer) throw new Error("The EIP-712 signer does not match the Buyer");
 
     walletSignatureHex = signature.toLowerCase().replace(/^0x/, "");
     walletSignedPayloadJSON = JSON.stringify(payload);
     document.getElementById("transactionPayload").value = JSON.stringify(payload, null, 2);
     document.getElementById("walletSignatureResult").value = "0x" + walletSignatureHex;
-    setWalletSignStatus("成功：EIP-712署名と署名者確認が完了。次にML-DSA-87署名へ進めます", "success");
+    setWalletSignStatus("Success: EIP-712 signature and signer verification complete. You can now proceed to ML-DSA-87 signing.", "success");
   } catch (error) {
-    setWalletSignStatus("MetaMask署名失敗: " + String(error?.message || error), "error");
+    setWalletSignStatus("MetaMask signing failed: " + String(error?.message || error), "error");
   } finally {
     button.disabled = false;
   }
@@ -1232,38 +1232,38 @@ signButton.addEventListener("click", async () => {
   document.getElementById("signedPayloadHash").value = "";
   document.getElementById("transactionSignatureResult").value = "";
   transactionSignatureJSON = "";
-  setSignStatus("Registry・バックアップを読み込み、署名を検証しています…");
+  setSignStatus("Loading Registry and backup, then verifying signatures…");
 
   const passphraseInput = document.getElementById("signPassphrase");
   try {
     const registryJSON = await readJSONFile("signRegistryFile", MAX_REGISTRY_BYTES, "Genesis Registry JSON");
-    const encryptedBackupJSON = await readJSONFile("signBackupFile", MAX_BACKUP_BYTES, "暗号化バックアップJSON");
+    const encryptedBackupJSON = await readJSONFile("signBackupFile", MAX_BACKUP_BYTES, "Encrypted Backup JSON");
     const passphrase = passphraseInput.value;
     const payloadText = document.getElementById("transactionPayload").value.trim();
 
     if (new TextEncoder().encode(passphrase).length < 16) {
-      throw new Error("パスフレーズは16バイト以上必要です");
+      throw new Error("The passphrase must be at least 16 bytes");
     }
-    if (!payloadText) throw new Error("Transaction Payload JSONを入力してください");
+    if (!payloadText) throw new Error("Enter the Transaction Payload JSON");
     if (new TextEncoder().encode(payloadText).length > MAX_PAYLOAD_BYTES) {
-      throw new Error("Transaction Payload JSONが大きすぎます");
+      throw new Error("Transaction Payload JSON is too large");
     }
 
     const payload = JSON.parse(payloadText);
     if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
-      throw new Error("Transaction PayloadはJSONオブジェクトで入力してください");
+      throw new Error("The Transaction Payload must be a JSON object");
     }
     if (!walletSignatureHex || !walletSignedPayloadJSON || JSON.stringify(payload) !== walletSignedPayloadJSON) {
-      throw new Error("PayloadがMetaMask署名後に変更されています。先に「テストPayloadを作成してMetaMask署名」をやり直してください");
+      throw new Error("The Payload has changed since the MetaMask signature. Run “Create Test Payload and Sign with MetaMask” again first.");
     }
     const typedData = buildWalletTypedData(payload);
     const calculatedDigest = ethers.TypedDataEncoder.hash(typedData.domain, typedData.types, typedData.message).toLowerCase();
     if (calculatedDigest !== payload.walletAuthorizationDigest.toLowerCase()) {
-      throw new Error("Wallet Authorization Digestが一致しません。MetaMask署名をやり直してください");
+      throw new Error("The Wallet Authorization Digest does not match. Sign again with MetaMask.");
     }
     const recoveredBuyer = ethers.verifyTypedData(typedData.domain, typedData.types, typedData.message, "0x" + walletSignatureHex).toLowerCase();
     if (recoveredBuyer !== payload.buyer.toLowerCase()) {
-      throw new Error("MetaMask署名者がPayloadのBuyerと一致しません");
+      throw new Error("The MetaMask signer does not match the Buyer in the Payload");
     }
 
     const request = {
@@ -1288,7 +1288,7 @@ signButton.addEventListener("click", async () => {
       typeof result.signatureHex !== "string" ||
       !/^[0-9a-f]{9254}$/.test(result.signatureHex)
     ) {
-      throw new Error(result?.error || "署名結果の形式または自己検証に失敗しました");
+      throw new Error(result?.error || "The signature result format is invalid or self-verification failed");
     }
 
     transactionSignatureJSON = JSON.stringify({
@@ -1305,9 +1305,9 @@ signButton.addEventListener("click", async () => {
     document.getElementById("signedPayloadHash").value = result.payloadHash;
     document.getElementById("transactionSignatureResult").value = transactionSignatureJSON;
     document.getElementById("signResults").classList.remove("hidden");
-    setSignStatus("成功：EIP-712署名・ML-DSA-87署名・ML-DSA自己検証が完了しました。", "success");
+    setSignStatus("Success: EIP-712 signing, ML-DSA-87 signing, and ML-DSA self-verification are complete.", "success");
   } catch (error) {
-    setSignStatus("署名失敗: " + String(error), "error");
+    setSignStatus("Signing failed: " + String(error), "error");
   } finally {
     passphraseInput.value = "";
     signButton.disabled = false;
@@ -1336,7 +1336,7 @@ document.getElementById("transactionPayload").addEventListener("input", () => {
         walletSignatureHex = "";
         walletSignedPayloadJSON = "";
         document.getElementById("walletSignatureResult").value = "";
-        setWalletSignStatus("Payloadが変更されました。MetaMask署名をやり直してください", "error");
+        setWalletSignStatus("The Payload has changed. Sign again with MetaMask.", "error");
       }
     } catch (_) {
       walletSignatureHex = "";

@@ -1,10 +1,10 @@
 
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VERA V6 API検証送信</title>
+<title>VERA V6 API Request Submission</title>
 <style>
 body{font-family:system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;line-height:1.55;color:#18202a}
 button,input{font:inherit}button{padding:12px 18px;margin-top:12px}
@@ -13,14 +13,14 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f5f7;padding:12px;
 </style>
 </head>
 <body>
-<h2>VERA V6 API検証送信</h2>
-<p>署名済みリクエストJSONを選択し、内容を確認してから送信します。秘密鍵やGenesisの再生成は行いません。</p>
-<p><b>送信先:</b><br>https://vera-v6-api.onrender.com/v1/verify/transaction</p>
-<label>リクエストJSONファイル<br><input id="file" type="file" accept=".json,application/json"></label>
-<p id="info">ファイル未選択</p>
-<button id="send" disabled>VERA APIへ送信</button>
+<h2>VERA V6 API Request Submission</h2>
+<p>Select a signed request JSON, review its contents, and submit it. This page does not generate private keys or regenerate Genesis.</p>
+<p><b>Endpoint:</b><br>https://vera-v6-api.onrender.com/v1/verify/transaction</p>
+<label>Signed Request JSON File<br><input id="file" type="file" accept=".json,application/json"></label>
+<p id="info">No file selected</p>
+<button id="send" disabled>Submit to VERA API</button>
 <p id="status" role="status"></p>
-<pre id="result">API応答はここに表示されます。</pre>
+<pre id="result">The API response will appear here.</pre>
 
 <script>
 const fileInput=document.getElementById('file');
@@ -35,11 +35,11 @@ fileInput.addEventListener('change',async()=>{
   sendButton.disabled=true;
   parsed=null;
   statusEl.textContent='';
-  result.textContent='API応答はここに表示されます。';
+  result.textContent='The API response will appear here.';
 
   const f=fileInput.files && fileInput.files[0];
   if(!f){
-    info.textContent='ファイル未選択';
+    info.textContent='No file selected';
     return;
   }
 
@@ -56,40 +56,40 @@ fileInput.addEventListener('change',async()=>{
 
     const missing=required.filter(k=>!(k in parsed));
     if(missing.length){
-      throw new Error('必須フィールド不足: '+missing.join(', '));
+      throw new Error('Missing required fields: '+missing.join(', '));
     }
 
     if(!Array.isArray(parsed.records)||parsed.records.length===0){
-      throw new Error('recordsが空です');
+      throw new Error('records must not be empty');
     }
 
     const walletSignatureHex=
       String(parsed.walletSignatureHex).replace(/^0x/i,'');
 
     if(!/^[0-9a-fA-F]{130}$/.test(walletSignatureHex)){
-      throw new Error('ウォレット署名は65バイトの16進文字列ではありません');
+      throw new Error('Wallet signature must be a 65-byte hexadecimal string');
     }
 
     const deadline=Number(parsed.payload && parsed.payload.deadline);
     const now=Math.floor(Date.now()/1000);
 
     if(!Number.isFinite(deadline)){
-      throw new Error('payload.deadlineを確認できません');
+      throw new Error('Unable to read payload.deadline');
     }
 
     const remaining=deadline-now;
     info.textContent=
-      '読込OK / records='+parsed.records.length+
-      ' / wallet署名=65バイト / 期限まで '+remaining+' 秒';
+      'Loaded / records='+parsed.records.length+
+      ' / wallet signature=65 bytes / time remaining: '+remaining+'  seconds';
 
     if(remaining<=0){
-      throw new Error('Payload期限切れです。送信しません。');
+      throw new Error('Payload has expired. Nothing was submitted.');
     }
 
     sendButton.disabled=false;
 
   }catch(e){
-    info.textContent='読込エラー: '+e.message;
+    info.textContent='File error: '+e.message;
     parsed=null;
   }
 });
@@ -98,12 +98,12 @@ sendButton.addEventListener('click',async()=>{
   if(!parsed||sendButton.disabled)return;
 
   if(!confirm(
-    'このJSONをVERA V6 APIへ送信します。'+
-    'nonceが消費される可能性があります。送信しますか？'
+    'This JSON will be submitted to the VERA V6 API. '+
+    'The nonce may be consumed. Do you want to continue?'
   ))return;
 
   sendButton.disabled=true;
-  statusEl.textContent='送信中…';
+  statusEl.textContent='Submitting…';
   result.textContent='';
 
   try{
@@ -130,14 +130,14 @@ sendButton.addEventListener('click',async()=>{
     try{
       result.textContent=JSON.stringify(JSON.parse(body),null,2);
     }catch{
-      result.textContent=body||'(レスポンス本文なし)';
+      result.textContent=body||'(No response body)';
     }
 
   }catch(e){
-    statusEl.textContent='通信エラー';
+    statusEl.textContent='Network error';
     result.textContent=
       String(e)+
-      '\n\nCORS設定またはRender APIの稼働状態を確認してください。自動再送はしていません。';
+      '\n\nCheck the CORS configuration or Render API status. The request was not automatically retried.';
   }
 });
 </script>
