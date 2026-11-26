@@ -1,32 +1,32 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>VERA V6 Public Verifier</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>VERA V6 Public Verifier</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#e9eef7;background:#0b1220}*{box-sizing:border-box}body{margin:0;padding:22px 14px 48px}.wrap{max-width:760px;margin:auto}h1{font-size:clamp(25px,6vw,36px);margin:8px 0}p{line-height:1.65;color:#bac6d8}.card{background:#131e30;border:1px solid #2a3a52;border-radius:14px;padding:16px;margin:16px 0}label{display:block;font-weight:650;margin:12px 0 7px}input,textarea,button{font:inherit;width:100%;border-radius:9px;padding:12px;border:1px solid #40536e;background:#0b1525;color:#edf3fc}input[type=file]{padding:10px}textarea{min-height:110px;resize:vertical}button{background:#2459a6;border:0;font-weight:700;margin-top:14px;cursor:pointer}button:disabled{opacity:.55}small{color:#aab8cc}.status{padding:12px;border-radius:10px;background:#1c2a40;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}.good{border:1px solid #24845b}.bad{border:1px solid #b65a5a}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pill{display:inline-block;border:1px solid #40536e;border-radius:99px;padding:4px 9px;font-size:12px;color:#c5d3e7}.muted{font-size:13px;color:#9eacc0}@media(max-width:520px){.grid{grid-template-columns:1fr}}
 </style></head><body><main class="wrap">
-<span class="pill">READ-ONLY · BASE SEPOLIA</span><h1>VERA V6 Public Verifier</h1><p>発行済みAttestationの署名とオンチェーンアンカーを公開APIで検証します。秘密鍵・ウォレット署名・Genesisバックアップは不要です。決済やコントラクト更新は実行しません。</p>
-<section class="card"><h2>検証データ</h2><label for="file">VERA APIのHTTP 200応答JSONファイル</label><input id="file" type="file" accept="application/json,.json"><p class="muted">/v1/verify/transaction の応答JSONを選択してください。内部の attestation.attestation と verifierSignature を読み取ります。</p><label for="json">または応答JSONを貼り付け</label><textarea id="json" placeholder='{"valid":true,"attestation":{"attestation":{...},"verifierSignature":"0x..."}}'></textarea><label for="tx">Base Sepolia Anchor Transaction Hash</label><input id="tx" spellcheck="false" placeholder="0x + 64桁の16進数">
-<button id="verify">公開検証を実行</button><div id="status" class="status" role="status">JSONとトランザクションハッシュを入力してください。</div></section>
-<section class="card"><h2>検証結果</h2><div id="summary" class="muted">まだ検証していません。</div><pre id="result"></pre></section>
-<p class="muted">検証先：vera-v6-api.onrender.com · POST /v1/verify/attestation</p>
+<span class="pill">READ-ONLY · BASE SEPOLIA</span><h1>VERA V6 Public Verifier</h1><p>Verify the signature and on-chain anchor of an issued Attestation through the public API. No private key, wallet signature, or Genesis backup is required. This page does not execute payments or modify contracts.</p>
+<section class="card"><h2>Verification Data</h2><label for="file">VERA API HTTP 200 Response JSON File</label><input id="file" type="file" accept="application/json,.json"><p class="muted">Select the JSON response from /v1/verify/transaction. The page reads attestation.attestation and verifierSignature from the response.</p><label for="json">Or Paste the Response JSON</label><textarea id="json" placeholder='{"valid":true,"attestation":{"attestation":{...},"verifierSignature":"0x..."}}'></textarea><label for="tx">Base Sepolia Anchor Transaction Hash</label><input id="tx" spellcheck="false" placeholder="0x followed by 64 hexadecimal characters">
+<button id="verify">Run Public Verification</button><div id="status" class="status" role="status">Provide the JSON and transaction hash.</div></section>
+<section class="card"><h2>Verification Result</h2><div id="summary" class="muted">Not verified yet.</div><pre id="result"></pre></section>
+<p class="muted">Endpoint: vera-v6-api.onrender.com · POST /v1/verify/attestation</p>
 </main><script>
 const API='https://vera-v6-api.onrender.com/v1/verify/attestation';
 const $=id=>document.getElementById(id);
-$('file').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{$('json').value=await f.text();$('status').textContent='JSONファイルを読み込みました。';}catch(err){$('status').textContent='ファイルを読み込めません：'+err.message;}});
+$('file').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{$('json').value=await f.text();$('status').textContent='JSON file loaded.';}catch(err){$('status').textContent='Unable to read file:'+err.message;}});
 $('verify').addEventListener('click',async()=>{
  $('verify').disabled=true;$('summary').textContent='';$('result').textContent='';$('status').className='status';
  try{
   const source=JSON.parse($('json').value);const issued=source.attestation;
   const attestation=issued?.attestation;const verifierSignature=issued?.verifierSignature;
-  if(!attestation||typeof attestation!=='object'||typeof verifierSignature!=='string')throw new Error('API応答JSON内に attestation.attestation または verifierSignature がありません。');
-  const tx=$('tx').value.trim();if(!/^0x[0-9a-fA-F]{64}$/.test(tx))throw new Error('Transaction Hashは0x + 64桁の16進数で入力してください。');
-  $('status').textContent='VERA Public Verifierへ問い合わせています…';
+  if(!attestation||typeof attestation!=='object'||typeof verifierSignature!=='string')throw new Error('The API response JSON does not contain attestation.attestation or verifierSignature.');
+  const tx=$('tx').value.trim();if(!/^0x[0-9a-fA-F]{64}$/.test(tx))throw new Error('Enter the Transaction Hash as 0x followed by 64 hexadecimal characters.');
+  $('status').textContent='Querying the VERA Public Verifier…';
   const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({attestation,verifierSignature,transactionHash:tx})});
-  const text=await response.text();let data;try{data=JSON.parse(text)}catch{throw new Error('APIからJSON以外の応答が返りました（HTTP '+response.status+'）。');}
+  const text=await response.text();let data;try{data=JSON.parse(text)}catch{throw new Error('The API returned a non-JSON response (HTTP '+response.status+' ).');}
   $('result').textContent=JSON.stringify(data,null,2);
-  if(!response.ok)throw new Error('API検証エラー（HTTP '+response.status+'）：'+(data.error||'詳細不明'));
+  if(!response.ok)throw new Error('API verification error (HTTP '+response.status+'）：'+(data.error||'No details available'));
   const valid=data.valid===true;const eligible=data.settlementEligible===true;
-  $('summary').textContent='valid: '+String(valid)+'\nverification: '+(data.verification||'不明')+'\nverifierAuthorized: '+String(data.verifierAuthorized)+'\nverifierRevoked: '+String(data.verifierRevoked)+'\nsettlementEligible: '+String(eligible);
-  $('status').className='status '+(valid?'good':'bad');$('status').textContent=valid?'署名とオンチェーンアンカーの検証に成功しました。':'検証は有効と判定されませんでした。詳細は結果JSONを確認してください。';
+  $('summary').textContent='valid: '+String(valid)+'\nverification: '+(data.verification||'Unknown')+'\nverifierAuthorized: '+String(data.verifierAuthorized)+'\nverifierRevoked: '+String(data.verifierRevoked)+'\nsettlementEligible: '+String(eligible);
+  $('status').className='status '+(valid?'good':'bad');$('status').textContent=valid?'Attestation signature and on-chain anchor verification succeeded.':'Verification did not return a valid result. See the result JSON for details.';
  }catch(err){$('status').className='status bad';$('status').textContent=err.message;}
  finally{$('verify').disabled=false;}
 });
