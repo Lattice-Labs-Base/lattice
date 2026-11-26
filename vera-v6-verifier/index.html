@@ -2,6 +2,14 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>VERA V6 Public Verifier</title>
 <style>
 :root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#e9eef7;background:#0b1220}*{box-sizing:border-box}body{margin:0;padding:22px 14px 48px}.wrap{max-width:760px;margin:auto}h1{font-size:clamp(25px,6vw,36px);margin:8px 0}p{line-height:1.65;color:#bac6d8}.card{background:#131e30;border:1px solid #2a3a52;border-radius:14px;padding:16px;margin:16px 0}label{display:block;font-weight:650;margin:12px 0 7px}input,textarea,button{font:inherit;width:100%;border-radius:9px;padding:12px;border:1px solid #40536e;background:#0b1525;color:#edf3fc}input[type=file]{padding:10px}textarea{min-height:110px;resize:vertical}button{background:#2459a6;border:0;font-weight:700;margin-top:14px;cursor:pointer}button:disabled{opacity:.55}small{color:#aab8cc}.status{padding:12px;border-radius:10px;background:#1c2a40;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}.good{border:1px solid #24845b}.bad{border:1px solid #b65a5a}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pill{display:inline-block;border:1px solid #40536e;border-radius:99px;padding:4px 9px;font-size:12px;color:#c5d3e7}.muted{font-size:13px;color:#9eacc0}@media(max-width:520px){.grid{grid-template-columns:1fr}}
+
+/* VERA English file picker: keep the native input functional but hide its localized caption. */
+.vera-file-input-native{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;opacity:0!important}
+.vera-file-picker{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:8px 0 14px}
+.vera-file-picker-button{appearance:none;border:1px solid #64748b;border-radius:9px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;background:#26364d;color:inherit}
+.vera-file-picker-button:focus-visible{outline:3px solid #60a5fa;outline-offset:2px}
+.vera-file-picker-name{font:inherit;overflow-wrap:anywhere;opacity:.85}
+
 </style></head><body><main class="wrap">
 <span class="pill">READ-ONLY · BASE SEPOLIA</span><h1>VERA V6 Public Verifier</h1><p>Verify the signature and on-chain anchor of an issued Attestation through the public API. No private key, wallet signature, or Genesis backup is required. This page does not execute payments or modify contracts.</p>
 <section class="card"><h2>Verification Data</h2><label for="file">VERA API HTTP 200 Response JSON File</label><input id="file" type="file" accept="application/json,.json"><p class="muted">Select the JSON response from /v1/verify/transaction. The page reads attestation.attestation and verifierSignature from the response.</p><label for="json">Or Paste the Response JSON</label><textarea id="json" placeholder='{"valid":true,"attestation":{"attestation":{...},"verifierSignature":"0x..."}}'></textarea><label for="tx">Base Sepolia Anchor Transaction Hash</label><input id="tx" spellcheck="false" placeholder="0x followed by 64 hexadecimal characters">
@@ -30,4 +38,34 @@ $('verify').addEventListener('click',async()=>{
  }catch(err){$('status').className='status bad';$('status').textContent=err.message;}
  finally{$('verify').disabled=false;}
 });
-</script></body></html>
+</script><script>
+/* Local-only custom English labels for native file inputs. File reading remains unchanged. */
+(function(){
+  function installVeraEnglishFilePickers(){
+    document.querySelectorAll('input[type="file"]:not([data-vera-file-picker])').forEach(function(input){
+      input.setAttribute('data-vera-file-picker','true');
+      input.classList.add('vera-file-input-native');
+      input.setAttribute('aria-label','Choose File');
+      var picker=document.createElement('div');
+      picker.className='vera-file-picker';
+      var button=document.createElement('button');
+      button.type='button';
+      button.className='vera-file-picker-button';
+      button.textContent='Choose File';
+      var name=document.createElement('span');
+      name.className='vera-file-picker-name';
+      name.textContent='No file selected';
+      button.addEventListener('click',function(){input.click();});
+      input.addEventListener('change',function(){
+        name.textContent=input.files && input.files.length ? input.files[0].name : 'No file selected';
+      });
+      picker.appendChild(button);
+      picker.appendChild(name);
+      input.insertAdjacentElement('afterend',picker);
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',installVeraEnglishFilePickers,{once:true});}
+  else{installVeraEnglishFilePickers();}
+})();
+</script>
+</body></html>
