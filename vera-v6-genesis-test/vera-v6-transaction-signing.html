@@ -51,7 +51,15 @@
     .small { font-size: .88rem; color: #b8c6d9; }
     .success { color: #86efac; }
     .error { color: #fca5a5; }
-  </style>
+  
+/* VERA English file picker: keep the native input functional but hide its localized caption. */
+.vera-file-input-native{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;opacity:0!important}
+.vera-file-picker{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:8px 0 14px}
+.vera-file-picker-button{appearance:none;border:1px solid #64748b;border-radius:9px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;background:#26364d;color:inherit}
+.vera-file-picker-button:focus-visible{outline:3px solid #60a5fa;outline-offset:2px}
+.vera-file-picker-name{font:inherit;overflow-wrap:anywhere;opacity:.85}
+
+</style>
 </head>
 <body>
 <main>
@@ -1353,6 +1361,36 @@ document.getElementById("recordExpiresAt").value = now + 31536000;
 document.getElementById("headExpiresAt").value = now + 31536000;
 
 initializeWasm();
+</script>
+<script>
+/* Local-only custom English labels for native file inputs. File reading remains unchanged. */
+(function(){
+  function installVeraEnglishFilePickers(){
+    document.querySelectorAll('input[type="file"]:not([data-vera-file-picker])').forEach(function(input){
+      input.setAttribute('data-vera-file-picker','true');
+      input.classList.add('vera-file-input-native');
+      input.setAttribute('aria-label','Choose File');
+      var picker=document.createElement('div');
+      picker.className='vera-file-picker';
+      var button=document.createElement('button');
+      button.type='button';
+      button.className='vera-file-picker-button';
+      button.textContent='Choose File';
+      var name=document.createElement('span');
+      name.className='vera-file-picker-name';
+      name.textContent='No file selected';
+      button.addEventListener('click',function(){input.click();});
+      input.addEventListener('change',function(){
+        name.textContent=input.files && input.files.length ? input.files[0].name : 'No file selected';
+      });
+      picker.appendChild(button);
+      picker.appendChild(name);
+      input.insertAdjacentElement('afterend',picker);
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',installVeraEnglishFilePickers,{once:true});}
+  else{installVeraEnglishFilePickers();}
+})();
 </script>
 </body>
 </html>
