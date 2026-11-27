@@ -35,54 +35,7 @@
       color: #fff;
       font: inherit;
     }
-    .file-picker {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 48px;
-      box-sizing: border-box;
-      width: 100%;
-      margin: 0 0 12px;
-      padding: 9px 12px;
-      border: 1px solid #52647d;
-      border-radius: 8px;
-      background: #0e1929;
-      color: #fff;
-      cursor: pointer;
-      font-weight: 400;
-    }
-    .file-picker-button {
-      flex: 0 0 auto;
-      display: inline-block;
-      padding: 7px 11px;
-      border-radius: 6px;
-      background: #334155;
-      color: #fff;
-      font-weight: 700;
-    }
-    .file-picker-name {
-      min-width: 0;
-      overflow-wrap: anywhere;
-      color: #d5deeb;
-      font-weight: 400;
-    }
-    .file-input-accessible {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      clip-path: inset(50%);
-      border: 0;
-    }
-    .file-input-accessible:focus + .file-picker,
-    .file-input-accessible:focus-visible + .file-picker {
-      outline: 2px solid #93c5fd;
-      outline-offset: 3px;
-    }
+    input[type="file"] { padding: 9px; }
     textarea { min-height: 110px; overflow-wrap: anywhere; }
     button {
       margin-top: 14px;
@@ -165,11 +118,9 @@
     <h2>4. Restore Encrypted Backup</h2>
     <p class="small">Select your saved Genesis Registry JSON and encrypted backup JSON files. File contents are read locally in your browser.</p>
     <label for="restoreRegistryFile">Genesis Registry JSON</label>
-    <input id="restoreRegistryFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Genesis Registry JSON">
-    <label class="file-picker" for="restoreRegistryFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="restoreRegistryFileName">No file selected</span></label>
+    <input id="restoreRegistryFile" type="file" accept=".json,application/json">
     <label for="restoreBackupFile">Encrypted Key Backup JSON</label>
-    <input id="restoreBackupFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Encrypted Key Backup JSON">
-    <label class="file-picker" for="restoreBackupFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="restoreBackupFileName">No file selected</span></label>
+    <input id="restoreBackupFile" type="file" accept=".json,application/json">
     <label for="trustedRootPublicKey">Trusted Root Public Key (Hex)</label>
     <textarea id="trustedRootPublicKey" placeholder="Root Public Key shown during generation" autocomplete="off" spellcheck="false"></textarea>
     <label for="restorePassphrase">Backup Passphrase</label>
@@ -184,11 +135,9 @@
     <p class="small">Use this recovery feature if you no longer have your Root Public Key. It derives the public key from the encrypted backup and checks consistency with the Genesis Registry signature and Transaction Public Key.</p>
     <p class="warning">This method checks internal consistency between the backup and the Registry. It does not independently compare the result with a previously saved trusted Root Public Key. Do not treat the recovered key as equivalent to an independently trusted key.</p>
     <label for="recoverRegistryFile">Genesis Registry JSON</label>
-    <input id="recoverRegistryFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Genesis Registry JSON">
-    <label class="file-picker" for="recoverRegistryFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="recoverRegistryFileName">No file selected</span></label>
+    <input id="recoverRegistryFile" type="file" accept=".json,application/json">
     <label for="recoverBackupFile">Encrypted Key Backup JSON</label>
-    <input id="recoverBackupFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Encrypted Key Backup JSON">
-    <label class="file-picker" for="recoverBackupFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="recoverBackupFileName">No file selected</span></label>
+    <input id="recoverBackupFile" type="file" accept=".json,application/json">
     <label for="recoverPassphrase">Backup Passphrase</label>
     <input id="recoverPassphrase" type="password" autocomplete="new-password">
     <p class="small">The device current time is used for validation. Recovery is unavailable if the Registry has expired.</p>
@@ -210,11 +159,9 @@
     <p class="warning">Verify that the Payload is correct before signing. Any change to the Payload after signing invalidates the signature. Do not leave sensitive information in input fields; clear it after processing.</p>
 
     <label for="signRegistryFile">Genesis Registry JSON</label>
-    <input id="signRegistryFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Genesis Registry JSON">
-    <label class="file-picker" for="signRegistryFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="signRegistryFileName">No file selected</span></label>
+    <input id="signRegistryFile" type="file" accept=".json,application/json">
     <label for="signBackupFile">Encrypted Key Backup JSON</label>
-    <input id="signBackupFile" class="file-input-accessible" type="file" accept=".json,application/json" aria-label="Choose Encrypted Key Backup JSON">
-    <label class="file-picker" for="signBackupFile"><span class="file-picker-button">Choose File</span><span class="file-picker-name" id="signBackupFileName">No file selected</span></label>
+    <input id="signBackupFile" type="file" accept=".json,application/json">
     <label for="signPassphrase">Backup Passphrase</label>
     <input id="signPassphrase" type="password" autocomplete="new-password">
 
@@ -234,20 +181,6 @@
     </div>
   </section>
 </main>
-
-<script>
-  // Update the English file-picker label without changing the underlying File API.
-  for (const fileInput of document.querySelectorAll('input[type="file"]')) {
-    const nameLabel = document.getElementById(`${fileInput.id}Name`);
-    fileInput.addEventListener('change', () => {
-      if (nameLabel) {
-        nameLabel.textContent = fileInput.files && fileInput.files.length
-          ? fileInput.files[0].name
-          : 'No file selected';
-      }
-    });
-  }
-</script>
 
 <script type="text/plain" id="wasm-runtime-placeholder">
 // Copyright 2018 The Go Authors. All rights reserved.
